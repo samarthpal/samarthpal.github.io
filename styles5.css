@@ -1,0 +1,58 @@
+
+
+/*project section*/
+
+
+
+.feature-box.pro{
+	padding:20px 10px 440px 10px;
+	background-image: url("images/back.png");
+	background-size: cover;/*1500px 909px*/
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-top: 0px; 
+	margin-bottom: 0px;
+}
+.feature-box.pro h1{
+	font-size:70px;
+	z-index: -1px;
+	opacity: 0.5;
+}	
+.feature-box.pro h2{
+	font-size:50px;
+	margin-top:-160px;
+}	
+
+
+
+
+
+
+
+
+
+
+/* responsive rules*/
+@media (max-width:715px){
+	
+	.feature-box.pro{
+	padding:20px 10px 440px 10px;
+	background-image: url("images/back.png");
+	background-size: cover;/*1500px 909px*/
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-top: 0px; 
+	margin-bottom: 0px;
+}
+.feature-box.pro h1{
+	font-size:30px;
+	z-index: -1px;
+	opacity: 0.5;
+}	
+.feature-box.pro h2{
+	font-size:20px;
+	margin-top:-65px;
+}	
+
+
+}
