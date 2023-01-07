@@ -162,11 +162,12 @@ a:hover{
     border-radius: 0px;
     padding: 0px;
     margin-left: 50px;
-	margin-top: 60px;
-	margin-bottom: 20px;
+	margin-top: 30px;
+	margin-bottom: 0px;
 	transition:0.7s;
 	line-height: 1.5;
     z-index: 9999;
+    border-radius: 100%;
 }
 .feature-box.head li:hover{
 	    transform: scale(1.4);
@@ -428,7 +429,3 @@ animation: borisa 2.5s ease-in-out;
   background-color:orangered;
   color: black;
 }
-
-
-
-	
