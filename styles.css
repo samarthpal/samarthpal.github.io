@@ -179,19 +179,19 @@ a:hover{
 }
 @keyframes ana{
     0%,100%{
-        box-shadow: 0 0 10px orangered ,0 0 40px orangered,0 0 80px  orangered ;
+        box-shadow: inset -9px -9px 10px orangered ,0 0 40px orangered,0 0 80px  orangered ;
     }
     30%{
-        box-shadow: 0 0 10px rgba(50, 61, 218, 0.952) ,0 0 40px rgba(50, 61, 218, 0.952),0 0 80px  rgba(50, 61, 218, 0.952);
+        box-shadow: inset -9px -9px 10px rgba(50, 61, 218, 0.952) ,0 0 40px rgba(50, 61, 218, 0.952),0 0 80px  rgba(50, 61, 218, 0.952);
     }
     50%{
-        box-shadow: 0 0 10px #ffbd39 ,0 0 40px #ffbd39,0 0 80px  #ffbd39 ;
+        box-shadow: inset -9px -9px 10px #ffbd39 ,0 0 40px #ffbd39,0 0 80px  #ffbd39 ;
     }
     70%{
-        box-shadow: 0 0 10px red ,0 0 40px red,0 0 80px red;
+        box-shadow: inset -9px -9px 10px red ,0 0 40px red,0 0 80px red;
     }
     90%{
-        box-shadow: 0 0 10px grey ,0 0 40px grey,0 0 80px grey ;
+        box-shadow: inset -9px -9px 10px grey ,0 0 40px grey,0 0 80px grey ;
     }
 }
 @keyframes shake{
