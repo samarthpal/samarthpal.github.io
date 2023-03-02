@@ -221,12 +221,12 @@
         <br />
         <hr />
         <p id="text" align="center">
-          Hello! I am Samarth Kumar Pal. I am not an extraordinary person, I’m
+          Hello! I am Samarth Kumar Pal. I am not an extraordinary person, I'm
           just like the others. Where I stand today is just because of my hard
           work, dedication and because of my family. I like being challanged
-          specially by myself.No one is successful one hundred percent of the
+          specially by myself. No one is successful one hundred percent of the
           time. I believe if we keep on trying we will surely achieve our goal.
-          Even Thomas Alva Edison failed many times before inventing the bulb.I
+          Even Thomas Alva Edison failed many times before inventing the bulb. I
           think failure is just another step towards success.
         </p>
         <hr />
@@ -257,15 +257,10 @@
       document.getElementById("text").innerHTML = "";
       function typing() {
         if (i < text.length) {
-          if (i == 56) {
-            document.getElementById("text").innerHTML += "<br>";
-            i++;
-          }
-          if (i != 56) {
+          setInterval(() => {
             document.getElementById("text").innerHTML += text.charAt(i);
             i++;
-            setTimeout(typing, 30);
-          }
+          }, 30);
         }
       }
       typing();
