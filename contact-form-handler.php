@@ -22,8 +22,8 @@ echo '<script>alert("We have recieved your mail. Thank you!")</script>';
 
 	mail($to,$email_subject,$email_body,$headers);
 
-	header("Location: SamarthPal.html");						
+	header("Location: index.html");						
 ?>
 <script type="text/javascript">
-    window.location.href="SamarthPal.html";
+    window.location.href="index.html";
 </script>
