@@ -12,11 +12,12 @@ body {
   scroll-behavior: smooth;
   font-family: var(--ff-primary);
   color: var(--c-font);
+  background-color: var(--c-black);
   line-height: 1.5;
 }
 
 body::-webkit-scrollbar {
-  width: 0.6em;
+  width: 0.4em;
 }
 
 body::-webkit-scrollbar-track {
@@ -24,7 +25,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: var(--c-primary);
+  background-color: var(--c-font);
 }
 
 a,
@@ -137,6 +138,15 @@ textarea {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.title {
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--c-white);
+  font-family: var(--ff-primary);
 }
 
 .swiper-slide img {

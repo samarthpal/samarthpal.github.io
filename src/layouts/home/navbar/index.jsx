@@ -28,7 +28,7 @@ export default function Main({ fullscreen, setFullscreen }) {
       <nav className={isScrolled ? s.nav + ' ' + s.scrolled : s.nav}>
         <div className={s.left}>
           <Link to='/home'>
-            <img src={images.Profile} alt='' />
+            <img src={images.logoAltWhite} alt='' />
           </Link>
         </div>
 
@@ -71,11 +71,31 @@ const NavLinks = onClickHandler => (
 
 const navLinks = [
   {
-    name: 'demo',
-    path: '/demo'
+    name: 'Home',
+    path: '/home'
   },
   {
-    name: 'demo 2',
-    path: '/demo2'
+    name: 'About',
+    path: '/about'
+  },
+  {
+    name: 'Resume',
+    path: '/resume'
+  },
+  {
+    name: 'Gallery',
+    path: '/gallery'
+  },
+  {
+    name: 'Skills',
+    path: '/skills'
+  },
+  {
+    name: 'Projects',
+    path: '/projects'
+  },
+  {
+    name: 'Contact',
+    path: '/contact'
   }
 ]

@@ -4,12 +4,12 @@ import { useEffect } from 'react'
 
 export default function Main() {
   useEffect(() => {
-    head({ title: 'Demo' })
+    head({ title: 'SAMARTH PAL' })
   }, [])
   return (
     <div className={s.main}>
-      <div className={s.dashboard}>
-        <div className={s.content + ' innerScrollX'}>demo</div>
+      <div className={s.projects + ' indent'}>
+        <div className='title'>Projects</div>
       </div>
     </div>
   )

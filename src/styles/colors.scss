@@ -14,7 +14,7 @@
 
   --c-white: #ffffff;
   --c-white-light: rgba(255, 255, 255, 0.8);
-  --c-black: #181818;
+  --c-black: #000000;
 
   --c-border: #e8e8e8;
   --c-border-dark: #d8d8d8;
@@ -29,10 +29,13 @@
 
   --c-purple: #b04ddf;
   --c-shadow: rgba(0, 0, 0, 0.2);
+  --c-shadow-inverse: rgba(247, 247, 247, 0.1);
 
   --c-link: #51a5ff;
   --c-blue: #407bd4;
   --c-green: #73d13d;
+  --c-yellowOrange: #f0921b;
+  --c-redAlt: #e91e63;
 
   --message-green: #73d13d;
   --message-red: #ff4d4f;

@@ -42,7 +42,7 @@ const Redirect = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    navigate('/demo', { replace: true })
+    navigate('/home', { replace: true })
   }, [navigate])
   return null
 }
