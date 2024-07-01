@@ -2,6 +2,7 @@ import { SkillCard } from 'components'
 import s from './styles.module.scss'
 import { head } from 'helpers'
 import { useEffect } from 'react'
+import images from 'images'
 
 const skills = [
   {
@@ -10,25 +11,25 @@ const skills = [
     list: [
       {
         skill: 'NodeJs',
-        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-bSt16XVIR9526s9Rs6OUTds5FV8oZ_vX1w&s'
+        img: images.nodeJs
       },
       {
         skill: 'Javascript',
-        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2sPC6b3oTgzKALC3Kt1LTbxGYB3oN1SrTjA&s'
+        img: images.js
       },
-      { skill: 'Java', img: 'https://education.oracle.com/file/general/p-80-java.png' },
+      { skill: 'Java', img: images.java },
       {
         skill: 'C',
-        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6uGiVrgFgwrxVhhFCAOPbwOl7rIcl3nYnsg&s'
+        img: images.c
       },
-      { skill: 'C++', img: 'https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg' },
+      { skill: 'C++', img: images.cpp },
       {
         skill: 'Python',
-        img: 'https://i0.wp.com/junilearning.com/wp-content/uploads/2020/06/python-programming-language.webp?fit=1920%2C1920&ssl=1'
+        img: images.python
       },
       {
         skill: 'PHP',
-        img: 'https://cdn2.iconfinder.com/data/icons/designer-skills/128/code-programming-php-software-develop-command-language-512.png'
+        img: images.php
       }
     ]
   },
@@ -38,7 +39,7 @@ const skills = [
     list: [
       {
         skill: 'Machine Learning',
-        img: 'https://nyesteventuretech.com/images/Machine-Learning.jpg'
+        img: images.ml
       }
     ]
   },
@@ -46,34 +47,34 @@ const skills = [
     heading: '',
     title: 'Libraries/Frameworks',
     list: [
-      { skill: 'ReactJs', img: 'https://pbs.twimg.com/profile_images/1785867863191932928/EpOqfO6d_400x400.png' },
-      { skill: 'HTML5', img: 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582748_1280.png' },
-      { skill: 'CSS', img: 'https://cdn.pixabay.com/photo/2017/08/05/11/16/logo-2582747_960_720.png' },
+      { skill: 'ReactJs', img: images.react },
+      { skill: 'HTML5', img: images.html },
+      { skill: 'CSS', img: images.css },
       {
         skill: 'SCSS',
-        img: 'https://pluginicons.craft-cdn.com/scssqTY8srJEesn2VFiUV73mUCyRIZsfXfDj2eOY.svg?1528091210'
+        img: images.scss
       },
-      { skill: 'Bootstrap', img: 'https://pl.wizcase.com/wp-content/uploads/2022/02/en-bootstrap-logo.jpg' },
+      { skill: 'Bootstrap', img: images.bootstrap },
       {
         skill: 'Jquery',
-        img: 'https://w7.pngwing.com/pngs/606/221/png-transparent-jquery-original-logo-icon.png'
+        img: images.jquery
       },
       {
         skill: 'ExpressJs',
-        img: 'https://ajeetchaulagain.com/static/7cb4af597964b0911fe71cb2f8148d64/87351/express-js.png'
+        img: images.expressJs
       },
-      { skill: 'Mongoose', img: 'https://avatars.githubusercontent.com/u/7552965?s=280&v=4' }
+      { skill: 'Mongoose', img: images.mongoose }
     ]
   },
   {
     heading: '',
     title: 'Databases',
     list: [
-      { skill: 'MongoDB', img: 'https://seeklogo.com/images/M/mongodb-logo-D13D67C930-seeklogo.com.png' },
-      { skill: 'PhpMyAdmin', img: 'https://w7.pngwing.com/pngs/30/283/png-transparent-phpmyadmin-logo.png' },
+      { skill: 'MongoDB', img: images.mongoDb },
+      { skill: 'PhpMyAdmin', img: images.phpMyAdmin },
       {
         skill: 'MYSQL',
-        img: 'https://w7.pngwing.com/pngs/354/683/png-transparent-logo-mysql-database-phpmyadmin-oracle-sql-logo-blue-text-logo-thumbnail.png'
+        img: images.mySql
       }
     ]
   },
@@ -83,17 +84,17 @@ const skills = [
     list: [
       {
         skill: 'Trello',
-        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYqtRVBVzM5qeD4mn6vyJrjnfZzYkkxikJ9taBsI6_6-3NTtTvM7duuy30tqO8rUbeH8k&usqp=CAU'
+        img: images.trello
       },
-      { skill: 'Figma', img: 'https://cdn.icon-icons.com/icons2/2429/PNG/512/figma_logo_icon_147289.png' },
-      { skill: 'Whimsical', img: 'https://i.pinimg.com/originals/ea/2a/b2/ea2ab287b40acfe28348c71eb780d11c.png' },
+      { skill: 'Figma', img: images.figma },
+      { skill: 'Whimsical', img: images.whimsical },
       {
         skill: 'Adobe Photoshop',
-        img: 'https://e7.pngegg.com/pngimages/719/831/png-clipart-adobe-creative-cloud-computer-icons-editing-shop-icon-blue-text-thumbnail.png'
+        img: images.ps
       },
       {
         skill: 'Adobe Illustrator',
-        img: 'https://download.logo.wine/logo/Adobe_Illustrator/Adobe_Illustrator-Logo.wine.png'
+        img: images.ai
       }
     ]
   },
@@ -101,8 +102,8 @@ const skills = [
     heading: '',
     title: 'Version Control',
     list: [
-      { skill: 'Git', img: 'https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png' },
-      { skill: 'GitHub', img: 'https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_1280.png' }
+      { skill: 'Git', img: images.git },
+      { skill: 'GitHub', img: images.github }
     ]
   },
   {
@@ -111,21 +112,19 @@ const skills = [
     list: [
       {
         skill: 'Amazon Web Services (AWS): EC2, S3, SES, IAM',
-        img: 'https://www.pngall.com/wp-content/uploads/13/AWS-Logo-PNG-File.png'
+        img: images.aws
       }
     ]
   },
   {
     heading: '',
     title: 'Web Server',
-    list: [{ skill: 'Nginx', img: 'https://www.svgrepo.com/show/373924/nginx.svg' }]
+    list: [{ skill: 'Nginx', img: images.nginx }]
   },
   {
     heading: '',
     title: 'Web Services',
-    list: [
-      { skill: 'Cloudflare', img: 'https://static-00.iconduck.com/assets.00/cloudflare-icon-2048x2048-wks6nchu.png' }
-    ]
+    list: [{ skill: 'Cloudflare', img: images.cloudFlare }]
   }
 ]
 
