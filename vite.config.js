@@ -20,7 +20,8 @@ export default defineConfig(({ command, mode }) => {
       alias: {
         helpers: path.resolve(__dirname, 'src/helpers'),
         images: path.resolve(__dirname, 'src/images'),
-        layouts: path.resolve(__dirname, 'src/layouts')
+        layouts: path.resolve(__dirname, 'src/layouts'),
+        components: path.resolve(__dirname, 'src/components')
       }
     }
   }

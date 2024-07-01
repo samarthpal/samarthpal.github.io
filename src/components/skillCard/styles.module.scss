@@ -1,0 +1,112 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.skill {
+  background: var(--c-dark-2);
+  transform: rotate(45deg);
+  padding: 0.5rem;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 4rem;
+  border-radius: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    transition: all 0.5s ease;
+    animation: borderAnimate 4s linear infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: var(--c-dark-2);
+    border-radius: 0.5rem;
+  }
+
+  &:hover {
+    .skillInner {
+      transform: rotate(-45deg) scale(1.1);
+    }
+  }
+
+  .skillInner {
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    width: 100%;
+    overflow: hidden;
+    transform: rotate(-45deg);
+    transition: all 0.5s ease;
+    background: var(--c-white);
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.skill0 {
+  &:hover {
+    &::before {
+      background: linear-gradient(transparent, var(--c-redAlt)) !important;
+    }
+  }
+}
+
+.skill1 {
+  &:hover {
+    &::before {
+      background: linear-gradient(transparent, var(--c-yellowOrange)) !important;
+    }
+  }
+}
+
+.skill2 {
+  &:hover {
+    &::before {
+      background: linear-gradient(transparent, var(--c-green)) !important;
+    }
+  }
+}
+
+.skill3 {
+  &:hover {
+    &::before {
+      background: linear-gradient(transparent, var(--c-blue)) !important;
+    }
+  }
+}
+
+@keyframes borderAnimate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.skillName {
+  font-size: 1rem;
+  color: var(--c-white);
+  font-weight: 600;
+  margin-top: 1.75rem;
+  text-align: center;
+  white-space: wrap;
+}

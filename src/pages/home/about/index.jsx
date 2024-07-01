@@ -1,12 +1,29 @@
 import s from './styles.module.scss'
 import { head } from 'helpers'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import images from 'images'
 
 export default function Main() {
+  const [text, setText] = useState('')
+  const [index, setIndex] = useState(0)
+  const fullText =
+    "Hello! I am Samarth Kumar Pal. I am not an extraordinary person, I'm just like the others. Where I stand today is just because of my hard work, dedication and because of my family. I like being challanged specially by myself. No one is successful one hundred percent of the time. I believe if we keep on trying we will surely achieve our goal. Even Thomas Alva Edison failed many times before inventing the bulb. I think failure is just another step towards success."
+
   useEffect(() => {
     head({ title: 'SAMARTH PAL' })
   }, [])
+
+  useEffect(() => {
+    if (index < fullText.length) {
+      const intervalId = setInterval(() => {
+        setText(prev => prev + fullText.charAt(index))
+        setIndex(prev => prev + 1)
+      }, 20)
+
+      return () => clearInterval(intervalId) // Clear interval on component unmount
+    }
+  }, [index, fullText])
+
   return (
     <div className={s.main}>
       <div className={s.about + ' indent'}>
@@ -33,12 +50,8 @@ export default function Main() {
         </div>
         <div className={s.aboutMe}>
           <div className={s.title}>About Me</div>
-          <div className={s.desc}>
-            Hello! I am Samarth Kumar Pal. I am not an extraordinary person, I'm just like the others. Where I stand
-            today is just because of my hard work, dedication and because of my family. I like being challanged
-            specially by myself. No one is successful one hundred percent of the time. I believe if we keep on trying we
-            will surely achieve our goal. Even Thomas Alva Edison failed many times before inventing the bulb. I think
-            failure is just another step towards success.
+          <div className={s.desc} id='text'>
+            {text}
           </div>
           <div className={s.info}>
             <div className={s.infoChild}>

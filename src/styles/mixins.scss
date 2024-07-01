@@ -1,19 +1,50 @@
 @mixin buttonStyle {
+  color: var(--c-yellowOrange);
+  background: var(--c-font-dark);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 2px 2px 20px var(--c-shadow);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.25rem 1rem;
-  background: var(--c-primary);
-  color: var(--c-white);
-  font-size: 0.8rem;
-  font-weight: 600;
-  white-space: nowrap;
-  border: 0.1rem solid var(--c-primary);
-  border-radius: 0.25rem;
+  transition: all 0.2s ease;
   cursor: pointer;
-  transition: all 0.5s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background: #f0921b;
+    transform: rotate(45deg);
+    top: 90%;
+    left: -110%;
+  }
 
   &:hover {
-    transform: scale(1.05);
+    background: var(--c-redAlt);
+    color: var(--c-white);
+
+    &::before {
+      top: -10%;
+      left: -10%;
+      animation: socialAnimate 0.7s;
+    }
+  }
+}
+
+@keyframes socialAnimate {
+  0% {
+    top: 90%;
+    left: -110%;
+  }
+  50% {
+    left: 10%;
+    top: -30%;
+  }
+
+  100% {
+    left: -10%;
+    top: -10%;
   }
 }
