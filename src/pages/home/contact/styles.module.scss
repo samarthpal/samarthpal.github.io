@@ -1,6 +1,193 @@
+@import 'src/styles/mixins';
+
 .main {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    color: red;
+    width: 100%;
+    height: 100%;
+    background: var(--c-dark-2);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    top: 0;
+    left: 0;
+  }
+}
+
+.contactSection {
+  padding: 3rem 0;
+}
+
+.contact {
+  display: flex;
+  justify-content: space-between;
+
+  & > div {
+    padding: 2rem 0;
+    width: 48%;
+  }
+}
+
+.contactForm {
+  & > form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      margin: 1rem 0;
+    }
+  }
+}
+
+.inputMain,
+.textAreaMain {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .label {
+    outline: none;
+    border: none;
+    font-size: 0.8rem;
+    color: var(--c-white);
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-family: var(--ff-primary);
+    font-weight: 700;
+  }
+
+  .textField,
+  .inputField {
+    display: flex;
+    border: 0.1rem solid var(--c-font-dark);
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--c-black);
+
+    .textArea,
+    .input {
+      outline: none;
+      border: none;
+      font-family: var(--ff-content);
+      color: var(--c-white);
+      background: transparent;
+      font-style: italic;
+      font-weight: 400;
+      width: 100%;
+      font-size: 0.75rem;
+
+      &::placeholder {
+        font-family: var(--ff-content);
+        color: var(--c-font);
+      }
+    }
+
+    .iconLeft {
+      color: var(--c-white);
+      font-weight: 400;
+      padding-right: 0.5rem;
+    }
+  }
+}
+
+.button {
+  @include buttonStyle;
+
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border: none;
+
+  &::before {
+    width: 188%;
+    height: 1040%;
+  }
+
+  .buttonInner {
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+
+    & > span {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &:hover {
+    .buttonInner {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 0 !important;
+}
+
+.linkCard {
+  display: flex;
+  align-items: center;
+
+  .info {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 1rem;
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--c-font);
+    }
+
+    & > a {
+      color: var(--c-white);
+    }
+  }
+
+  .icon {
+    display: flex;
+    height: 5rem;
+    padding: 1rem;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-blue);
+    border: 0.05rem solid var(--c-font-dark);
+    background: var(--c-dark-2);
+    text-decoration: none;
+    // box-shadow: -10px 2px 20px var(--c-shadow-inverse);
+    border-radius: 0.1rem;
+    border-radius: 50%;
+
+    & > span {
+      border-radius: 50%;
+      aspect-ratio: 1;
+      padding: 0.5rem;
+      border: 0.1rem solid var(--c-white);
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 1279px) {
+  .textField {
+    .iconLeft {
+      font-size: 1rem;
+    }
+  }
 }

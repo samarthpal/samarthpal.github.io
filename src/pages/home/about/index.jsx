@@ -25,7 +25,7 @@ export default function Main() {
   }, [index, fullText])
 
   return (
-    <div className={s.main}>
+    <div className={s.main} id='about'>
       <div className={s.about + ' indent'}>
         <div className={s.cardOuter}>
           <div className={s.card}>
@@ -35,13 +35,13 @@ export default function Main() {
             <div className={s.cardBack}>
               <div className={s.title}>Full Stack Developer</div>
               <div className={s.cardBackInner}>
-                <a href='/' className={s.icon}>
+                <a href='https://www.facebook.com/samarth.pal.77' target='_blank' className={s.icon}>
                   <i className='fa-brands fa-facebook'></i>
                 </a>
-                <a href='/' className={s.icon}>
+                <a href='https://www.instagram.com/samarth_pal_02/' target='_blank' className={s.icon}>
                   <i className='fa-brands fa-instagram'></i>
                 </a>
-                <a href='/' className={s.icon}>
+                <a href='https://www.linkedin.com/in/samarth-pal-3335201a0/' target='_blank' className={s.icon}>
                   <i className='fa-brands fa-linkedin-in'></i>
                 </a>
               </div>

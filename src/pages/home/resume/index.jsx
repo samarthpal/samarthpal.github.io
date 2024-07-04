@@ -17,7 +17,7 @@ export default function Main() {
   }
 
   return (
-    <div className={s.main}>
+    <div className={s.main} id='resume'>
       <div className={s.resume + ' indent'}>
         <div className='title'>Resume</div>
         <div className={s.downloadButton} onClick={handleDownload}>

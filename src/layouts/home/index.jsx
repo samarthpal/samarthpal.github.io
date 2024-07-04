@@ -1,4 +1,5 @@
 import NavBar from './navbar'
+import Footer from './footer'
 import s from './styles.module.scss'
 import { useState } from 'react'
 
@@ -11,6 +12,8 @@ export default function Main({ children }) {
         <NavBar fullscreen={fullscreen} setFullscreen={setFullscreen} />
         {!fullscreen && <div className={s.content}>{children}</div>}
       </div>
+
+      {!fullscreen && <Footer />}
     </>
   )
 }

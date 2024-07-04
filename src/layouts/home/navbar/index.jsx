@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import images from 'images'
 import s from './styles.module.scss'
 import { useEffect, useState } from 'react'
@@ -53,21 +53,32 @@ export default function Main({ fullscreen, setFullscreen }) {
   )
 }
 
-const NavLinks = onClickHandler => (
-  <div className={s.navLinks}>
-    {navLinks.map(({ name, path }, i) => (
-      <Link
-        key={i}
-        to={path}
-        className={window.location.pathname.startsWith(path) ? s.active : ''}
-        target={path === '/signIn' ? '_blank' : ''}
-        onClick={onClickHandler}
-      >
-        <div>{name}</div>
-      </Link>
-    ))}
-  </div>
-)
+const NavLinks = props => {
+  const navigate = useNavigate()
+
+  const handleClick = path => {
+    navigate(path)
+    document.getElementById(path.substring(1)).scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <div className={s.navLinks}>
+      {navLinks.map(({ name, path }, i) => (
+        <div
+          key={i}
+          // to={path}
+          className={window.location.pathname.startsWith(path) ? s.active : ''}
+          onClick={() => {
+            props.onClickHandler()
+            handleClick(path)
+          }}
+        >
+          <div>{name}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 const navLinks = [
   {
@@ -83,16 +94,12 @@ const navLinks = [
     path: '/resume'
   },
   {
-    name: 'Gallery',
-    path: '/gallery'
-  },
-  {
     name: 'Skills',
     path: '/skills'
   },
   {
-    name: 'Projects',
-    path: '/projects'
+    name: 'Portfolio',
+    path: '/portfolio'
   },
   {
     name: 'Contact',

@@ -111,7 +111,7 @@ const skills = [
     title: 'Cloud Services',
     list: [
       {
-        skill: 'Amazon Web Services (AWS): EC2, S3, SES, IAM',
+        skill: 'AWS: EC2, S3, SES, IAM',
         img: images.aws
       }
     ]
@@ -134,14 +134,14 @@ export default function Main() {
   }, [])
 
   return (
-    <div className={s.main}>
+    <div className={s.main} id='skills'>
       <div className={s.skillsSection + ' indent'}>
         <div className='title'>Skills</div>
         <div className={s.skills}>
           {skills.map(({ heading, title, list }, index) => (
             <div className={s.skillsInner} key={index}>
               {heading && <div className='title'>{heading}</div>}
-              <div className='title'>{title}</div>
+              <div className={'title ' + s.title}>{title}</div>
               <div className={s.skillsList}>
                 {list.map((list, i) => (
                   <SkillCard {...list} index={i} key={i} />

@@ -6,7 +6,7 @@
 }
 
 .skillsSection {
-  padding: 2rem 0;
+  padding: 2rem;
 }
 
 .skills {
@@ -25,4 +25,9 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 1rem;
   row-gap: 3rem;
+  align-items: start;
+}
+
+.title {
+  font-family: var(--ff-title);
 }
