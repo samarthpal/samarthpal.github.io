@@ -1,5 +1,4 @@
 import s from './styles.module.scss'
-import { head } from 'helpers'
 import { useEffect, useState } from 'react'
 import images from 'images'
 
@@ -8,10 +7,6 @@ export default function Main() {
   const [index, setIndex] = useState(0)
   const fullText =
     "Hello! I am Samarth Kumar Pal. I am not an extraordinary person, I'm just like the others. Where I stand today is just because of my hard work, dedication and because of my family. I like being challanged specially by myself. No one is successful one hundred percent of the time. I believe if we keep on trying we will surely achieve our goal. Even Thomas Alva Edison failed many times before inventing the bulb. I think failure is just another step towards success."
-
-  useEffect(() => {
-    head({ title: 'SAMARTH PAL' })
-  }, [])
 
   useEffect(() => {
     if (index < fullText.length) {

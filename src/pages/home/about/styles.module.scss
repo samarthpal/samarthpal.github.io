@@ -154,3 +154,17 @@
     }
   }
 }
+
+@media (max-width: 1279px) {
+  .about {
+    flex-direction: column;
+
+    & > div {
+      width: 100%;
+
+      &:first-child {
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}

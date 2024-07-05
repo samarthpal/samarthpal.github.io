@@ -1,12 +1,6 @@
 import s from './styles.module.scss'
-import { head } from 'helpers'
-import { useEffect } from 'react'
 
 export default function Main() {
-  useEffect(() => {
-    head({ title: 'SAMARTH PAL' })
-  }, [])
-
   const portfolios = [
     {
       name: 'Daemonhive Technologies',
@@ -86,36 +80,43 @@ export default function Main() {
         <div className='title'>Portfolio</div>
         <div className={s.portfolios}>
           {portfolios.map(({ name, url, img }, i) => (
-            <a href={url} className={s.portfolio} target='_blank' key={i}>
-              <span className='material-icons-outlined'>open_in_new</span>
-              <div
-                className={s.name}
-                style={{
-                  background:
-                    i % 4 === 3
-                      ? 'var(--c-redAlt)'
-                      : i % 4 === 2
-                        ? 'var(--c-yellowOrange)'
-                        : i % 4 === 1
-                          ? 'var(--c-green)'
-                          : 'var(--c-blue)'
-                }}
-              >
-                {name}
-              </div>
-              <div className={s.logo}>
-                {img ? (
-                  <img src={url + img} alt='' />
-                ) : (
-                  <div className={s.placeholderIcon}>
-                    <span className='material-icons-outlined'>light_mode</span>
-                  </div>
-                )}
-              </div>
-            </a>
+            <PortfolioCard name={name} url={url} img={img} index={i} key={i} />
           ))}
         </div>
       </div>
     </div>
   )
 }
+
+const PortfolioCard = props => (
+  <a href={props.url} className={s.portfolioOuter} target='_blank'>
+    <div className={s.portfolio}>
+      <span className='material-icons-outlined'>open_in_new</span>
+      <div
+        className={s.name}
+        style={{
+          background:
+            props.index % 4 === 3
+              ? 'var(--c-redAlt)'
+              : props.index % 4 === 2
+                ? 'var(--c-yellowOrange)'
+                : props.index % 4 === 1
+                  ? 'var(--c-green)'
+                  : 'var(--c-blue)'
+        }}
+      >
+        {props.name}
+      </div>
+      <div className={s.logo}>
+        {props.img ? (
+          <img src={props.url + props.img} alt='' />
+        ) : (
+          <div className={s.placeholderIcon}>
+            <span className='material-icons-outlined'>light_mode</span>
+          </div>
+        )}
+      </div>
+    </div>
+    <div className={s.nameResponsive}>{props.name}</div>
+  </a>
+)

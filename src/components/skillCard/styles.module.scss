@@ -25,18 +25,21 @@
     width: 150%;
     height: 150%;
     transition: all 0.5s ease;
-    animation: borderAnimate 4s linear infinite;
   }
 
   &::after {
     content: '';
     position: absolute;
-    inset: 4px;
+    inset: 0.1rem;
     background: var(--c-dark-2);
     border-radius: 0.5rem;
   }
 
   &:hover {
+    &::before {
+      animation: borderAnimate 4s linear infinite;
+    }
+
     .skillInner {
       transform: rotate(-45deg) scale(1.1);
     }
@@ -93,6 +96,10 @@
   }
 }
 
+.skillNameResponsive {
+  display: none;
+}
+
 @keyframes borderAnimate {
   0% {
     transform: rotate(0deg);
@@ -109,4 +116,35 @@
   margin-top: 1.75rem;
   text-align: center;
   white-space: wrap;
+}
+
+@media (max-width: 1279px) {
+  .skill {
+    &::before {
+      animation: borderAnimate 4s linear infinite;
+    }
+  }
+  .skill0 {
+    &::before {
+      background: linear-gradient(transparent, var(--c-redAlt)) !important;
+    }
+  }
+
+  .skill1 {
+    &::before {
+      background: linear-gradient(transparent, var(--c-yellowOrange)) !important;
+    }
+  }
+
+  .skill2 {
+    &::before {
+      background: linear-gradient(transparent, var(--c-green)) !important;
+    }
+  }
+
+  .skill3 {
+    &::before {
+      background: linear-gradient(transparent, var(--c-blue)) !important;
+    }
+  }
 }

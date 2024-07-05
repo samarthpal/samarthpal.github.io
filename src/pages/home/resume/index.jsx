@@ -1,12 +1,6 @@
 import s from './styles.module.scss'
-import { head } from 'helpers'
-import { useEffect } from 'react'
 
 export default function Main() {
-  useEffect(() => {
-    head({ title: 'SAMARTH PAL' })
-  }, [])
-
   const handleDownload = () => {
     const link = document.createElement('a')
     link.href = `/resume.pdf`

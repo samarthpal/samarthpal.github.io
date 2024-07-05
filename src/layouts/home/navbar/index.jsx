@@ -2,10 +2,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import images from 'images'
 import s from './styles.module.scss'
 import { useEffect, useState } from 'react'
+import { head } from 'helpers'
 
 export default function Main({ fullscreen, setFullscreen }) {
   const [isScrolled, setIsScrolled] = useState(false)
-  // const [search, setSearch] = useState('')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,9 +56,13 @@ export default function Main({ fullscreen, setFullscreen }) {
 const NavLinks = props => {
   const navigate = useNavigate()
 
-  const handleClick = path => {
+  const handleClick = (path, name) => {
     navigate(path)
-    document.getElementById(path.substring(1)).scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(path.substring(1))
+    if (el) {
+      head({ title: `Samarth Pal - ${name}` })
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   return (
@@ -66,11 +70,10 @@ const NavLinks = props => {
       {navLinks.map(({ name, path }, i) => (
         <div
           key={i}
-          // to={path}
           className={window.location.pathname.startsWith(path) ? s.active : ''}
           onClick={() => {
             props.onClickHandler()
-            handleClick(path)
+            handleClick(path, name)
           }}
         >
           <div>{name}</div>

@@ -1,14 +1,10 @@
 import s from './styles.module.scss'
-import { head, sendMail } from 'helpers'
-import { useEffect, useRef, useState } from 'react'
+import { sendMail } from 'helpers'
+import { useRef, useState } from 'react'
 
 export default function Main() {
   const [loading, setLoading] = useState(false)
   const processing = useRef(false)
-
-  useEffect(() => {
-    head({ title: 'SAMARTH PAL' })
-  }, [])
 
   const [formData, setFormData] = useState({
     name: '',

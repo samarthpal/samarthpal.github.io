@@ -1,7 +1,6 @@
 import { SkillCard } from 'components'
 import s from './styles.module.scss'
-import { head } from 'helpers'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import images from 'images'
 
 const skills = [
@@ -129,9 +128,14 @@ const skills = [
 ]
 
 export default function Main() {
+  const mediaMatch = window.matchMedia('(max-width: 1279px)')
+  const [matches, setMatches] = useState(mediaMatch.matches)
+
   useEffect(() => {
-    head({ title: 'SAMARTH PAL' })
-  }, [])
+    const handler = e => setMatches(e.matches)
+    mediaMatch.addEventListener('change', handler)
+    return () => mediaMatch.removeEventListener('change', handler)
+  })
 
   return (
     <div className={s.main} id='skills'>
@@ -142,7 +146,18 @@ export default function Main() {
             <div className={s.skillsInner} key={index}>
               {heading && <div className='title'>{heading}</div>}
               <div className={'title ' + s.title}>{title}</div>
-              <div className={s.skillsList}>
+              <div
+                className={s.skillsList}
+                style={
+                  matches
+                    ? {
+                        gridTemplateColumns: `repeat(${list.length > 1 ? 2 : 1}, 1fr)`
+                      }
+                    : {
+                        gridTemplateColumns: `repeat(${list.length > 7 ? 4 : list.length === 7 ? 7 : list.length}, 1fr)`
+                      }
+                }
+              >
                 {list.map((list, i) => (
                   <SkillCard {...list} index={i} key={i} />
                 ))}

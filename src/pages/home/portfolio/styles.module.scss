@@ -8,14 +8,19 @@
 .portfolios {
   padding: 3rem 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
+}
+
+.portfolioOuter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .portfolio {
   position: relative;
   width: 100%;
-  height: 100%;
   border: 0.05rem solid var(--c-font-dark);
   background: var(--c-dark-2);
   text-decoration: none;
@@ -86,5 +91,30 @@
     font-weight: 600;
     z-index: 1;
     text-align: center;
+  }
+}
+
+.nameResponsive {
+  display: none;
+  color: var(--c-white);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+@media (max-width: 1279px) {
+  .portfolios {
+    grid-template-columns: repeat(2, 1fr);
+
+    .portfolio {
+      .logo {
+        padding: 1rem;
+      }
+    }
+
+    .nameResponsive {
+      display: inline-block;
+    }
   }
 }
