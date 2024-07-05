@@ -14,7 +14,7 @@ export default function Main() {
   }, [])
 
   useEffect(() => {
-    const path = window.location.pathname.substring(1)
+    const path = window.location.hash.substring(2)
     const el = document.getElementById(path)
     if (el) {
       head({ title: `Samarth Pal - ${path.charAt(0).toUpperCase() + path.substring(1)}` })

@@ -58,6 +58,7 @@ const NavLinks = props => {
 
   const handleClick = (path, name) => {
     navigate(path)
+
     const el = document.getElementById(path.substring(1))
     if (el) {
       head({ title: `Samarth Pal - ${name}` })
@@ -70,7 +71,7 @@ const NavLinks = props => {
       {navLinks.map(({ name, path }, i) => (
         <div
           key={i}
-          className={window.location.pathname.startsWith(path) ? s.active : ''}
+          className={window.location.hash.substring(1).startsWith(path) ? s.active : ''}
           onClick={() => {
             props.onClickHandler()
             handleClick(path, name)
