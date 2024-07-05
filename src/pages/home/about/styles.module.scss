@@ -78,8 +78,13 @@
 
     .cardBackInner {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+
+      .row {
+        display: flex;
+      }
 
       .icon {
         @include buttonStyle;

@@ -30,15 +30,25 @@ export default function Main() {
             <div className={s.cardBack}>
               <div className={s.title}>Full Stack Developer</div>
               <div className={s.cardBackInner}>
-                <a href='https://www.facebook.com/samarth.pal.77' target='_blank' className={s.icon}>
-                  <i className='fa-brands fa-facebook'></i>
-                </a>
-                <a href='https://www.instagram.com/samarth_pal_02/' target='_blank' className={s.icon}>
-                  <i className='fa-brands fa-instagram'></i>
-                </a>
-                <a href='https://www.linkedin.com/in/samarth-pal-3335201a0/' target='_blank' className={s.icon}>
-                  <i className='fa-brands fa-linkedin-in'></i>
-                </a>
+                <div className={s.row}>
+                  <a href='https://www.facebook.com/samarth.pal.77' target='_blank' className={s.icon}>
+                    <i className='fa-brands fa-facebook'></i>
+                  </a>
+                  <a href='https://www.instagram.com/samarth_pal_02/' target='_blank' className={s.icon}>
+                    <i className='fa-brands fa-instagram'></i>
+                  </a>
+                  <a href='https://www.linkedin.com/in/samarth-pal-3335201a0/' target='_blank' className={s.icon}>
+                    <i className='fa-brands fa-linkedin-in'></i>
+                  </a>
+                </div>
+                <div className={s.row}>
+                  <a href='https://github.com/samarthpal' target='_blank' className={s.icon}>
+                    <i className='fa-brands fa-github'></i>
+                  </a>
+                  <a href='https://leetcode.com/u/palsamarth02/' target='_blank' className={s.icon}>
+                    <i className='fa-solid fa-code'></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
