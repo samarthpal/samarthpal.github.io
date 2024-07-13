@@ -37,6 +37,11 @@ export default function Main() {
       url: 'https://hless.pro/',
       img: 'https://hless.pro/logo.png'
     },
+    // {
+    //   name: 'Mopwna Cling',
+    //   url: 'https://samarthpal.github.io/Mopwna-Cling/',
+    //   img: 'https://samarthpal.github.io/Mopwna-Cling/logo.png'
+    // },
     {
       name: 'Yourganicx Nutrition',
       url: 'https://samarthpal.github.io/Yourganicx-Public/',
