@@ -72,7 +72,7 @@ const Auth = ({ children }) => {
   }, [navigate])
 
   useEffect(() => {
-    if (!window.localStorage.getItem('authorization')) navigate('/demo', { replace: true })
+    if (!window.localStorage.getItem('authorization')) navigate('/home', { replace: true })
     else authTest()
   }, [authTest, navigate])
 

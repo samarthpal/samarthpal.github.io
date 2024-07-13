@@ -1,13 +1,13 @@
 {
   "homepage": "https://samarthpal.github.io/samarthpal.github.io/",
-  "name": "portfolio2-0",
+  "name": "portfolio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "start": "vite",
+    "deploy": "gh-pages -d build",
+    "start": "vite --host",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "pretty": "prettier --config .prettierrc --write .",

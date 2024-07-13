@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import eslint from 'vite-plugin-eslint'
 import path from 'path'
 
 // /** @type {import('vite').UserConfig} */
@@ -12,7 +13,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     // vite config
-    plugins: [react()],
+    plugins: [react(), eslint()],
     server: {
       port: env.VITE_PORT
     },
@@ -23,6 +24,7 @@ export default defineConfig(({ command, mode }) => {
         layouts: path.resolve(__dirname, 'src/layouts'),
         components: path.resolve(__dirname, 'src/components')
       }
-    }
+    },
+    build: { outDir: 'build' }
   }
 })
