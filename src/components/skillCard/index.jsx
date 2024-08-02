@@ -2,7 +2,7 @@ import s from './styles.module.scss'
 
 export default function Main(props) {
   return (
-    <div className={s.main}>
+    <div className={s.main} onClick={() => props.OnHover(props.skill)} onMouseEnter={() => props.OnHover(props.skill)}>
       <div
         className={
           s.skill +

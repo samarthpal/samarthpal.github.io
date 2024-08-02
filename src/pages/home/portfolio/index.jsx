@@ -37,21 +37,21 @@ export default function Main() {
       url: 'https://hless.pro/',
       img: 'https://hless.pro/logo.png'
     },
-    // {
-    //   name: 'Mopwna Cling',
-    //   url: 'https://samarthpal.github.io/Mopwna-Cling/',
-    //   img: 'https://samarthpal.github.io/Mopwna-Cling/logo.png'
-    // },
+    {
+      name: 'Mopwna Cling',
+      url: 'https://mopwnacling.com/',
+      img: 'https://mopwnacling.com/logo.png'
+    },
     {
       name: 'Yourganicx Nutrition',
       url: 'https://samarthpal.github.io/Yourganicx-Public/',
       img: 'https://samarthpal.github.io/Yourganicx-Public/assets/images1/logo%20%20new.png'
     },
-    {
-      name: 'Portfolio',
-      url: '/',
-      img: '/logo.png'
-    },
+    // {
+    //   name: 'Portfolio',
+    //   url: '/',
+    //   img: '/logo.png'
+    // },
     {
       name: 'Text Utils',
       url: 'https://samarthpal.github.io/TextUtils-React/',
