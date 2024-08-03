@@ -134,7 +134,7 @@ const TextArea = props => (
         placeholder={props.placeholder}
         className={props.class ? props.class + ' ' + s.textArea : s.textArea}
         rows={props.rows || '5'}
-        columns={props.columns}
+        cols={props.columns}
         required={props.required}
         autoComplete={props.autoComplete}
       />

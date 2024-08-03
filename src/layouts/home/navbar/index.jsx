@@ -55,14 +55,20 @@ export default function Main({ fullscreen, setFullscreen }) {
 
 const NavLinks = props => {
   const navigate = useNavigate()
+  const currPath = window.location.pathname
+  // const currPath = window.location.hash.substring(1)
 
   const handleClick = (path, name) => {
     navigate(path)
-
-    const el = document.getElementById(path.substring(1))
-    if (el) {
-      head({ title: `Samarth Pal - ${name}` })
-      el.scrollIntoView({ behavior: 'smooth' })
+    if (path === '/home') {
+      head({ title: `Samarth Pal - Home` })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      const el = document.getElementById(path.substring(1))
+      if (el) {
+        head({ title: `Samarth Pal - ${name}` })
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 
@@ -71,7 +77,7 @@ const NavLinks = props => {
       {navLinks.map(({ name, path }, i) => (
         <div
           key={i}
-          className={window.location.hash.substring(1).startsWith(path) ? s.active : ''}
+          className={currPath.startsWith(path) ? s.active : ''}
           onClick={() => {
             props.onClickHandler()
             handleClick(path, name)

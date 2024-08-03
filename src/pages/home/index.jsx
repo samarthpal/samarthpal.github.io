@@ -14,11 +14,17 @@ export default function Main() {
   }, [])
 
   useEffect(() => {
-    const path = window.location.hash.substring(2)
-    const el = document.getElementById(path)
-    if (el) {
+    // const path = window.location.hash.substring(2)
+    const path = window.location.pathname.substring(1)
+    if (path === 'home') {
       head({ title: `Samarth Pal - ${path.charAt(0).toUpperCase() + path.substring(1)}` })
-      el.scrollIntoView({ behavior: 'smooth' })
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      const el = document.getElementById(path)
+      if (el) {
+        head({ title: `Samarth Pal - ${path.charAt(0).toUpperCase() + path.substring(1)}` })
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }, [])
 

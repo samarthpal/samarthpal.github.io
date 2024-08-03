@@ -1,4 +1,5 @@
-import { Route, HashRouter as Router, Routes, useNavigate } from 'react-router-dom'
+/* eslint-disable react/prop-types */
+import { Route, BrowserRouter as Router, Routes, useNavigate } from 'react-router-dom'
 import defaultRoutes from './routes'
 import { useEffect, useCallback, useRef, useState } from 'react'
 
