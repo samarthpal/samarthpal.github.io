@@ -14,8 +14,8 @@ export default function Main() {
   }, [])
 
   useEffect(() => {
-    // const path = window.location.hash.substring(2)
-    const path = window.location.pathname.substring(1)
+    const path = window.location.hash.substring(2)
+    // const path = window.location.pathname.substring(1)
     if (path === 'home') {
       head({ title: `Samarth Pal - ${path.charAt(0).toUpperCase() + path.substring(1)}` })
       window.scrollTo({ top: 0, behavior: 'smooth' })

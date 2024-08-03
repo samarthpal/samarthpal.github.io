@@ -55,8 +55,8 @@ export default function Main({ fullscreen, setFullscreen }) {
 
 const NavLinks = props => {
   const navigate = useNavigate()
-  const currPath = window.location.pathname
-  // const currPath = window.location.hash.substring(1)
+  // const currPath = window.location.pathname
+  const currPath = window.location.hash.substring(1)
 
   const handleClick = (path, name) => {
     navigate(path)
