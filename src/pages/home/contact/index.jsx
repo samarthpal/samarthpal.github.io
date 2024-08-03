@@ -149,7 +149,7 @@ const LinkCard = props => (
     </div>
     <div className={s.info}>
       <div className={s.title}>{props.title}</div>
-      <a href={props.link} target='_blank'>
+      <a href={props.link} target='_blank' rel='noreferrer'>
         {props.info}
       </a>
     </div>

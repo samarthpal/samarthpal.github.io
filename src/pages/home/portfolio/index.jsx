@@ -100,7 +100,7 @@ export default function Main() {
 }
 
 const PortfolioCard = props => (
-  <a href={props.url} className={s.portfolioOuter} target='_blank'>
+  <a href={props.url} className={s.portfolioOuter} target='_blank' rel='noreferrer'>
     <div className={s.portfolio}>
       <span className='material-icons-outlined'>open_in_new</span>
       <div
