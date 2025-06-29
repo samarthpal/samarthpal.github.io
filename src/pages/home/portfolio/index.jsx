@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import s from './styles.module.scss'
 
 export default function Main() {
@@ -99,35 +100,43 @@ export default function Main() {
   )
 }
 
-const PortfolioCard = props => (
-  <a href={props.url} className={s.portfolioOuter} target='_blank' rel='noreferrer'>
-    <div className={s.portfolio}>
-      <span className='material-icons-outlined'>open_in_new</span>
-      <div
-        className={s.name}
-        style={{
-          background:
-            props.index % 4 === 3
-              ? 'var(--c-redAlt)'
-              : props.index % 4 === 2
-                ? 'var(--c-yellowOrange)'
-                : props.index % 4 === 1
-                  ? 'var(--c-green)'
-                  : 'var(--c-blue)'
-        }}
-      >
-        {props.name}
+const PortfolioCard = props => {
+  const [imgError, setImgError] = useState(false)
+
+  const handleError = () => {
+    setImgError(true)
+  }
+
+  return (
+    <a href={props.url} className={s.portfolioOuter} target='_blank' rel='noreferrer'>
+      <div className={s.portfolio}>
+        <span className='material-icons-outlined'>open_in_new</span>
+        <div
+          className={s.name}
+          style={{
+            background:
+              props.index % 4 === 3
+                ? 'var(--c-redAlt)'
+                : props.index % 4 === 2
+                  ? 'var(--c-yellowOrange)'
+                  : props.index % 4 === 1
+                    ? 'var(--c-green)'
+                    : 'var(--c-blue)'
+          }}
+        >
+          {props.name}
+        </div>
+        <div className={s.logo}>
+          {!imgError && props.img ? (
+            <img src={props.img} alt='' onError={handleError} />
+          ) : (
+            <div className={s.placeholderIcon}>
+              <span className='material-icons-outlined'>light_mode</span>
+            </div>
+          )}
+        </div>
       </div>
-      <div className={s.logo}>
-        {props.img ? (
-          <img src={props.img} alt='' />
-        ) : (
-          <div className={s.placeholderIcon}>
-            <span className='material-icons-outlined'>light_mode</span>
-          </div>
-        )}
-      </div>
-    </div>
-    <div className={s.nameResponsive}>{props.name}</div>
-  </a>
-)
+      <div className={s.nameResponsive}>{props.name}</div>
+    </a>
+  )
+}
