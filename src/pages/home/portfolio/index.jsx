@@ -14,6 +14,11 @@ export default function Main() {
       img: 'https://stashblog.com/logo.png'
     },
     {
+      name: 'Local Wallah',
+      url: 'https://localwallah.com/',
+      img: 'https://localwallah.com/logo.png'
+    },
+    {
       name: 'Joahquin Technologies',
       url: 'https://www.joahquin.com/',
       img: 'https://www.joahquin.com/logo/joahquin.png'
@@ -33,11 +38,11 @@ export default function Main() {
       url: 'https://bcnindia.com/',
       img: 'https://bcnindia.com/logo.png'
     },
-    {
-      name: 'Headless SPAS',
-      url: 'https://hless.pro/',
-      img: 'https://hless.pro/logo.png'
-    },
+    // {
+    //   name: 'Headless SPAS',
+    //   url: 'https://hless.pro/',
+    //   img: 'https://hless.pro/logo.png'
+    // },
     {
       name: 'Mopwna Cling',
       url: 'https://mopwnacling.com/',
