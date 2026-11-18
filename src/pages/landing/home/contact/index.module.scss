@@ -1,27 +1,29 @@
+@keyframes ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(47, 191, 113, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(47, 191, 113, 0);
+  }
+}
+
 .contact {
   position: relative;
   z-index: 2;
-  background: var(--ink);
+  overflow: hidden;
+  background: var(--bg);
   border-top: 1px solid var(--line);
 }
 
 .inner {
   @include container;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(40px, 6vw, 96px);
   padding-block: clamp(80px, 12vw, 160px);
-
-  @include down($bp-lg) {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
-.left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
+.head {
+  display: grid;
+  gap: 18px;
+  margin-bottom: clamp(36px, 5vw, 64px);
 }
 
 .label {
@@ -31,16 +33,46 @@
 
 .title {
   @include display;
+  max-width: 14ch;
   font-size: clamp(2.6rem, 1rem + 5.5vw, 6.5rem);
 
   em {
     font-style: normal;
-    color: var(--amber);
+    color: var(--accent);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+
+  @include down($bp-lg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// ── left: portal + direct channels ───────
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.portal {
+  width: 100%;
+  max-width: 360px;
+  align-self: center;
+
+  @include down($bp-lg) {
+    max-width: 260px;
+    order: -1;
   }
 }
 
 .lede {
-  max-width: 48ch;
+  max-width: 44ch;
   color: var(--muted);
 }
 
@@ -54,15 +86,16 @@
   grid-template-columns: 10ch minmax(0, 1fr) auto;
   align-items: center;
   gap: 16px;
-  padding-block: 14px;
+  padding-block: 12px;
   border-bottom: 1px solid var(--line);
+  font-size: var(--fs-sm);
   transition:
     color 0.3s,
     padding 0.4s var(--ease-out);
 
   @include hover {
     &:is(a):hover {
-      color: var(--amber);
+      color: var(--accent);
       padding-left: 10px;
     }
   }
@@ -79,100 +112,145 @@
   white-space: nowrap;
 }
 
-// ── terminal form ────────────────────────
-.form {
-  align-self: start;
-  border: 1px solid var(--line-strong);
-  border-radius: 14px;
-  background: #0d0d0f;
-  overflow: hidden;
+// ── right: the form card (bright paper so it can't be missed) ─────────
+.card {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  padding: clamp(22px, 3vw, 40px);
+  padding-top: calc(clamp(22px, 3vw, 40px) + 6px);
+  border-radius: 24px;
+  overflow: hidden; // clips the accent strip to the card's rounded corners
+  background: var(--inv-bg);
+  color: var(--inv-fg);
+  box-shadow:
+    0 0 0 1px rgba(255, 178, 26, 0.35),
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    0 0 120px rgba(255, 178, 26, 0.08);
+
+  &::before {
+    // accent strip along the top edge
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 6px;
+    background: var(--accent);
+  }
+
+  ::selection {
+    background: var(--inv-fg);
+    color: var(--inv-bg);
+  }
 }
 
-.bar {
+.cardHead {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 6px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.cardSub {
+  margin-top: 6px;
+  font-size: var(--fs-sm);
+  color: var(--inv-muted);
+}
+
+.online {
+  display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--line);
-  background: var(--ink-2);
+  gap: 8px;
+  flex: none;
+  padding: 5px 12px;
+  border: 1px solid var(--inv-line);
+  border-radius: 999px;
   font-size: var(--fs-xs);
-  color: var(--muted);
-}
-
-.dots {
-  display: flex;
-  gap: 6px;
+  color: var(--inv-muted);
 
   i {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    border: 1px solid var(--line-strong);
-  }
+    background: #2fbf71;
 
-  i:first-child {
-    background: var(--amber);
-    border-color: var(--amber);
-  }
-}
-
-.fields {
-  display: grid;
-  gap: 4px;
-  padding: 18px;
-}
-
-.field {
-  display: grid;
-  grid-template-columns: 11ch minmax(0, 1fr);
-  align-items: baseline;
-  gap: 12px;
-  padding-block: 10px;
-  border-bottom: 1px dashed var(--line);
-
-  input,
-  textarea {
-    width: 100%;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: var(--text);
-    caret-color: var(--amber);
-    font-size: 16px;
-    resize: vertical;
-
-    &::placeholder {
-      color: #4c4b47;
-    }
-
-    &[aria-invalid='true'] {
-      color: var(--danger);
-    }
-  }
-
-  &:focus-within {
-    border-bottom-color: var(--amber);
-
-    .prompt {
-      color: var(--amber);
+    @include motion {
+      animation: ping 1.6s ease-out infinite;
     }
   }
 
   @include down($bp-sm) {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 4px;
+    display: none;
   }
 }
 
-.area {
-  align-items: start;
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+
+  @include down($bp-sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
-.prompt {
+.field {
+  display: grid;
+  gap: 8px;
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(11, 11, 12, 0.16);
+    border-radius: 12px;
+    outline: none;
+    background: #fff;
+    color: var(--inv-fg);
+    font-size: 16px; // ≥16px avoids iOS zoom
+    resize: vertical;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+
+    &::placeholder {
+      color: #a3a29b;
+    }
+
+    &:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255, 178, 26, 0.25);
+    }
+  }
+
+  textarea {
+    min-height: 150px;
+  }
+}
+
+.fieldLabel {
   font-size: var(--fs-sm);
-  color: var(--phosphor);
-  transition: color 0.3s;
+  font-weight: 700;
+}
+
+.invalid {
+  input,
+  textarea {
+    border-color: #d93a3a;
+  }
+}
+
+.fieldError {
+  font-size: var(--fs-xs);
+  color: #c22f2f;
 }
 
 .honeypot {
@@ -183,29 +261,57 @@
   overflow: hidden;
 }
 
-.log {
-  min-height: 92px;
-  padding: 4px 18px 8px;
-  font-size: var(--fs-xs);
-  line-height: 1.8;
-  color: #cfcec8;
+.cardFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 20px;
+  padding-top: 6px;
 }
 
-.muted {
-  color: var(--muted);
+.notice {
+  flex: 1;
+  min-width: 200px;
+  font-size: var(--fs-sm);
+  color: var(--inv-muted);
 }
 
 .ok {
-  color: var(--phosphor);
+  color: #1d8a52;
+  font-weight: 700;
 }
 
 .error {
-  color: var(--danger);
+  color: #c22f2f;
 }
 
-.submitRow {
-  display: flex;
-  justify-content: flex-end;
-  padding: 14px 18px 18px;
-  border-top: 1px solid var(--line);
+.muted {
+  color: var(--inv-muted);
+}
+
+.submit {
+  @include down($bp-sm) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// the little envelope that flies into the portal on send
+.packet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0 10px 40px rgba(255, 178, 26, 0.45);
 }

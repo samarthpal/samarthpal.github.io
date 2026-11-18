@@ -46,8 +46,16 @@ old axios version always said "failed".
 
 - `src/data/profile.json`: **all content** (bio, skills, case studies, experience). The site, the terminal and the resume
   generator all read from it.
-- `src/data/portrait.js`: crop/mask for `me.jpeg` (hero ASCII, arcade pixel avatar).
-- `src/pages/landing/home/*`: the six scroll chapters (hero, about, work, arcade, lab, contact).
+- `src/data/portrait.js`: crop/mask for `me.jpeg` (hero portrait, About portal).
+- `src/pages/landing/home/*`: the six scroll chapters (hero, about, work, toolbox, lab, contact).
+- Case studies: `scope` (what was built) shows until you add real `outcomes` metrics in `profile.json`,
+  e.g. `"outcomes": [{ "value": "40%", "label": "faster checkout" }]`.
+
+## Accent colour
+
+The site is dark-only. Colour tokens live in `src/styles/mixins.scss` (`theme-dark`). To change the accent
+(currently amber `#ffb21a`), edit `--accent` / `--accent-2` there, the two SVGs in `public/`, and `ACCENT` in
+`scripts/build_brand.py` / `scripts/build_resume.py`. Then run `make brand` and `make resume`.
 - `src/helpers/terminal.js`: terminal commands. `src/helpers/ascii.js` / `pixel.js`: the renderers.
 - `public/favicon.svg`, `public/logo.svg`: the logo (pixel "SP" + caret inside a hive hexagon).
 
@@ -56,4 +64,4 @@ old axios version always said "failed".
 - The hero `<h1>` is real HTML and renders on the first paint, so it is the LCP element. Nothing covers it on load.
 - Canvases only animate while visible and interacting. Their loops stop when idle.
 - Pins and horizontal scroll are desktop-only (≥768px). With `prefers-reduced-motion` you get plain fades and no smooth scroll.
-- The pixel font loads lazily when the arcade or lab comes close.
+- The pixel font loads lazily when the lab comes close.

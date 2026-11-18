@@ -31,8 +31,10 @@ OUT = ROOT / "public/resume.pdf"
 
 INK = HexColor("#0b0b0c")
 PAPER = HexColor("#ecebe6")
+# accent (amber) — keep in sync with --accent in styles/mixins.scss
 AMBER = HexColor("#ffb21a")
 AMBER_DARK = HexColor("#a86400")
+ACCENT_TEXT = "#a86400"  # darker amber, readable as text on white
 BODY = HexColor("#2a2a2a")
 MUTED = HexColor("#6b6a64")
 LINE = HexColor("#dcdad2")
@@ -143,7 +145,7 @@ def e(text):
 
 def section(title):
     return [
-        Paragraph(f'<font color="#a86400">//</font> {e(title.upper())}', H2),
+        Paragraph(f'<font color="{ACCENT_TEXT}">//</font> {e(title.upper())}', H2),
         HRFlowable(width="100%", thickness=0.6, color=LINE, spaceBefore=1, spaceAfter=4),
     ]
 
@@ -157,7 +159,7 @@ def left_column():
 
     dh = exp["daemonhive"]
     out.append(Paragraph(f"{e(dh['title'])}", ROLE))
-    out.append(Paragraph(f'{e(dh["org"])}  ·  <a href="{dh["url"]}" color="#a86400">daemonhive.com</a>', ORG))
+    out.append(Paragraph(f'{e(dh["org"])}  ·  <a href="{dh["url"]}" color="{ACCENT_TEXT}">daemonhive.com</a>', ORG))
     for h in dh["highlights"]:
         out.append(Paragraph(e(h), BULLET, bulletText="•"))
 
@@ -172,7 +174,7 @@ def left_column():
 
     jq = exp["joahquin"]
     out.append(Paragraph(e(jq["title"]), ROLE))
-    out.append(Paragraph(f'{e(jq["org"])}  ·  <a href="{jq["url"]}" color="#a86400">joahquin.com</a>', ORG))
+    out.append(Paragraph(f'{e(jq["org"])}  ·  <a href="{jq["url"]}" color="{ACCENT_TEXT}">joahquin.com</a>', ORG))
     for h in jq["highlights"]:
         out.append(Paragraph(e(h), BULLET, bulletText="•"))
     return out
@@ -199,7 +201,7 @@ def right_column():
     out.append(Paragraph(f"<b>Interests</b>: {e(', '.join(PROFILE['interests']))}", ITEM))
     out.append(Paragraph(
         f'<b>Interactive portfolio</b>: case studies, an ASCII lab and a terminal at '
-        f'<a href="{PROFILE["site"]}" color="#a86400">samarthpal.github.io</a>',
+        f'<a href="{PROFILE["site"]}" color="{ACCENT_TEXT}">samarthpal.github.io</a>',
         ITEM,
     ))
     return out

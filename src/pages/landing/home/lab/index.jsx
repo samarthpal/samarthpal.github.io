@@ -1,10 +1,12 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import AsciiCanvas from 'components/asciiCanvas'
+import HoverPerspective from 'components/hoverPerspective'
 import PixelSprite from 'components/pixelSprite'
 import { CHARSETS } from 'helpers/ascii'
 import { BUG_A, SKINS } from 'helpers/sprites'
 import { openTerminal } from 'helpers/terminal'
+import loadPixelFont from 'helpers/pixelFont'
 import useChapter from 'hooks/useChapter'
 import useReveal from 'hooks/useReveal'
 import { PORTRAIT } from 'data/portrait'
@@ -14,6 +16,22 @@ export default function Lab() {
   const root = useRef(null)
   useChapter(root, 'lab')
   useReveal(root)
+
+  // the 8-bit font is only needed here (Bug Squash card), so fetch it when the lab gets close
+  useEffect(() => {
+    const el = root.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return
+        loadPixelFont()
+        io.disconnect()
+      },
+      { rootMargin: '800px 0px' }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   return (
     <section id="lab" ref={root} className={s.lab} aria-labelledby="lab-title">
@@ -27,7 +45,8 @@ export default function Lab() {
         </header>
 
         <div className={s.cards}>
-          <Link to="/playground" state={{ lab: 'ascii' }} className={s.card} data-reveal data-cursor="play">
+          <HoverPerspective className={s.tilt} data-reveal>
+          <Link to="/playground" state={{ lab: 'ascii' }} className={s.card} data-cursor="play">
             <div className={`${s.preview} ${s.asciiPreview}`}>
               <AsciiCanvas
                 src={PORTRAIT.src}
@@ -47,8 +66,10 @@ export default function Lab() {
             <h3 className={s.cardTitle}>ASCII Studio</h3>
             <p className={s.cardText}>The hero renderer with every knob exposed. Drop in your own photo, copy the result as text.</p>
           </Link>
+          </HoverPerspective>
 
-          <Link to="/playground" state={{ lab: 'bugs' }} className={s.card} data-reveal data-cursor="play">
+          <HoverPerspective className={s.tilt} data-reveal>
+          <Link to="/playground" state={{ lab: 'bugs' }} className={s.card} data-cursor="play">
             <div className={`${s.preview} ${s.bugPreview}`}>
               <PixelSprite rows={BUG_A} colors={SKINS.bug} size={96} className={s.bug} />
               <PixelSprite rows={BUG_A} colors={SKINS.gold} size={48} className={s.bugSmall} />
@@ -58,8 +79,10 @@ export default function Lab() {
             <h3 className={s.cardTitle}>Bug Squash</h3>
             <p className={s.cardText}>30 seconds, production is crawling with bugs. Gold ones are critical. Beat your hi-score.</p>
           </Link>
+          </HoverPerspective>
 
-          <button type="button" className={s.card} onClick={openTerminal} data-reveal data-cursor="open">
+          <HoverPerspective className={s.tilt} data-reveal>
+          <button type="button" className={s.card} onClick={openTerminal} data-cursor="open">
             <div className={`${s.preview} ${s.termPreview}`} aria-hidden="true">
               <pre>
                 <span className={s.g}>~ $</span> whoami{'\n'}
@@ -76,6 +99,7 @@ export default function Lab() {
               The whole portfolio as a CLI. Press <kbd>`</kbd> anywhere, or click here.
             </p>
           </button>
+          </HoverPerspective>
         </div>
       </div>
     </section>

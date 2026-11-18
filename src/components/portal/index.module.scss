@@ -32,17 +32,28 @@
 
 // floats in front of the canvas, so the 3D tilt gives it real parallax
 .tag {
-  @include pixel-font;
   position: absolute;
   left: 50%;
   bottom: 2%;
-  padding: 6px 10px;
-  border: 2px solid var(--magenta);
-  background: #0b0a12;
-  color: var(--magenta);
-  font-size: 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 11px;
   white-space: nowrap;
   transform: translateX(-50%) translateZ(60px);
-  box-shadow: 4px 4px 0 #2e2a66;
-  animation: blink 1.4s steps(1) infinite;
+
+  &::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: blink 1.4s steps(1) infinite;
+  }
 }

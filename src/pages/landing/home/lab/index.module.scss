@@ -68,23 +68,27 @@
   }
 }
 
+// HoverPerspective wrapper fills the grid cell
+.tilt {
+  height: 100%;
+}
+
 .card {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+  height: 100%;
   padding: 14px 14px 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--ink-2);
   text-align: left;
-  transition:
-    border-color 0.4s var(--ease-out),
-    transform 0.5s var(--ease-out);
+  transition: border-color 0.4s var(--ease-out);
 
   @include hover {
     &:hover {
       border-color: var(--amber);
-      transform: translateY(-6px);
     }
   }
 }
@@ -136,6 +140,7 @@
 }
 
 .termPreview {
+  @include dark-scope;
   place-items: start;
   padding: 18px;
   background: #0d0d0f;

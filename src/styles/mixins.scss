@@ -59,6 +59,58 @@ $bp-xl: 1440px;
   line-height: 0.92;
 }
 
+// ── colour tokens ──────────────────────────────────────────────────────
+// Semantic colours (the site is dark-only). "inv-*" is the inverted paper surface used by
+// the whoami chapter and the contact card.
+// ACCENT: change --accent / --accent-2 here, plus public/favicon.svg, public/logo.svg and
+// ACCENT in scripts/build_brand.py + scripts/build_resume.py, then `make brand resume`.
+@mixin theme-dark {
+  color-scheme: dark;
+  --bg: #0b0b0c;
+  --bg-2: #121214;
+  --bg-3: #1b1b1f;
+  --fg: #ecebe6;
+  --fg-2: #c9c8c2;
+  --muted: #8f8e88;
+  --line: rgba(236, 235, 230, 0.12);
+  --line-strong: rgba(236, 235, 230, 0.26);
+
+  --inv-bg: #ecebe6;
+  --inv-bg-2: #dedcd4;
+  --inv-fg: #0b0b0c;
+  --inv-muted: #5c5b56;
+  --inv-line: rgba(11, 11, 12, 0.14);
+
+  --accent: #ffb21a;
+  --accent-2: #ff8a00;
+  --on-accent: #0b0b0c;
+  --nav-glass: rgba(11, 11, 12, 0.92);
+}
+
+// Older style names, kept as aliases of the semantic tokens. Custom properties resolve
+// var() where they're declared, so every scope that redefines the tokens re-declares these.
+@mixin aliases {
+  --ink: var(--bg);
+  --ink-2: var(--bg-2);
+  --ink-3: var(--bg-3);
+  --text: var(--fg);
+  --paper: var(--inv-bg);
+  --paper-2: var(--inv-bg-2);
+  --ink-text: var(--inv-fg);
+  --ink-muted: var(--inv-muted);
+  --line-ink: var(--inv-line);
+  --amber: var(--accent);
+  --amber-2: var(--accent-2);
+}
+
+// Re-applies the base dark tokens inside a widget (terminal, Bug Squash, lab stages),
+// so they stay dark even when placed on the inverted paper surface.
+@mixin dark-scope {
+  @include theme-dark;
+  @include aliases;
+  color: var(--fg);
+}
+
 @mixin visually-hidden {
   position: absolute !important;
   width: 1px;

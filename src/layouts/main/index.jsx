@@ -24,18 +24,38 @@ export default function Main({ children }) {
     const section = location.state?.section
     if (location.pathname !== '/') chapters.reset()
     if (section) {
+      // Coming from another page: let Home mount and build its pins, re-measure every
+      // scroll scene, then jump straight to the section on the next frame.
+      let raf = 0
       const id = setTimeout(() => {
         ScrollTrigger.refresh()
-        scroller.toSection(section)
-      }, 80)
-      return () => clearTimeout(id)
+        raf = requestAnimationFrame(() => scroller.toSection(section, { immediate: true }))
+      }, 120)
+      return () => {
+        clearTimeout(id)
+        cancelAnimationFrame(raf)
+      }
     }
     scroller.toTop(true)
   }, [location.pathname, location.key, location.state])
 
-  // Recalculate scroll scenes once webfonts settle (glyph metrics change heights).
+  // Re-measure scroll scenes whenever a webfont actually finishes loading (the display font
+  // reflows headings, which shifts every trigger below them) and once more on full page load.
+  // `fonts.ready` alone isn't enough: it can resolve before the font stylesheet has even arrived.
   useEffect(() => {
-    document.fonts?.ready?.then(() => ScrollTrigger.refresh())
+    let timer = 0
+    const refresh = () => {
+      clearTimeout(timer)
+      timer = setTimeout(() => ScrollTrigger.refresh(), 120)
+    }
+    document.fonts?.ready?.then(refresh)
+    document.fonts?.addEventListener?.('loadingdone', refresh)
+    window.addEventListener('load', refresh)
+    return () => {
+      clearTimeout(timer)
+      document.fonts?.removeEventListener?.('loadingdone', refresh)
+      window.removeEventListener('load', refresh)
+    }
   }, [])
 
   // ` or ~ toggles the terminal anywhere except while typing in another field.

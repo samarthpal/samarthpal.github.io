@@ -42,7 +42,7 @@
   max-width: 52ch;
   margin-top: 24px;
   font-size: var(--fs-lg);
-  color: #c9c8c2;
+  color: var(--fg-2);
 }
 
 .meta {
@@ -73,6 +73,61 @@
 
 .link {
   color: var(--accent);
+}
+
+.factsBand {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 16px 24px;
+  align-items: start;
+  margin-top: clamp(32px, 5vw, 56px);
+
+  @include down($bp-md) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.factsTitle {
+  @include label;
+  padding-top: 8px;
+  color: var(--muted);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  transition: border-color 0.3s;
+
+  @include hover {
+    &:hover {
+      border-color: var(--line-strong);
+    }
+  }
+}
+
+.factValue {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.factLabel {
+  margin-top: 10px;
+  font-size: var(--fs-sm);
+  color: var(--fg-2);
 }
 
 .banner {
@@ -119,7 +174,7 @@
 .blockText {
   font-size: var(--fs-lg);
   line-height: 1.6;
-  color: #c9c8c2;
+  color: var(--fg-2);
 }
 
 .modules {
@@ -127,16 +182,17 @@
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 8px;
 
-  li {
-    padding: 12px 14px;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: var(--ink-2);
+}
 
-    &::before {
-      content: '▸ ';
-      color: var(--accent);
-    }
+.module {
+  height: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: var(--ink-2);
+
+  &::before {
+    content: '▸ ';
+    color: var(--accent);
   }
 }
 

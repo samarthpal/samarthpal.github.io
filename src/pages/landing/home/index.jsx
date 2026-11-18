@@ -5,7 +5,7 @@ import useHead from 'hooks/useHead'
 import Hero from './hero'
 import About from './about'
 import Work from './work'
-import Arcade from './arcade'
+import Stack from './stack'
 import Lab from './lab'
 import Contact from './contact'
 
@@ -24,7 +24,7 @@ export default function Home() {
       <Hero />
       <About />
       <Work />
-      <Arcade />
+      <Stack />
       <Lab />
       <Contact />
     </main>

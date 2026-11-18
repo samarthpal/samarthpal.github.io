@@ -6,9 +6,12 @@ import { prefersReducedMotion } from 'helpers/device'
 import Logo from 'components/logo'
 import s from './index.module.scss'
 
+const RIM = 0.45 // rim thickness in vmax
+
 /**
- * On every route change (never on first load, to protect LCP) a full-screen hive
- * hexagon collapses to reveal the new page.
+ * On every route change (never on first load, to protect LCP) a dark hive hexagon with a
+ * thin amber rim collapses to reveal the new page. Low contrast on purpose: it should feel
+ * like a cut, not a flash.
  */
 export default function RouteTransition() {
   const { pathname } = useLocation()
@@ -21,11 +24,21 @@ export default function RouteTransition() {
       if (prev.current === pathname) return
       prev.current = pathname
       if (prefersReducedMotion()) return
+
+      const rim = ref.current.querySelector('[data-rt-rim]')
+      const fill = ref.current.querySelector('[data-rt-fill]')
+      const hex = { r: 130 }
+      const paint = () => {
+        rim.style.clipPath = hexClip(hex.r)
+        fill.style.clipPath = hexClip(Math.max(0, hex.r - RIM))
+      }
+
       gsap
         .timeline()
-        .set(ref.current, { autoAlpha: 1, clipPath: hexClip(130) })
-        .fromTo('[data-rt-logo]', { scale: 1, autoAlpha: 1 }, { scale: 0.6, autoAlpha: 0, duration: 0.35, ease: 'power2.in' }, 0.1)
-        .to(ref.current, { clipPath: hexClip(0), duration: 0.85, ease: 'power3.inOut' }, 0.15)
+        .set(ref.current, { autoAlpha: 1 })
+        .call(paint)
+        .fromTo('[data-rt-logo]', { scale: 1, autoAlpha: 1 }, { scale: 0.7, autoAlpha: 0, duration: 0.35, ease: 'power2.in' }, 0.1)
+        .to(hex, { r: 0, duration: 0.85, ease: 'power3.inOut', onUpdate: paint }, 0.15)
         .set(ref.current, { autoAlpha: 0 })
     },
     { dependencies: [pathname], scope: ref }
@@ -33,8 +46,11 @@ export default function RouteTransition() {
 
   return (
     <div ref={ref} className={s.overlay} aria-hidden="true">
-      <div data-rt-logo>
-        <Logo size={72} />
+      <div className={s.rim} data-rt-rim />
+      <div className={s.fill} data-rt-fill>
+        <div data-rt-logo>
+          <Logo size={64} />
+        </div>
       </div>
     </div>
   )

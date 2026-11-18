@@ -277,6 +277,10 @@
   opacity: 0.55;
 }
 
+.onNext {
+  --caret: var(--inv-fg);
+}
+
 .hex {
   position: absolute;
   inset: 0;

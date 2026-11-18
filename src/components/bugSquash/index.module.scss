@@ -10,8 +10,9 @@
 }
 
 .game {
+  @include dark-scope;
   @include pixel-font;
-  color: var(--paper);
+  color: #f4f1ea;
   font-size: 10px;
 }
 

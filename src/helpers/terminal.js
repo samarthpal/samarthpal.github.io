@@ -79,7 +79,7 @@ export function run(input) {
       return {
         lines: [
           L(profile.name, 'accent'),
-          `${profile.title} · ${profile.role} @ ${profile.company}`,
+          `${profile.title} @ ${profile.company}`,
           profile.location,
           L(profile.tagline, 'muted')
         ]

@@ -4,8 +4,8 @@
   "firstName": "Samarth",
   "lastName": "Pal",
   "handle": "samarth.pal",
-  "role": "CTO",
-  "title": "Full-Stack Engineer & CTO",
+  "role": "Co-founder & CTO",
+  "title": "Full-Stack Engineer, Co-founder & CTO",
   "company": "DaemonHive Technologies",
   "companyUrl": "https://daemonhive.com",
   "companyLogo": "https://daemonhive.com/logo.png",
@@ -13,13 +13,13 @@
   "site": "https://samarthpal.github.io",
   "version": "3.0",
   "tagline": "I engineer scalable digital systems. React on the front, Node and MongoDB in the middle, AWS underneath.",
-  "statement": "I'm a full-stack engineer and the CTO of DaemonHive Technologies. I turn messy business problems into fast, reliable software, from the first Figma frame to the last Nginx config.",
+  "statement": "I'm a full-stack engineer and the co-founder & CTO of DaemonHive Technologies. I turn messy business problems into fast, reliable software, from the first Figma frame to the last Nginx config.",
   "bio": [
-    "I lead engineering at DaemonHive Technologies, a team building enterprise-grade software and cloud systems for SaaS, marketplaces, e-commerce, real-estate and community platforms.",
+    "I co-founded DaemonHive Technologies and lead its engineering: a team building enterprise-grade software and cloud systems for SaaS, marketplaces, e-commerce, real-estate and community platforms.",
     "My day moves between architecture reviews, writing the hard parts of the codebase, and keeping production calm: EC2, Nginx, PM2 and Cloudflare are as much my tools as React and Express.",
     "Before DaemonHive I built products at Joahquin Technologies, including ZillionDines. College gave me C, C++, Java and C#; production taught me JavaScript end to end."
   ],
-  "summary": "Full-stack engineer and CTO at DaemonHive Technologies. I design, build and run production web platforms end to end: React front-ends, Node.js/Express APIs, MongoDB data layers and the AWS, Nginx and Cloudflare infrastructure underneath. I've shipped SaaS, marketplace, e-commerce, real-estate investment and community products, and I care about small bundles, readable code and on-time delivery.",
+  "summary": "Full-stack engineer, co-founder and CTO of DaemonHive Technologies. I design, build and run production web platforms end to end: React front-ends, Node.js/Express APIs, MongoDB data layers and the AWS, Nginx and Cloudflare infrastructure underneath. I've shipped SaaS, marketplace, e-commerce, real-estate investment and community products, and I care about small bundles, readable code and on-time delivery.",
   "contact": {
     "email": "palsamarth02@gmail.com",
     "phone": "+91-9456000859",
@@ -129,7 +129,7 @@
     {
       "id": "daemonhive",
       "quest": "DAEMONHIVE TECHNOLOGIES",
-      "title": "Chief Technology Officer",
+      "title": "Co-founder & Chief Technology Officer",
       "org": "DaemonHive Technologies",
       "url": "https://daemonhive.com",
       "status": "ACTIVE",
@@ -192,7 +192,12 @@
       "challenge": "Many businesses needed a simple way to create and manage professional websites without technical knowledge.",
       "solution": "DaemonHive developed a scalable SaaS platform with an easy dashboard where businesses manage products, catalogues and their online presence. Garima International, an export business, runs its product catalogue on it.",
       "stack": ["Node.js", "React", "Express", "MongoDB", "Redux", "AWS SES/SNS", "Handlebars"],
-      "modules": ["Business dashboard", "Product catalogue", "Hosted storefronts", "Transactional email"]
+      "modules": ["Business dashboard", "Product catalogue", "Hosted storefronts", "Transactional email"],
+      "scope": [
+        { "value": "4", "label": "core modules: dashboard, catalogue, storefronts, email" },
+        { "value": "Live", "label": "runs Garima International's export catalogue" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "local-wallah",
@@ -208,7 +213,12 @@
       "challenge": "Local businesses needed a digital platform to reach nearby customers and manage online orders.",
       "solution": "DaemonHive built a marketplace plus food and grocery ordering with real-time notifications, and native Android and iOS apps.",
       "stack": ["Node.js", "React", "MongoDB", "Redux", "Express", "Google OAuth", "MSG91", "FCM", "Kotlin", "Swift"],
-      "modules": ["Merchant marketplace", "Food delivery", "Grocery delivery", "Android app", "iOS app"]
+      "modules": ["Merchant marketplace", "Food delivery", "Grocery delivery", "Android app", "iOS app"],
+      "scope": [
+        { "value": "3", "label": "platforms: web, Android and iOS" },
+        { "value": "3", "label": "verticals: marketplace, food and grocery" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "merry-aura",
@@ -220,11 +230,16 @@
       "url": "https://merryaura.com",
       "logo": "https://merryaura.com/logo.png",
       "accent": "#ff4fd8",
-      "summary": "A custom e-commerce platform built to sell worldwide. It's the reference implementation for the DaemonHive stack.",
+      "summary": "A custom e-commerce platform built to sell worldwide, with secure payments and automated email.",
       "challenge": "To develop a custom e-commerce platform that supports selling all over the world.",
       "solution": "A custom e-commerce platform with secure payments and automated email notifications, plus an admin app, background email worker and a separate API.",
       "stack": ["Node.js", "React", "Express", "MongoDB", "AWS EC2", "SES", "Razorpay"],
-      "modules": ["Storefront", "Admin panel", "Email worker", "Payments"]
+      "modules": ["Storefront", "Admin panel", "Email worker", "Payments"],
+      "scope": [
+        { "value": "4", "label": "apps: storefront, admin, API and email worker" },
+        { "value": "Global", "label": "built to sell worldwide" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "suvion",
@@ -239,7 +254,12 @@
       "challenge": "The client needed a secure platform for structured real estate investing with project discovery.",
       "solution": "DaemonHive built a full investment platform with project listings, secure payments and a digital wallet.",
       "stack": ["Node.js", "React", "Express", "MongoDB", "AWS EC2", "Handlebars", "Razorpay"],
-      "modules": ["Project listings", "Investments", "Digital wallet", "Payments"]
+      "modules": ["Project listings", "Investments", "Digital wallet", "Payments"],
+      "scope": [
+        { "value": "4", "label": "modules: listings, investments, wallet, payments" },
+        { "value": "Wallet", "label": "built-in digital wallet for investors" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "urns-of-dignity",
@@ -255,7 +275,12 @@
       "challenge": "The client needed a professional online store with secure payment options and reliable communication.",
       "solution": "A custom e-commerce platform with secure payments through PayPal and Stripe, and automated email notifications.",
       "stack": ["Node.js", "React", "Express", "MongoDB", "SES", "SNS", "PayPal", "Stripe"],
-      "modules": ["Storefront", "Checkout", "Email notifications"]
+      "modules": ["Storefront", "Checkout", "Email notifications"],
+      "scope": [
+        { "value": "2", "label": "international gateways: PayPal and Stripe" },
+        { "value": "Auto", "label": "order emails via SES + SNS" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "mopwna-cling",
@@ -271,7 +296,9 @@
       "challenge": "The client needed a clean and professional website to improve their online presence.",
       "solution": "A modern, responsive portfolio website optimised for performance and user experience.",
       "stack": ["React", "HTML5", "CSS", "SCSS"],
-      "modules": ["Responsive site", "Performance tuning"]
+      "modules": ["Responsive site", "Performance tuning"],
+      "scope": [{ "value": "SPA", "label": "React + SCSS single-page build, tuned for speed" }],
+      "outcomes": []
     },
     {
       "slug": "bcn",
@@ -287,7 +314,12 @@
       "challenge": "The client needed a digital platform to manage community interaction and events.",
       "solution": "A secure platform with communication tools, payment integration and location-based features.",
       "stack": ["Node.js", "React", "MongoDB", "Redux", "Razorpay", "Google Maps", "WhatsApp"],
-      "modules": ["Business listings", "Services directory", "Events", "Payments", "Location search"]
+      "modules": ["Business listings", "Services directory", "Events", "Payments", "Location search"],
+      "scope": [
+        { "value": "5", "label": "modules: listings, services, events, payments, location" },
+        { "value": "3", "label": "integrations: Razorpay, Google Maps, WhatsApp" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "yourganicx",
@@ -303,7 +335,12 @@
       "challenge": "The client required an online store to showcase products and handle secure payments.",
       "solution": "A clean, easy-to-use e-commerce website with payment integration.",
       "stack": ["PHP", "HTML5", "CSS", "JavaScript", "MySQL", "Razorpay"],
-      "modules": ["Catalogue", "Checkout"]
+      "modules": ["Catalogue", "Checkout"],
+      "scope": [
+        { "value": "PHP", "label": "PHP + MySQL storefront" },
+        { "value": "Pay", "label": "secure checkout with Razorpay" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "zilliondines",
@@ -319,7 +356,12 @@
       "challenge": "Restaurants juggle customers, kitchen tickets, stock and payments across disconnected tools.",
       "solution": "One workflow platform covering customer engagement, stock management, e-KOT and online payments.",
       "stack": ["React", "SCSS", "Node.js", "Express", "express-tools", "Headless SPAS", "PostgreSQL", "AWS EC2/S3", "Cloudflare", "Nginx"],
-      "modules": ["Billing", "Stock management", "e-KOT", "Online payments"]
+      "modules": ["Billing", "Stock management", "e-KOT", "Online payments"],
+      "scope": [
+        { "value": "4", "label": "modules: billing, stock, e-KOT, payments" },
+        { "value": "Live", "label": "still serving restaurants today" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "headless-spas",
@@ -334,7 +376,12 @@
       "challenge": "SPAs are fast for users but invisible to bots, and caching them well is fiddly.",
       "solution": "A dedicated SPA server engine with integrated smart SSR and self-managed client-side caching.",
       "stack": ["React", "SCSS", "Headless SPAS"],
-      "modules": ["Smart SSR", "Client-side caching"]
+      "modules": ["Smart SSR", "Client-side caching"],
+      "scope": [
+        { "value": "SSR", "label": "smart server-side rendering for SPAs" },
+        { "value": "Cache", "label": "self-managed client-side caching" }
+      ],
+      "outcomes": []
     },
     {
       "slug": "joahquin-connect",
@@ -350,7 +397,9 @@
       "challenge": "Client conversations and project status lived in too many places.",
       "solution": "A single Android app for managing clients and coordinating projects.",
       "stack": ["Android"],
-      "modules": ["Client management", "Project coordination"]
+      "modules": ["Client management", "Project coordination"],
+      "scope": [{ "value": "Live", "label": "published on Google Play" }],
+      "outcomes": []
     }
   ],
   "archive": [

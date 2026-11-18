@@ -2,6 +2,7 @@ import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useSta
 import { CHARSETS, SCRAMBLE_GLYPHS, glyphFor, loadImage, sampleImage, sampleToText, waitForFont } from 'helpers/ascii'
 import { PALETTE, quantize } from 'helpers/pixel'
 import { dpr as getDpr, prefersReducedMotion } from 'helpers/device'
+import cssVar from 'helpers/cssVar'
 import s from './index.module.scss'
 
 const CHAR_RATIO = 1.7 // cell height ÷ cell width for a monospace glyph
@@ -14,6 +15,8 @@ const TONES = {
   ink: ['#b9b7ae', '#6b6a64', '#0b0b0c']
 }
 const HOT = { amber: '#ffb21a', phosphor: '#7cff6b', magenta: '#ff4fd8', ink: '#0b0b0c' }
+// 'accent' = the theme's --accent, read when the canvas rebuilds
+const hotColor = hot => (hot === 'accent' ? cssVar('--accent') || HOT.amber : HOT[hot] || HOT.amber)
 
 const drawPhoto = (ctx, img, crop, w, h) => {
   const cr = crop || { x: 0, y: 0, w: 1, h: 1 }
@@ -38,7 +41,7 @@ const AsciiCanvas = forwardRef(function AsciiCanvas(
     charset = CHARSETS.classic,
     invert = false,
     tone = 'mono',
-    hot = 'amber',
+    hot = 'accent',
     sourceColor = false,
     interactive = true,
     intro = true,
@@ -118,7 +121,7 @@ const AsciiCanvas = forwardRef(function AsciiCanvas(
         if (introActive && t < S.reveal[i]) continue
         const x = i % sample.cols
         const y = (i / sample.cols) | 0
-        ctx.fillStyle = heat[i] > 0.15 ? HOT[c.hot] || HOT.amber : PALETTE[idx]
+        ctx.fillStyle = heat[i] > 0.15 ? S.hotColor : PALETTE[idx]
         ctx.fillRect(Math.floor(x * cw), Math.floor(y * ch), Math.ceil(cw), Math.ceil(ch))
       }
     } else {
@@ -133,7 +136,7 @@ const AsciiCanvas = forwardRef(function AsciiCanvas(
       for (let pass = 0; pass < 5; pass++) {
         if (c.sourceColor && (pass === 1 || pass === 2)) continue
         if (pass < 3 && !c.sourceColor) ctx.fillStyle = tones[pass]
-        if (pass === 3) ctx.fillStyle = HOT[c.hot] || HOT.amber
+        if (pass === 3) ctx.fillStyle = S.hotColor
         if (pass === 4) ctx.fillStyle = tones[0]
         for (let i = 0; i < n; i++) {
           const l = sample.lum[i]
@@ -196,6 +199,7 @@ const AsciiCanvas = forwardRef(function AsciiCanvas(
     const S = st.current
     const c = cfg.current
     if (!S.img || !S.w) return
+    S.hotColor = hotColor(c.hot)
     const common = { crop: c.crop, mask: c.mask, contrast: c.contrast, gamma: c.gamma }
 
     if (c.mode === 'pixel') {
@@ -275,7 +279,7 @@ const AsciiCanvas = forwardRef(function AsciiCanvas(
   // 4. rebuild when render settings change
   useEffect(() => {
     if (ready) rebuild()
-  }, [ready, mode, charset, invert, cols, pixelCols, contrast, gamma, tone, sourceColor, rebuild])
+  }, [ready, mode, charset, invert, cols, pixelCols, contrast, gamma, tone, hot, sourceColor, rebuild])
 
   // 5. pause when off screen
   useEffect(() => {

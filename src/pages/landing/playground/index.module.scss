@@ -82,6 +82,7 @@
 }
 
 .stage {
+  @include dark-scope;
   display: grid;
   place-items: center;
   padding: clamp(12px, 3vw, 32px);

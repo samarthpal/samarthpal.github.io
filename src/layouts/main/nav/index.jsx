@@ -7,7 +7,7 @@ import s from './index.module.scss'
 
 const LINKS = [
   { id: 'work', label: 'Work' },
-  { id: 'arcade', label: 'Arcade' },
+  { id: 'stack', label: 'Toolbox' },
   { id: 'contact', label: 'Contact' }
 ]
 
@@ -36,7 +36,7 @@ export default function Nav({ onTerminal }) {
     else navigate('/', { state: { section: id } })
   }
 
-  const theme = isHome ? chapter.theme : 'dark'
+  const theme = isHome ? chapter.theme : 'base'
 
   return (
     <header className={`${s.nav} ${s[theme] || ''} ${open ? s.isOpen : ''}`}>

@@ -1,0 +1,269 @@
+@keyframes ping {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 178, 26, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 178, 26, 0);
+  }
+}
+
+$rail-x: 11px;
+
+.path {
+  position: relative;
+  padding-left: 44px;
+
+  @include down($bp-sm) {
+    padding-left: 30px;
+  }
+}
+
+.rail {
+  position: absolute;
+  left: $rail-x;
+  top: 12px;
+  bottom: 12px;
+  width: 2px;
+  background: var(--line);
+
+  i {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--accent), rgba(255, 178, 26, 0.35));
+    transform-origin: top;
+  }
+
+  @include down($bp-sm) {
+    left: 6px;
+  }
+}
+
+.steps {
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+}
+
+.step {
+  position: relative;
+}
+
+.marker {
+  position: absolute;
+  left: calc(-44px + #{$rail-x} - 8px);
+  top: 30px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--line-strong);
+  background: var(--bg);
+  transition:
+    border-color 0.4s,
+    background 0.4s,
+    transform 0.4s var(--ease-out);
+
+  @include down($bp-sm) {
+    left: calc(-30px + 6px - 8px);
+  }
+}
+
+.reached .marker {
+  border-color: var(--accent);
+  background: var(--accent);
+  transform: scale(1.1);
+}
+
+.current.reached .marker {
+  @include motion {
+    animation: ping 1.8s ease-out infinite;
+  }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(20px, 3vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  transition:
+    border-color 0.4s,
+    transform 0.5s var(--ease-out);
+
+  @include hover {
+    &:hover {
+      border-color: var(--line-strong);
+    }
+  }
+}
+
+.current .card {
+  border-color: rgba(255, 178, 26, 0.45);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(255, 178, 26, 0.08), transparent 60%),
+    var(--bg-2);
+}
+
+// big outlined step number in the corner
+.index {
+  position: absolute;
+  right: clamp(12px, 2vw, 24px);
+  top: -0.12em;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 2rem + 6vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--line-strong);
+  pointer-events: none;
+  user-select: none;
+}
+
+.current .index {
+  -webkit-text-stroke-color: rgba(255, 178, 26, 0.45);
+}
+
+.cardHead {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 16px;
+  padding-right: clamp(60px, 9vw, 140px);
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.who {
+  min-width: 0;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.org {
+  margin-top: 2px;
+  font-size: var(--fs-sm);
+  color: var(--accent);
+
+  a {
+    @include hover {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.badge {
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.badgeNow {
+  border-color: var(--accent);
+  color: var(--accent);
+
+  i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+}
+
+.detail {
+  position: relative;
+  max-width: 72ch;
+  margin-top: 18px;
+  color: var(--fg-2);
+}
+
+.highlights {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px 24px;
+  margin-top: 18px;
+
+  li {
+    position: relative;
+    padding-left: 20px;
+    font-size: var(--fs-sm);
+    color: var(--muted);
+
+    &::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+  }
+}
+
+.shipped {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+.shippedLabel {
+  @include label;
+  color: var(--muted);
+}
+
+.chip {
+  --chip: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  color: var(--fg-2);
+  transition:
+    border-color 0.25s,
+    color 0.25s;
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--chip);
+  }
+
+  @include hover {
+    &:is(a):hover {
+      border-color: var(--chip);
+      color: var(--fg);
+    }
+  }
+}

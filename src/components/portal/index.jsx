@@ -1,15 +1,22 @@
-import { useEffect, useRef } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 import { gsap } from 'helpers/gsap'
-import { loadImage } from 'helpers/ascii'
+import cssVar from 'helpers/cssVar'
 import { dpr as getDpr, prefersReducedMotion } from 'helpers/device'
 import s from './index.module.scss'
 
-const SQUASH = 1.08 // portal is slightly taller than wide
-const SPARKS = 48
-const SPARK_COLORS = ['#ff4fd8', '#3ec5ff', '#f4f1ea']
-const DEFAULT_FOCUS = { x: 0.56, y: 0.47, size: 0.62 } // face + shoulders of me.jpeg
+const SQUASH = 1.08 // slightly taller than wide
+const SPARKS = 44
+const STARS = 140
+const CYAN = '#3ec5ff' // chromatic-aberration fringe
 
 const easeOutBack = x => 1 + 2.2 * Math.pow(x - 1, 3) + 1.2 * Math.pow(x - 1, 2)
+
+const rgba = (hex, a) => {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex || '')
+  if (!m) return `rgba(255,178,26,${a})`
+  const n = parseInt(m[1], 16)
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`
+}
 
 /** Wobbly closed outline so the rift feels alive, not a perfect ellipse. */
 function rift(cx, cy, R, t, wobble) {
@@ -27,20 +34,36 @@ function rift(cx, cy, R, t, wobble) {
   return path
 }
 
+const newStar = (far = false) => ({
+  a: Math.random() * Math.PI * 2,
+  z: far ? 1 : 0.15 + Math.random() * 0.85,
+  v: 0.18 + Math.random() * 0.35,
+  accent: Math.random() < 0.35
+})
+
 /**
- * A portal in the arcade "reality" that looks through to the real photo.
- * Perspective comes from three things: the whole portal tilts in CSS 3D toward the pointer,
- * the photo sits "deeper" and shifts the opposite way (parallax), and receding rings
- * form a tunnel toward a vanishing point. Canvas 2D + CSS only, no WebGL.
+ * A glowing rift with a hyperspace tunnel inside: stars stream toward the viewer from a
+ * vanishing point that follows the pointer, receding rings add depth, and the whole thing
+ * tilts in CSS 3D. Canvas 2D + CSS only, no WebGL.
  *
- * @param {{ src: string, focus?: {x:number,y:number,size:number}, label?: string, tag?: string }} props
- *   focus: normalised square crop (centre + side) of the source photo.
+ * ref API: `pulse(strength = 1)` makes it surge (used when a contact message is sent).
  */
-export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) {
-  const { x: fx, y: fy, size: fsize } = focus
+const Portal = forwardRef(function Portal({ label = '', tag, className = '' }, ref) {
   const wrapRef = useRef(null)
   const tiltRef = useRef(null)
   const canvasRef = useRef(null)
+  const ctrl = useRef({ boost: 0, wake: null })
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      pulse: (strength = 1) => {
+        ctrl.current.boost = Math.max(ctrl.current.boost, strength)
+        ctrl.current.wake?.()
+      }
+    }),
+    []
+  )
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -49,93 +72,125 @@ export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) 
     if (!wrap || !tilt || !canvas) return
 
     const still = prefersReducedMotion()
+    const C = ctrl.current
     const ptr = { x: 0, y: 0, tx: 0, ty: 0, hover: false }
+    const stars = Array.from({ length: STARS }, () => newStar())
     const sparks = Array.from({ length: SPARKS }, (_, i) => ({
       a: Math.random() * Math.PI * 2,
       r: 1.03 + Math.random() * 0.16,
       v: 0.35 + Math.random() * 0.9,
       big: Math.random() < 0.25,
-      color: SPARK_COLORS[i % SPARK_COLORS.length],
+      tint: i % 3,
       phase: Math.random() * 6
     }))
-    let img = null
+    const colors = {
+      accent: cssVar('--accent', wrap) || '#ffb21a',
+      fg: getComputedStyle(wrap).color || '#ecebe6'
+    }
     let w = 0
     let h = 0
     let raf = 0
     let visible = true
+    let last = performance.now()
     let open = still ? 1 : 0
 
     const rotX = gsap.quickTo(tilt, 'rotationX', { duration: 0.8, ease: 'power3' })
     const rotY = gsap.quickTo(tilt, 'rotationY', { duration: 0.8, ease: 'power3' })
 
     const draw = now => {
-      if (!img || !w) return
+      if (!w) return
       const ctx = canvas.getContext('2d')
       const ratio = getDpr()
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
       ctx.clearRect(0, 0, w, h)
       const t = now / 1000
+      const dt = Math.min(0.05, (now - last) / 1000)
+      last = now
 
       if (!still) {
         open = Math.min(1, open + 0.02)
-        // idle: the vanishing point slowly orbits so the depth reads even without a mouse
         if (!ptr.hover) {
           ptr.tx = Math.sin(t * 0.5) * 0.35
           ptr.ty = Math.cos(t * 0.37) * 0.25
         }
         ptr.x += (ptr.tx - ptr.x) * 0.08
         ptr.y += (ptr.ty - ptr.y) * 0.08
+        C.boost *= 0.955
+        if (C.boost < 0.01) C.boost = 0
       }
+      const boost = C.boost
 
       const cx = w / 2
       const cy = h / 2
-      const R = (Math.min(w, h / SQUASH) * 0.4) * easeOutBack(open)
+      const R = Math.min(w, h / SQUASH) * 0.4 * easeOutBack(open) * (1 + 0.08 * boost)
       if (R < 1) return
-      const wob = still ? 0 : 1
-      const vx = -ptr.x * R * 0.3 // vanishing-point offset (deep things move against the pointer)
-      const vy = -ptr.y * R * 0.3
+      const wob = still ? 0 : 1 + boost
+      const vx = cx - ptr.x * R * 0.3 // vanishing point (moves against the pointer = depth)
+      const vy = cy - ptr.y * R * 0.3
       const edge = rift(cx, cy, R, t, wob)
 
-      // ── through the portal ──
+      // ── inside the rift ──
       ctx.save()
       ctx.clip(edge)
-      ctx.fillStyle = '#05040c'
+      ctx.fillStyle = '#050407'
       ctx.fillRect(0, 0, w, h)
 
-      const side = fsize * Math.min(img.naturalWidth, img.naturalHeight)
-      const sx = fx * img.naturalWidth - side / 2
-      const sy = fy * img.naturalHeight - side / 2
-      const D = R * 2 * SQUASH * 1.3 // oversized so parallax never shows an edge
-      ctx.drawImage(img, sx, sy, side, side, cx - D / 2 + vx, cy - D / 2 + vy, D, D)
+      // core glow at the vanishing point
+      const core = ctx.createRadialGradient(vx, vy, 0, vx, vy, R * (0.9 + boost * 0.6))
+      core.addColorStop(0, rgba(colors.accent, 0.35 + boost * 0.4))
+      core.addColorStop(0.45, rgba(colors.accent, 0.08))
+      core.addColorStop(1, 'rgba(0,0,0,0)')
+      ctx.fillStyle = core
+      ctx.fillRect(0, 0, w, h)
 
-      // tunnel rings receding toward the vanishing point
-      ctx.lineWidth = 2
-      for (let k = 1; k <= 4; k++) {
-        const f = k / 5
-        ctx.strokeStyle = `rgba(255,79,216,${0.3 * (1 - f)})`
-        ctx.stroke(rift(cx + vx * f, cy + vy * f, R * (1 - f * 0.24), t + k * 0.7, wob * (1 - f)))
+      // hyperspace streaks
+      ctx.lineCap = 'round'
+      const reach = R * 1.4
+      for (const st of stars) {
+        if (!still) st.z -= st.v * dt * (1 + boost * 5)
+        let d = (R * 0.07) / Math.max(0.02, st.z)
+        if (st.z <= 0.02 || d > reach) {
+          Object.assign(st, newStar(true))
+          d = (R * 0.07) / st.z
+        }
+        const tail = d * (0.82 - boost * 0.25)
+        const dx = Math.cos(st.a)
+        const dy = Math.sin(st.a) * SQUASH
+        ctx.strokeStyle = st.accent ? rgba(colors.accent, 0.9) : `rgba(236,235,230,${0.25 + (1 - st.z) * 0.6})`
+        ctx.lineWidth = 0.6 + (1 - st.z) * 1.8
+        ctx.beginPath()
+        ctx.moveTo(vx + dx * tail, vy + dy * tail)
+        ctx.lineTo(vx + dx * d, vy + dy * d)
+        ctx.stroke()
       }
 
-      // depth shading: darker and pinker toward the rim
-      const shade = ctx.createRadialGradient(cx + vx, cy + vy, R * 0.3, cx, cy, R * 1.08)
-      shade.addColorStop(0, 'rgba(5,4,12,0)')
-      shade.addColorStop(0.7, 'rgba(5,4,12,0.12)')
-      shade.addColorStop(1, 'rgba(60,0,70,0.8)')
+      // tunnel rings receding toward the vanishing point
+      ctx.lineWidth = 1.5
+      for (let k = 1; k <= 5; k++) {
+        const f = ((k + (still ? 0 : t * 0.6 * (1 + boost * 3))) % 6) / 6
+        ctx.strokeStyle = rgba(colors.accent, 0.35 * (1 - f))
+        ctx.stroke(rift(cx + (vx - cx) * f, cy + (vy - cy) * f, R * (1 - f * 0.85), t + k, wob * (1 - f)))
+      }
+
+      // dark falloff toward the rim
+      const shade = ctx.createRadialGradient(vx, vy, R * 0.4, cx, cy, R * 1.08)
+      shade.addColorStop(0, 'rgba(0,0,0,0)')
+      shade.addColorStop(1, 'rgba(5,4,7,0.75)')
       ctx.fillStyle = shade
       ctx.fillRect(0, 0, w, h)
       ctx.restore()
 
-      // ── rim: magenta glow + cyan chromatic offset ──
+      // ── rim: accent glow + cyan chromatic offset ──
       ctx.save()
-      ctx.lineWidth = 3
-      ctx.strokeStyle = '#ff4fd8'
-      ctx.shadowColor = '#ff4fd8'
-      ctx.shadowBlur = 26
+      ctx.lineWidth = 3 + boost * 2
+      ctx.strokeStyle = colors.accent
+      ctx.shadowColor = colors.accent
+      ctx.shadowBlur = 26 + boost * 30
       ctx.stroke(edge)
       ctx.shadowBlur = 0
       ctx.translate(-2.5, 1.5)
       ctx.lineWidth = 1.5
-      ctx.strokeStyle = 'rgba(62,197,255,0.9)'
+      ctx.strokeStyle = rgba(CYAN, 0.7)
       ctx.stroke(edge)
       ctx.restore()
 
@@ -143,14 +198,12 @@ export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) 
       if (!still) {
         const px = Math.max(2, Math.round(R / 55))
         for (const sp of sparks) {
-          sp.a += sp.v * 0.016
+          sp.a += sp.v * dt * (1 + boost * 4)
           const rr = R * sp.r * (1 + 0.05 * Math.sin(t * 3 + sp.phase))
-          const x = cx + Math.cos(sp.a) * rr
-          const y = cy + Math.sin(sp.a) * rr * SQUASH
           ctx.globalAlpha = 0.45 + 0.55 * Math.abs(Math.sin(t * 5 + sp.phase))
-          ctx.fillStyle = sp.color
+          ctx.fillStyle = sp.tint === 0 ? colors.accent : sp.tint === 1 ? CYAN : colors.fg
           const size = sp.big ? px * 2 : px
-          ctx.fillRect(Math.round(x), Math.round(y), size, size)
+          ctx.fillRect(Math.round(cx + Math.cos(sp.a) * rr), Math.round(cy + Math.sin(sp.a) * rr * SQUASH), size, size)
         }
         ctx.globalAlpha = 1
       }
@@ -159,11 +212,15 @@ export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) 
     const frame = now => {
       raf = 0
       draw(now)
-      if (!still && visible) raf = requestAnimationFrame(frame)
+      if ((!still || C.boost > 0) && visible) raf = requestAnimationFrame(frame)
     }
     const start = () => {
-      if (!raf) raf = requestAnimationFrame(frame)
+      if (!raf) {
+        last = performance.now()
+        raf = requestAnimationFrame(frame)
+      }
     }
+    C.wake = start
 
     const resize = () => {
       w = wrap.clientWidth
@@ -192,15 +249,7 @@ export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) 
       rotY(0)
     }
 
-    let alive = true
-    loadImage(src)
-      .then(loaded => {
-        if (!alive) return
-        img = loaded
-        resize()
-      })
-      .catch(() => {})
-
+    resize()
     const ro = new ResizeObserver(resize)
     ro.observe(wrap)
     const io = new IntersectionObserver(([e]) => {
@@ -212,7 +261,7 @@ export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) 
     wrap.addEventListener('pointerleave', onLeave)
 
     return () => {
-      alive = false
+      C.wake = null
       cancelAnimationFrame(raf)
       ro.disconnect()
       io.disconnect()
@@ -220,12 +269,12 @@ export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) 
       wrap.removeEventListener('pointerleave', onLeave)
       gsap.killTweensOf(tilt)
     }
-  }, [src, fx, fy, fsize])
+  }, [])
 
   return (
-    <div ref={wrapRef} className={s.portal} data-cursor="none">
+    <div ref={wrapRef} className={`${s.portal} ${className}`} data-cursor="none">
       <div ref={tiltRef} className={s.tilt}>
-        <canvas ref={canvasRef} className={s.canvas} role="img" aria-label={label} />
+        <canvas ref={canvasRef} className={s.canvas} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : 'true'} />
         {tag && (
           <span className={s.tag} aria-hidden="true">
             {tag}
@@ -234,4 +283,6 @@ export default function Portal({ src, focus = DEFAULT_FOCUS, label = '', tag }) 
       </div>
     </div>
   )
-}
+})
+
+export default Portal

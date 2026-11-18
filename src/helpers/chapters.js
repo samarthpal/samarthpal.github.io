@@ -1,11 +1,11 @@
 // Tiny pub/sub so home sections can tell the nav which chapter is on screen.
 export const CHAPTERS = [
-  { id: 'hero', index: 1, label: 'boot', theme: 'dark' },
-  { id: 'about', index: 2, label: 'whoami', theme: 'light' },
-  { id: 'work', index: 3, label: 'work', theme: 'dark' },
-  { id: 'arcade', index: 4, label: 'arcade', theme: 'arcade' },
-  { id: 'lab', index: 5, label: 'lab', theme: 'dark' },
-  { id: 'contact', index: 6, label: 'connect', theme: 'dark' }
+  { id: 'hero', index: 1, label: 'boot', theme: 'base' },
+  { id: 'about', index: 2, label: 'whoami', theme: 'inverse' },
+  { id: 'work', index: 3, label: 'work', theme: 'base' },
+  { id: 'stack', index: 4, label: 'toolbox', theme: 'base' },
+  { id: 'lab', index: 5, label: 'lab', theme: 'base' },
+  { id: 'contact', index: 6, label: 'connect', theme: 'base' }
 ]
 
 let current = CHAPTERS[0]

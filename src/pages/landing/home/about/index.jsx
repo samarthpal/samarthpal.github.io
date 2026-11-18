@@ -26,11 +26,12 @@ export default function About() {
             opacity: 1,
             ease: 'none',
             stagger: 0.05,
+            // fully lit as soon as the whole statement is on screen
             scrollTrigger: {
               trigger: statement,
-              start: 'top 92%',
-              end: 'bottom 72%',
-              scrub: 0.4,
+              start: 'top 95%',
+              end: 'bottom 82%',
+              scrub: 0.3,
               invalidateOnRefresh: true
             }
           }

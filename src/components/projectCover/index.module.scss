@@ -5,10 +5,10 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: var(--paper); // fallback for browsers without color-mix
+  background: var(--logo-surface); // fallback for browsers without color-mix
   background:
     radial-gradient(80% 70% at 50% 45%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 70%),
-    var(--paper);
+    var(--logo-surface);
 }
 
 // the fallback pattern (rendered inside .cover when the logo fails) fills the panel

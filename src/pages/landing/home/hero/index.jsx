@@ -49,10 +49,12 @@ export default function Hero() {
         gsap.set('[data-hero-hex]', { clipPath: hexClip(0) })
         gsap.set('[data-hero-caret]', { xPercent: -50, yPercent: -50 })
 
-        gsap
-          .timeline({
-            defaults: { ease: 'none' },
-            scrollTrigger: {
+        const caret = el.querySelector('[data-hero-caret]')
+        const tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          // once the hexagon has grown past the caret, draw it in the next chapter's ink
+          onUpdate: () => caret.classList.toggle(s.onNext, tl.time() > 0.62),
+          scrollTrigger: {
               trigger: el,
               start: 'top top',
               end: '+=170%',
@@ -81,7 +83,6 @@ export default function Hero() {
           .to(counter, { n: word.length, duration: 0.14, onUpdate: type }, 0.4)
           // …and the next chapter opens out of it as a hive hexagon
           .to('[data-hero-hex]', { clipPath: hexClip(125), duration: 0.42, ease: 'power2.in' }, 0.56)
-          .to('[data-hero-caret]', { '--caret': '#0b0b0c', duration: 0.04 }, 0.62)
           .to('[data-hero-caret]', { autoAlpha: 0, duration: 0.06 }, 0.94)
       })
     },

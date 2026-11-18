@@ -1,32 +1,19 @@
+@use 'mixins' as *;
+
 :root {
-  // surfaces
-  --ink: #0b0b0c;
-  --ink-2: #121214;
-  --ink-3: #1b1b1f;
-  --paper: #ecebe6;
-  --paper-2: #dedcd4;
+  @include theme-dark;
+}
 
-  // text
-  --text: #ecebe6;
-  --muted: #8f8e88;
-  --ink-text: #0b0b0c;
-  --ink-muted: #5c5b56;
+:root {
+  @include aliases;
 
-  // lines
-  --line: rgba(236, 235, 230, 0.12);
-  --line-strong: rgba(236, 235, 230, 0.26);
-  --line-ink: rgba(11, 11, 12, 0.14);
-
-  // accents — amber is the "hive" colour, the rest belong to the arcade
-  --amber: #ffb21a;
-  --amber-2: #ff8a00;
+  // fixed colours (same in every theme)
+  --logo-surface: #f4f1ea; // brand logos always sit on a light chip so dark logos stay visible
   --phosphor: #7cff6b;
   --magenta: #ff4fd8;
   --cyan: #3ec5ff;
   --gold: #ffe14d;
   --danger: #ff5d5d;
-
-  // arcade
   --arcade-bg: #120f2d;
   --arcade-bg-2: #1c1845;
   --arcade-line: #332e72;

@@ -1,10 +1,12 @@
 import { useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Button from 'components/button'
+import HoverPerspective from 'components/hoverPerspective'
 import ProjectCover from 'components/projectCover'
 import Scramble from 'components/scramble'
 import useHead from 'hooks/useHead'
 import useReveal from 'hooks/useReveal'
+import workFacts from 'helpers/workFacts'
 import profile from 'data/profile.json'
 import NotFound from '../../common/notFound'
 import s from './index.module.scss'
@@ -24,6 +26,7 @@ export default function WorkDetail() {
   if (!work) return <NotFound />
 
   const host = work.url ? new URL(work.url).host.replace(/^www\./, '') : ''
+  const facts = workFacts(work)
 
   return (
     <main ref={root} className={s.page} style={{ '--accent': work.accent }}>
@@ -70,6 +73,24 @@ export default function WorkDetail() {
         </dl>
       </div>
 
+      {facts.items.length > 0 && (
+        <div className={s.inner}>
+          <section className={s.factsBand} aria-label={facts.title} data-reveal>
+            <span className={s.factsTitle}>{facts.title}</span>
+            <ul className={s.facts}>
+              {facts.items.map(f => (
+                <li key={f.label}>
+                  <HoverPerspective className={s.fact}>
+                    <strong className={s.factValue}>{f.value}</strong>
+                    <span className={s.factLabel}>{f.label}</span>
+                  </HoverPerspective>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
+      )}
+
       <div className={s.banner} data-reveal>
         <ProjectCover logo={work.logo} seed={`${work.slug}-banner`} accent={work.accent} name={work.name} className={s.bannerCover} />
       </div>
@@ -95,7 +116,11 @@ export default function WorkDetail() {
               </h2>
               <ul className={s.modules}>
                 {work.modules.map(m => (
-                  <li key={m}>{m}</li>
+                  <li key={m}>
+                    <HoverPerspective className={s.module} radius="10px">
+                      {m}
+                    </HoverPerspective>
+                  </li>
                 ))}
               </ul>
             </section>

@@ -1,0 +1,314 @@
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+}
+
+.stack {
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+
+.inner {
+  @include container;
+  padding-block: clamp(80px, 11vw, 150px);
+}
+
+.head {
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.headTop {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.label {
+  @include label;
+  color: var(--muted);
+}
+
+.title {
+  @include display;
+  margin-top: 18px;
+  font-size: clamp(2.4rem, 1rem + 5vw, 6rem);
+
+  em {
+    font-style: normal;
+    color: var(--accent);
+  }
+}
+
+.lede {
+  max-width: 58ch;
+  margin-top: 18px;
+  color: var(--muted);
+}
+
+// ── tabs ─────────────────────────────────
+.tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  flex: none;
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  color: var(--fg-2);
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+
+  sup {
+    margin-left: 4px;
+    font-size: 0.7em;
+    color: var(--muted);
+  }
+
+  @include hover {
+    &:hover {
+      border-color: var(--fg);
+      color: var(--fg);
+    }
+  }
+}
+
+.tabOn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+
+  sup {
+    color: inherit;
+    opacity: 0.7;
+  }
+
+  @include hover {
+    &:hover {
+      color: var(--on-accent);
+      border-color: var(--accent);
+    }
+  }
+}
+
+// ── readout line ─────────────────────────
+// Fixed height: what's shown here changes on hover, and it must never push the tiles around.
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: baseline;
+  gap: 2px 12px;
+  height: 78px;
+  margin: 18px 0 14px;
+  overflow: hidden;
+  border-bottom: 1px dashed var(--line);
+  font-size: var(--fs-sm);
+
+  b {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  @include up($bp-md) {
+    height: 56px;
+    flex-wrap: nowrap;
+  }
+}
+
+.readoutGroup {
+  @include label;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.readoutNote {
+  flex-basis: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--fg-2);
+
+  @include up($bp-md) {
+    flex-basis: auto;
+  }
+}
+
+.readoutHint {
+  color: var(--muted);
+}
+
+// ── wall ─────────────────────────────────
+.wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 10px;
+
+  @include down($bp-sm) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+.cell {
+  @include motion {
+    animation: rise 0.5s var(--ease-out) backwards;
+    animation-delay: calc(var(--i) * 18ms);
+  }
+}
+
+.tile {
+  --mx: -999px; // cursor position inside this tile (set by stack/index.jsx)
+  --my: -999px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 12px 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg-2);
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+
+  // spotlight on the border: a light ring that follows the cursor across every tile nearby
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: radial-gradient(200px circle at var(--mx) var(--my), rgba(255, 178, 26, 0.9), transparent 45%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  // soft glare inside the tile under the cursor
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(160px circle at var(--mx) var(--my), rgba(255, 178, 26, 0.1), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+}
+
+@include hover {
+  .wall:hover .tile::before {
+    opacity: 1;
+  }
+
+  .tile:hover::after {
+    opacity: 1;
+  }
+}
+
+// touch / reduced motion get no tilt or spotlight, so keep a simple press cue there
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .tile:active {
+    border-color: var(--accent);
+  }
+}
+
+// usage tiers: daily tools get an accent edge, past ones are quieter
+.legendary {
+  border-color: rgba(255, 178, 26, 0.35);
+}
+
+.rare {
+  .tileLogo {
+    opacity: 0.75;
+  }
+}
+
+.tileOn,
+.tile:focus-visible {
+  border-color: var(--accent);
+  background: var(--bg-3);
+}
+
+.tileLogo {
+  width: 52px;
+  height: 52px;
+  padding: 9px;
+  border-radius: 12px;
+}
+
+.tileAbbr {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  padding: 0;
+  background: var(--bg-3);
+  border: 1px solid var(--line-strong);
+  color: var(--fg-2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.tileName {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--fg-2);
+}
+
+// ── path (styles live in path.module.scss) ──
+.block {
+  margin-top: clamp(64px, 9vw, 120px);
+}
+
+.blockHead {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.blockTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+

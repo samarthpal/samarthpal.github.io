@@ -21,7 +21,7 @@ PHOTO = ROOT / "src/images/me.jpeg"
 
 INK = (11, 11, 12)
 PAPER = (236, 235, 230)
-AMBER = (255, 178, 26)
+ACCENT = (255, 178, 26)  # #ffb21a amber; keep in sync with --accent in styles/mixins.scss
 MUTED = (143, 142, 136)
 
 LETTERS = [
@@ -41,12 +41,12 @@ def draw_logo(d, ox, oy, size):
     outer = 30 * s + stroke / 2 / math.cos(math.radians(30))
     inner = 30 * s - stroke / 2 / math.cos(math.radians(30))
     cx, cy = ox + 32 * s, oy + 32 * s
-    d.polygon(hexagon(cx, cy, outer), fill=AMBER)
+    d.polygon(hexagon(cx, cy, outer), fill=ACCENT)
     d.polygon(hexagon(cx, cy, inner), fill=INK)
     for x, y, w, h in LETTERS:
         d.rectangle([ox + x * s, oy + y * s, ox + (x + w) * s - 1, oy + (y + h) * s - 1], fill=PAPER)
     x, y, w, h = CARET
-    d.rectangle([ox + x * s, oy + y * s, ox + (x + w) * s - 1, oy + (y + h) * s - 1], fill=AMBER)
+    d.rectangle([ox + x * s, oy + y * s, ox + (x + w) * s - 1, oy + (y + h) * s - 1], fill=ACCENT)
 
 
 # 5×7 pixel font — only the glyphs the OG image needs
@@ -56,6 +56,7 @@ FONT = {
     "C": [".####", "#....", "#....", "#....", "#....", "#....", ".####"],
     "D": ["####.", "#...#", "#...#", "#...#", "#...#", "#...#", "####."],
     "E": ["#####", "#....", "#....", "####.", "#....", "#....", "#####"],
+    "F": ["#####", "#....", "#....", "####.", "#....", "#....", "#...."],
     "G": [".####", "#....", "#....", "#..##", "#...#", "#...#", ".###."],
     "H": ["#...#", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"],
     "I": ["#####", "..#..", "..#..", "..#..", "..#..", "..#..", "#####"],
@@ -71,6 +72,8 @@ FONT = {
     "V": ["#...#", "#...#", "#...#", "#...#", "#...#", ".#.#.", "..#.."],
     "W": ["#...#", "#...#", "#...#", "#.#.#", "#.#.#", "##.##", "#...#"],
     "·": [".....", ".....", ".....", "..#..", ".....", ".....", "....."],
+    "-": [".....", ".....", ".....", ".###.", ".....", ".....", "....."],
+    "&": [".##..", "#..#.", "#.#..", ".#...", "#.#.#", "#..#.", ".##.#"],
     ".": [".....", ".....", ".....", ".....", ".....", ".....", "..#.."],
     " ": [".....", ".....", ".....", ".....", ".....", ".....", "....."],
 }
@@ -88,24 +91,22 @@ def pixel_text(d, x, y, text, px, color):
 
 
 def hex_portrait(img, cx, cy, r):
-    """Duotone (ink → amber) crop of me.jpeg inside a hive hexagon with an amber rim."""
+    """The real photo (natural colour) inside a hive hexagon with an accent rim."""
     if not PHOTO.exists():
         return
-    photo = Image.open(PHOTO).convert("L")
+    photo = ImageOps.exif_transpose(Image.open(PHOTO)).convert("RGB")
     pw, ph = photo.size
     # square crop around the face/shoulders
     side = int(0.62 * pw)
     left = int(0.56 * pw - side / 2)
     top = int(0.47 * ph - side / 2)
-    face = photo.crop((left, top, left + side, top + side))
-    face = ImageOps.autocontrast(face, cutoff=2)
     size = int(2 * r)
-    face = ImageOps.colorize(face, black=INK, white=PAPER, mid=AMBER).resize((size, size), Image.LANCZOS)
+    face = photo.crop((left, top, left + side, top + side)).resize((size, size), Image.LANCZOS)
 
     mask = Image.new("L", (size, size), 0)
     ImageDraw.Draw(mask).polygon(hexagon(r, r, r - 4), fill=255)
     d = ImageDraw.Draw(img)
-    d.polygon(hexagon(cx, cy, r + 4), fill=AMBER)  # rim
+    d.polygon(hexagon(cx, cy, r + 4), fill=ACCENT)  # rim
     img.paste(face, (int(cx - r), int(cy - r)), mask)
 
 
@@ -123,11 +124,12 @@ def og():
     hex_portrait(img, 985, 315, 205)
     draw_logo(d, 80, 70, 110)
     end = pixel_text(d, 80, 250, "SAMARTH PAL", 10, PAPER)
-    d.rectangle([end + 6, 250, end + 6 + 40, 250 + 70 - 1], fill=AMBER)  # caret
-    pixel_text(d, 80, 360, "CTO · DAEMONHIVE TECHNOLOGIES", 4, AMBER)
-    pixel_text(d, 80, 410, "REACT · NODE · MONGODB · AWS", 3, MUTED)
+    d.rectangle([end + 6, 250, end + 6 + 40, 250 + 70 - 1], fill=ACCENT)  # caret
+    pixel_text(d, 80, 350, "CO-FOUNDER & CTO", 4, ACCENT)
+    pixel_text(d, 80, 392, "DAEMONHIVE TECHNOLOGIES", 4, ACCENT)
+    pixel_text(d, 80, 450, "REACT · NODE · MONGODB · AWS", 3, MUTED)
     pixel_text(d, 80, 540, "SAMARTHPAL.GITHUB.IO", 3, PAPER)
-    d.rectangle([0, 622, 1200, 630], fill=AMBER)
+    d.rectangle([0, 622, 1200, 630], fill=ACCENT)
     return img
 
 

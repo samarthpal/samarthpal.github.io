@@ -11,6 +11,9 @@ const FONT_FAMILY = '"JetBrains Mono", ui-monospace, Menlo, monospace'
  * Same seed → same picture, so every case study gets its own identity without shipping screenshots.
  * Draws once when it first nears the viewport, and again on resize.
  */
+// glyph colours by brightness: [mid, low]
+const [MID, LOW] = ['#77766f', '#35352f']
+
 export default function PatternCover({ seed, accent = '#ffb21a', className = '', label }) {
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
@@ -66,7 +69,7 @@ export default function PatternCover({ seed, accent = '#ffb21a', className = '',
           v = Math.pow(Math.max(0, Math.min(1, v)), 1.5)
           const glyph = RAMP[Math.min(RAMP.length - 1, Math.floor(v * RAMP.length))]
           if (glyph === ' ') continue
-          ctx.fillStyle = v > 0.72 ? accent : v > 0.42 ? '#77766f' : '#35352f'
+          ctx.fillStyle = v > 0.72 ? accent : v > 0.42 ? MID : LOW
           ctx.fillText(glyph, x * cell, y * chH)
         }
       }

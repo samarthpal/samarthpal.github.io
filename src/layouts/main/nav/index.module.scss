@@ -1,7 +1,7 @@
 .nav {
-  --nav-fg: var(--text);
+  --nav-fg: var(--fg);
   --nav-line: var(--line-strong);
-  --nav-bg: rgba(11, 11, 12, 0.92);
+  --nav-bg: var(--nav-glass);
 
   position: fixed;
   inset: 0 0 auto;
@@ -20,14 +20,11 @@
   }
 }
 
-.light {
-  --nav-fg: var(--ink-text);
-  --nav-line: var(--line-ink);
-  --nav-bg: rgba(236, 235, 230, 0.94);
-}
-
-.arcade {
-  --nav-fg: #f4f1ea;
+// over the inverted whoami chapter
+.inverse {
+  --nav-fg: var(--inv-fg);
+  --nav-line: var(--inv-line);
+  --nav-bg: var(--inv-bg);
 }
 
 .brand {
@@ -93,8 +90,8 @@
   color: var(--amber);
 }
 
-.light .label {
-  color: var(--ink-muted);
+.inverse .label {
+  color: var(--inv-muted);
 }
 
 .links {

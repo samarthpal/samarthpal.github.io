@@ -1,10 +1,12 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import HoverPerspective from 'components/hoverPerspective'
 import LogoImg from 'components/logoImg'
 import ProjectCover from 'components/projectCover'
 import { MOTION, gsap, useGSAP } from 'helpers/gsap'
 import useChapter from 'hooks/useChapter'
 import useReveal from 'hooks/useReveal'
+import workFacts from 'helpers/workFacts'
 import profile from 'data/profile.json'
 import s from './index.module.scss'
 
@@ -94,6 +96,7 @@ export default function Work() {
         <ol ref={trackRef} className={s.track}>
           {DAEMONHIVE.map((w, i) => (
             <li key={w.slug} className={s.cardWrap} data-card>
+              <HoverPerspective className={s.tilt}>
               <Link to={`/work/${w.slug}`} className={s.card} style={{ '--accent': w.accent }} data-cursor="read">
                 <div className={s.cardTop}>
                   <span>
@@ -109,6 +112,16 @@ export default function Work() {
                 </div>
                 <h3 className={s.cardTitle}>{w.name}</h3>
                 <p className={s.cardText}>{w.summary}</p>
+                <dl className={s.facts} aria-label={workFacts(w).title}>
+                  {workFacts(w)
+                    .items.slice(0, 2)
+                    .map(f => (
+                      <div key={f.label}>
+                        <dt>{f.value}</dt>
+                        <dd>{f.label}</dd>
+                      </div>
+                    ))}
+                </dl>
                 <ul className={s.chips} aria-label="Stack">
                   {w.stack.slice(0, 5).map(t => (
                     <li key={t}>{t}</li>
@@ -116,6 +129,7 @@ export default function Work() {
                   {w.stack.length > 5 && <li>+{w.stack.length - 5}</li>}
                 </ul>
               </Link>
+              </HoverPerspective>
             </li>
           ))}
           <li className={s.outro} aria-hidden="true">

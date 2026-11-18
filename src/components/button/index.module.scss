@@ -67,8 +67,8 @@
 
 // variants
 .solid {
-  background: var(--amber);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--on-accent);
 
   .fill {
     background: var(--text);
