@@ -1,0 +1,64 @@
+:root {
+  // surfaces
+  --ink: #0b0b0c;
+  --ink-2: #121214;
+  --ink-3: #1b1b1f;
+  --paper: #ecebe6;
+  --paper-2: #dedcd4;
+
+  // text
+  --text: #ecebe6;
+  --muted: #8f8e88;
+  --ink-text: #0b0b0c;
+  --ink-muted: #5c5b56;
+
+  // lines
+  --line: rgba(236, 235, 230, 0.12);
+  --line-strong: rgba(236, 235, 230, 0.26);
+  --line-ink: rgba(11, 11, 12, 0.14);
+
+  // accents — amber is the "hive" colour, the rest belong to the arcade
+  --amber: #ffb21a;
+  --amber-2: #ff8a00;
+  --phosphor: #7cff6b;
+  --magenta: #ff4fd8;
+  --cyan: #3ec5ff;
+  --gold: #ffe14d;
+  --danger: #ff5d5d;
+
+  // arcade
+  --arcade-bg: #120f2d;
+  --arcade-bg-2: #1c1845;
+  --arcade-line: #332e72;
+
+  // type
+  --font-display: 'Unbounded', 'Arial Black', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-pixel: 'Press Start 2P', 'JetBrains Mono', ui-monospace, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+  --fs-xl: clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem);
+  --fs-2xl: clamp(2.1rem, 1.2rem + 3.8vw, 4.75rem);
+  --fs-hero: clamp(3.4rem, 0.6rem + 12.5vw, 13.5rem);
+
+  // layout
+  --gutter: clamp(16px, 4vw, 48px);
+  --max-w: 1440px;
+  --radius: 18px;
+  --radius-lg: 32px;
+  --nav-h: 72px;
+
+  // motion
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  // stacking
+  --z-section: 1;
+  --z-nav: 50;
+  --z-transition: 70;
+  --z-terminal: 80;
+  --z-cursor: 90;
+}

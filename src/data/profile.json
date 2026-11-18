@@ -1,0 +1,365 @@
+{
+  "name": "Samarth Kumar Pal",
+  "shortName": "Samarth Pal",
+  "firstName": "Samarth",
+  "lastName": "Pal",
+  "handle": "samarth.pal",
+  "role": "CTO",
+  "title": "Full-Stack Engineer & CTO",
+  "company": "DaemonHive Technologies",
+  "companyUrl": "https://daemonhive.com",
+  "companyLogo": "https://daemonhive.com/logo.png",
+  "location": "Moradabad, IN",
+  "site": "https://samarthpal.github.io",
+  "version": "3.0",
+  "tagline": "I engineer scalable digital systems. React on the front, Node and MongoDB in the middle, AWS underneath.",
+  "statement": "I'm a full-stack engineer and the CTO of DaemonHive Technologies. I turn messy business problems into fast, reliable software, from the first Figma frame to the last Nginx config.",
+  "bio": [
+    "I lead engineering at DaemonHive Technologies, a team building enterprise-grade software and cloud systems for SaaS, marketplaces, e-commerce, real-estate and community platforms.",
+    "My day moves between architecture reviews, writing the hard parts of the codebase, and keeping production calm: EC2, Nginx, PM2 and Cloudflare are as much my tools as React and Express.",
+    "Before DaemonHive I built products at Joahquin Technologies, including ZillionDines. College gave me C, C++, Java and C#; production taught me JavaScript end to end."
+  ],
+  "summary": "Full-stack engineer and CTO at DaemonHive Technologies. I design, build and run production web platforms end to end: React front-ends, Node.js/Express APIs, MongoDB data layers and the AWS, Nginx and Cloudflare infrastructure underneath. I've shipped SaaS, marketplace, e-commerce, real-estate investment and community products, and I care about small bundles, readable code and on-time delivery.",
+  "contact": {
+    "email": "palsamarth02@gmail.com",
+    "phone": "+91-9456000859",
+    "phoneHref": "+919456000859"
+  },
+  "socials": [
+    { "label": "LinkedIn", "handle": "samarth-pal", "url": "https://www.linkedin.com/in/samarth-pal-3335201a0/" },
+    { "label": "GitHub", "handle": "samarthpal", "url": "https://github.com/samarthpal" },
+    { "label": "Instagram", "handle": "samarth_pal_02", "url": "https://www.instagram.com/samarth_pal_02/" },
+    { "label": "Facebook", "handle": "samarth.pal.77", "url": "https://www.facebook.com/samarth.pal.77" }
+  ],
+  "facts": [
+    { "value": "08", "label": "case studies shipped at DaemonHive" },
+    { "value": "06", "label": "industries, from SaaS to real estate" },
+    { "value": "03", "label": "platforms: web, Android and iOS" },
+    { "value": "11", "label": "products across DaemonHive and Joahquin" }
+  ],
+  "stats": [
+    { "label": "BACKEND", "value": 9 },
+    { "label": "FRONTEND", "value": 9 },
+    { "label": "CLOUD/OPS", "value": 8 },
+    { "label": "ARCHITECT", "value": 8 },
+    { "label": "LEADERSHIP", "value": 8 },
+    { "label": "DESIGN", "value": 6 }
+  ],
+  "skills": [
+    {
+      "group": "Languages",
+      "items": [
+        { "name": "JavaScript", "abbr": "JS", "rarity": "legendary", "note": "Daily driver. Front to back, browser to server." },
+        { "name": "C", "abbr": "C", "rarity": "rare", "note": "Where it started: pointers, memory and patience." },
+        { "name": "C++", "abbr": "C++", "rarity": "rare", "note": "Data structures, algorithms and problem solving." },
+        { "name": "Java", "abbr": "JAVA", "rarity": "rare", "note": "Core Java training (TCE). OOP foundations." },
+        { "name": "C#", "abbr": "C#", "rarity": "rare", "note": "Learned in college: OOP and .NET basics." },
+        { "name": "Python", "abbr": "PY", "rarity": "rare", "note": "Scripts, tooling and machine-learning coursework." },
+        { "name": "PHP", "abbr": "PHP", "rarity": "rare", "note": "Shipped Yourganicx Nutrition on PHP + MySQL." },
+        { "name": "SQL", "abbr": "SQL", "rarity": "epic", "note": "MySQL and PostgreSQL in production." }
+      ]
+    },
+    {
+      "group": "Frontend",
+      "items": [
+        { "name": "React", "abbr": "RCT", "rarity": "legendary", "note": "Functional components and hooks, every project." },
+        { "name": "Vite", "abbr": "VITE", "rarity": "epic", "note": "The build tool behind every SPA I ship." },
+        { "name": "SCSS", "abbr": "SCSS", "rarity": "epic", "note": "Token-driven styling. No Tailwind, by choice." },
+        { "name": "HTML5", "abbr": "HTML", "rarity": "epic", "note": "Semantic, accessible markup." },
+        { "name": "CSS3", "abbr": "CSS", "rarity": "epic", "note": "Layout, motion and responsive design." },
+        { "name": "Redux", "abbr": "RDX", "rarity": "epic", "note": "State for StashBlog, Local Wallah and BCN." },
+        { "name": "jQuery", "abbr": "JQ", "rarity": "common", "note": "Legacy sites and quick wins." },
+        { "name": "Bootstrap", "abbr": "BS", "rarity": "common", "note": "Rapid layouts on early client sites." },
+        { "name": "Handlebars", "abbr": "HBS", "rarity": "common", "note": "Email templates and server-rendered pages." }
+      ]
+    },
+    {
+      "group": "Backend",
+      "items": [
+        { "name": "Node.js", "abbr": "NODE", "rarity": "legendary", "note": "Every API, worker and cron job I run." },
+        { "name": "Express", "abbr": "EXP", "rarity": "legendary", "note": "Router → validator → controller, every time." },
+        { "name": "REST APIs", "abbr": "REST", "rarity": "legendary", "note": "Namespaced, validated and logged." },
+        { "name": "JWT & cookie auth", "abbr": "JWT", "rarity": "epic", "note": "httpOnly cookies across subdomains." },
+        { "name": "BullMQ + Redis", "abbr": "BULL", "rarity": "epic", "note": "Queued email workers with retries." }
+      ]
+    },
+    {
+      "group": "Data",
+      "items": [
+        { "name": "MongoDB", "abbr": "MDB", "rarity": "legendary", "note": "Atlas clusters, aggregations, $facet pagination." },
+        { "name": "Mongoose", "abbr": "MGS", "rarity": "epic", "note": "Models, lean reads, migrations." },
+        { "name": "MySQL", "abbr": "MYSQL", "rarity": "epic", "note": "Relational projects and PHP stacks." },
+        { "name": "PostgreSQL", "abbr": "PG", "rarity": "epic", "note": "Used on ZillionDines." },
+        { "name": "Machine Learning", "abbr": "ML", "rarity": "rare", "note": "Udemy ML training. Fundamentals." }
+      ]
+    },
+    {
+      "group": "Cloud & DevOps",
+      "items": [
+        { "name": "AWS (EC2, S3, SES, SNS, IAM, CloudWatch)", "abbr": "AWS", "rarity": "legendary", "note": "EC2 boxes, private S3 with presigned URLs, alarms." },
+        { "name": "Nginx", "abbr": "NGX", "rarity": "epic", "note": "Reverse proxy and static hosting per subdomain." },
+        { "name": "PM2", "abbr": "PM2", "rarity": "epic", "note": "Keeps the Node processes alive." },
+        { "name": "Cloudflare", "abbr": "CF", "rarity": "epic", "note": "DNS, SSL and cache rules. Always purge after deploy." },
+        { "name": "Linux (Ubuntu)", "abbr": "LNX", "rarity": "epic", "note": "Servers, swapfiles and shell." },
+        { "name": "Git & GitHub", "abbr": "GIT", "rarity": "legendary", "note": "One org per client, one branch per app." }
+      ]
+    },
+    {
+      "group": "Integrations",
+      "items": [
+        { "name": "Payments (Razorpay, Stripe, PayPal)", "abbr": "PAY", "rarity": "epic", "note": "Checkout flows and webhooks." },
+        { "name": "Google OAuth", "abbr": "AUTH", "rarity": "epic", "note": "Sign-in verified server-side." },
+        { "name": "Email (Resend, SES)", "abbr": "MAIL", "rarity": "epic", "note": "Transactional email through a queue." },
+        { "name": "Maps, FCM, WhatsApp, MSG91", "abbr": "API", "rarity": "common", "note": "Location, push, messaging and OTP." }
+      ]
+    },
+    {
+      "group": "Design & Process",
+      "items": [
+        { "name": "Figma", "abbr": "FIG", "rarity": "epic", "note": "UI before code." },
+        { "name": "Whimsical", "abbr": "WHM", "rarity": "common", "note": "Wireframes and flows." },
+        { "name": "Trello", "abbr": "TRL", "rarity": "common", "note": "Tasks and sprints." },
+        { "name": "Agile", "abbr": "AGL", "rarity": "epic", "note": "Short iterations, honest estimates." },
+        { "name": "Photoshop", "abbr": "PS", "rarity": "common", "note": "Assets and mockups." },
+        { "name": "Illustrator", "abbr": "AI", "rarity": "common", "note": "Logos and vector work." }
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": "daemonhive",
+      "quest": "DAEMONHIVE TECHNOLOGIES",
+      "title": "Chief Technology Officer",
+      "org": "DaemonHive Technologies",
+      "url": "https://daemonhive.com",
+      "status": "ACTIVE",
+      "detail": "Leading engineering for SaaS, marketplace, e-commerce, real-estate investment and community platforms: architecture, delivery, infrastructure and the team.",
+      "highlights": [
+        "Own architecture and delivery across 8 shipped products (StashBlog, Local Wallah, Merry Aura, Suvion, BCN and more).",
+        "Standardised the stack: React + Vite + SCSS, Node/Express, MongoDB, AWS EC2/S3, Nginx, PM2, Cloudflare.",
+        "Built shared helpers, components and deploy runbooks so every project ships the same way.",
+        "Integrated payments (Razorpay, Stripe, PayPal), OAuth, queued email and Android/iOS app shells."
+      ]
+    },
+    {
+      "id": "joahquin",
+      "quest": "JOAHQUIN TECHNOLOGIES",
+      "title": "Software Developer",
+      "org": "Joahquin Technologies",
+      "url": "https://www.joahquin.com",
+      "logo": "https://www.joahquin.com/logo/joahquin.png",
+      "status": "CLEARED",
+      "detail": "Worked on Joahquin's products, including ZillionDines, Headless SPAS and Joahquin Connect.",
+      "highlights": [
+        "ZillionDines: restaurant software covering customer engagement, stock management, e-KOT and online payments.",
+        "Headless SPAS: scalable single-page application server with smart server-side rendering and client-side caching.",
+        "Joahquin Connect: Android app for client management and project coordination."
+      ]
+    },
+    {
+      "id": "dit",
+      "quest": "THE ACADEMY",
+      "title": "B.Tech, Computer Science & Engineering",
+      "org": "Dehradun Institute of Technology",
+      "status": "CLEARED",
+      "detail": "Picked up C, C++, Java, C# and Python, plus Core Java and Machine Learning training.",
+      "highlights": []
+    }
+  ],
+  "education": [
+    { "degree": "B.Tech, Computer Science & Engineering", "school": "Dehradun Institute of Technology, Dehradun", "years": "2018 - 2022", "score": "85.00 / 100" },
+    { "degree": "Class 12", "school": "K.C.M School, Moradabad", "years": "2017 - 2018", "score": "77.00 / 100" },
+    { "degree": "Class 10", "school": "K.C.M School, Moradabad", "years": "2015 - 2016", "score": "9.2 / 10 CGPA" }
+  ],
+  "certifications": [
+    { "name": "Core Java (Training)", "issuer": "TCE", "date": "May 2019" },
+    { "name": "Machine Learning (Training)", "issuer": "Udemy", "date": "May 2020" }
+  ],
+  "spokenLanguages": ["Hindi", "English"],
+  "interests": ["Sketching", "Gaming", "Anime and series"],
+  "work": [
+    {
+      "slug": "stashblog",
+      "company": "DaemonHive Technologies",
+      "name": "StashBlog",
+      "client": "DaemonHive (internal product)",
+      "industry": "SaaS",
+      "status": "Ongoing",
+      "url": "https://stashblog.com",
+      "logo": "https://stashblog.com/logo.png",
+      "accent": "#ffb21a",
+      "summary": "A SaaS website builder that lets businesses showcase products and run a catalogue without writing code.",
+      "challenge": "Many businesses needed a simple way to create and manage professional websites without technical knowledge.",
+      "solution": "DaemonHive developed a scalable SaaS platform with an easy dashboard where businesses manage products, catalogues and their online presence. Garima International, an export business, runs its product catalogue on it.",
+      "stack": ["Node.js", "React", "Express", "MongoDB", "Redux", "AWS SES/SNS", "Handlebars"],
+      "modules": ["Business dashboard", "Product catalogue", "Hosted storefronts", "Transactional email"]
+    },
+    {
+      "slug": "local-wallah",
+      "company": "DaemonHive Technologies",
+      "name": "Local Wallah",
+      "client": "Local businesses",
+      "industry": "Marketplace · Food · Grocery",
+      "status": "Ongoing",
+      "url": "https://www.localwallah.com",
+      "logo": "https://localwallah.com/logo.png",
+      "accent": "#7cff6b",
+      "summary": "A hyperlocal B2B marketplace connecting buyers with trusted sellers across Indian cities and towns.",
+      "challenge": "Local businesses needed a digital platform to reach nearby customers and manage online orders.",
+      "solution": "DaemonHive built a marketplace plus food and grocery ordering with real-time notifications, and native Android and iOS apps.",
+      "stack": ["Node.js", "React", "MongoDB", "Redux", "Express", "Google OAuth", "MSG91", "FCM", "Kotlin", "Swift"],
+      "modules": ["Merchant marketplace", "Food delivery", "Grocery delivery", "Android app", "iOS app"]
+    },
+    {
+      "slug": "merry-aura",
+      "company": "DaemonHive Technologies",
+      "name": "Merry Aura",
+      "client": "DaemonHive (internal product)",
+      "industry": "E-commerce",
+      "status": "Ongoing",
+      "url": "https://merryaura.com",
+      "logo": "https://merryaura.com/logo.png",
+      "accent": "#ff4fd8",
+      "summary": "A custom e-commerce platform built to sell worldwide. It's the reference implementation for the DaemonHive stack.",
+      "challenge": "To develop a custom e-commerce platform that supports selling all over the world.",
+      "solution": "A custom e-commerce platform with secure payments and automated email notifications, plus an admin app, background email worker and a separate API.",
+      "stack": ["Node.js", "React", "Express", "MongoDB", "AWS EC2", "SES", "Razorpay"],
+      "modules": ["Storefront", "Admin panel", "Email worker", "Payments"]
+    },
+    {
+      "slug": "suvion",
+      "company": "DaemonHive Technologies",
+      "name": "Suvion Builders & Estate",
+      "client": "Suvion Builders and Estate",
+      "industry": "Real-estate investment",
+      "status": "Delivered",
+      "url": "",
+      "accent": "#3ec5ff",
+      "summary": "A secure platform for structured real-estate investing, from project discovery to a digital wallet.",
+      "challenge": "The client needed a secure platform for structured real estate investing with project discovery.",
+      "solution": "DaemonHive built a full investment platform with project listings, secure payments and a digital wallet.",
+      "stack": ["Node.js", "React", "Express", "MongoDB", "AWS EC2", "Handlebars", "Razorpay"],
+      "modules": ["Project listings", "Investments", "Digital wallet", "Payments"]
+    },
+    {
+      "slug": "urns-of-dignity",
+      "company": "DaemonHive Technologies",
+      "name": "Urns of Dignity",
+      "client": "Urns of Dignity",
+      "industry": "E-commerce",
+      "status": "Delivered",
+      "url": "https://urnsofdignity.com",
+      "logo": "https://urnsofdignity.com/logo.png",
+      "accent": "#e8d5b5",
+      "summary": "A professional online store with international payment options and reliable customer communication.",
+      "challenge": "The client needed a professional online store with secure payment options and reliable communication.",
+      "solution": "A custom e-commerce platform with secure payments through PayPal and Stripe, and automated email notifications.",
+      "stack": ["Node.js", "React", "Express", "MongoDB", "SES", "SNS", "PayPal", "Stripe"],
+      "modules": ["Storefront", "Checkout", "Email notifications"]
+    },
+    {
+      "slug": "mopwna-cling",
+      "company": "DaemonHive Technologies",
+      "name": "Mopwna Cling",
+      "client": "Mopwna Cling",
+      "industry": "Portfolio website",
+      "status": "Delivered",
+      "url": "https://mopwnacling.com",
+      "logo": "https://mopwnacling.com/logo.png",
+      "accent": "#ff6b35",
+      "summary": "A clean, fast portfolio website to lift the client's online presence.",
+      "challenge": "The client needed a clean and professional website to improve their online presence.",
+      "solution": "A modern, responsive portfolio website optimised for performance and user experience.",
+      "stack": ["React", "HTML5", "CSS", "SCSS"],
+      "modules": ["Responsive site", "Performance tuning"]
+    },
+    {
+      "slug": "bcn",
+      "company": "DaemonHive Technologies",
+      "name": "BCN — Brahmin Community Network",
+      "client": "BCN India",
+      "industry": "Community networking",
+      "status": "Delivered",
+      "url": "https://www.bcnindia.com",
+      "logo": "https://bcnindia.com/logo.png",
+      "accent": "#c9a2ff",
+      "summary": "A community platform where members list businesses, products and services, and discover each other.",
+      "challenge": "The client needed a digital platform to manage community interaction and events.",
+      "solution": "A secure platform with communication tools, payment integration and location-based features.",
+      "stack": ["Node.js", "React", "MongoDB", "Redux", "Razorpay", "Google Maps", "WhatsApp"],
+      "modules": ["Business listings", "Services directory", "Events", "Payments", "Location search"]
+    },
+    {
+      "slug": "yourganicx",
+      "company": "DaemonHive Technologies",
+      "name": "Yourganicx Nutrition",
+      "client": "Yourganicx Nutrition",
+      "industry": "E-commerce",
+      "status": "Delivered",
+      "url": "https://samarthpal.github.io/Yourganicx-Public/",
+      "logo": "https://samarthpal.github.io/Yourganicx-Public/assets/images1/logo%20%20new.png",
+      "accent": "#9be15d",
+      "summary": "A clean online store that showcases nutrition products and takes secure payments.",
+      "challenge": "The client required an online store to showcase products and handle secure payments.",
+      "solution": "A clean, easy-to-use e-commerce website with payment integration.",
+      "stack": ["PHP", "HTML5", "CSS", "JavaScript", "MySQL", "Razorpay"],
+      "modules": ["Catalogue", "Checkout"]
+    },
+    {
+      "slug": "zilliondines",
+      "company": "Joahquin Technologies",
+      "name": "ZillionDines",
+      "client": "Joahquin Technologies",
+      "industry": "Restaurant software",
+      "status": "Live",
+      "url": "https://www.zilliondines.com",
+      "logo": "https://www.zilliondines.com/logo.png",
+      "accent": "#ffd166",
+      "summary": "Software for restaurants to connect with their customers with minimal effort, and run every in-house action.",
+      "challenge": "Restaurants juggle customers, kitchen tickets, stock and payments across disconnected tools.",
+      "solution": "One workflow platform covering customer engagement, stock management, e-KOT and online payments.",
+      "stack": ["React", "SCSS", "Node.js", "Express", "express-tools", "Headless SPAS", "PostgreSQL", "AWS EC2/S3", "Cloudflare", "Nginx"],
+      "modules": ["Billing", "Stock management", "e-KOT", "Online payments"]
+    },
+    {
+      "slug": "headless-spas",
+      "company": "Joahquin Technologies",
+      "name": "Headless SPAS",
+      "client": "Joahquin Technologies",
+      "industry": "Developer infrastructure",
+      "status": "Internal",
+      "url": "",
+      "accent": "#8be9fd",
+      "summary": "A scalable single-page application server with smart server-side rendering and self-managed client-side caching.",
+      "challenge": "SPAs are fast for users but invisible to bots, and caching them well is fiddly.",
+      "solution": "A dedicated SPA server engine with integrated smart SSR and self-managed client-side caching.",
+      "stack": ["React", "SCSS", "Headless SPAS"],
+      "modules": ["Smart SSR", "Client-side caching"]
+    },
+    {
+      "slug": "joahquin-connect",
+      "company": "Joahquin Technologies",
+      "name": "Joahquin Connect",
+      "client": "Joahquin Technologies",
+      "industry": "Android app",
+      "status": "Live",
+      "url": "https://play.google.com/store/apps/details?id=com.joahquin.connect",
+      "logo": "https://play-lh.googleusercontent.com/QFGswaHCn2OE97CGE6lFDqlvVml6E1loiGCskFzkMFcI9CH3rtRuMJ-FlUyF63oHeuVs=w240-h480-rw",
+      "accent": "#50fa7b",
+      "summary": "An Android app for client management and project coordination.",
+      "challenge": "Client conversations and project status lived in too many places.",
+      "solution": "A single Android app for managing clients and coordinating projects.",
+      "stack": ["Android"],
+      "modules": ["Client management", "Project coordination"]
+    }
+  ],
+  "archive": [
+    { "name": "Garima International", "kind": "StashBlog catalogue", "url": "" },
+    { "name": "Sher Sweets", "kind": "Static site", "url": "https://samarthpal.github.io/Sher-Sweets/" },
+    { "name": "Benelli Keeway", "kind": "Static site", "url": "https://samarthpal.github.io/Benelli-Keeway/" },
+    { "name": "Bansal Nursing Home", "kind": "Static site", "url": "https://samarthpal.github.io/Bansal-Nursing-Home/" },
+    { "name": "Cosmedicaa", "kind": "Static site", "url": "https://samarthpal.github.io/Cosmedicaa/" },
+    { "name": "Dev Primus", "kind": "Static site", "url": "https://samarthpal.github.io/Dev-Primus/" },
+    { "name": "Text Utils", "kind": "React learning app", "url": "https://samarthpal.github.io/TextUtils-React/" }
+  ]
+}

@@ -1,0 +1,16 @@
+// Shared components. Heavy ones (BugSquash, Terminal) should be imported by path
+// from lazy routes so they stay out of the main bundle.
+export { default as AsciiCanvas } from './asciiCanvas'
+export { default as BugSquash } from './bugSquash'
+export { default as Button } from './button'
+export { default as Logo } from './logo'
+export { default as LogoImg } from './logoImg'
+export { default as Magnetic } from './magnetic'
+export { default as Marquee } from './marquee'
+export { default as PatternCover } from './patternCover'
+export { default as PixelIcon } from './pixelIcon'
+export { default as PixelSprite } from './pixelSprite'
+export { default as Portal } from './portal'
+export { default as ProjectCover } from './projectCover'
+export { default as Scramble } from './scramble'
+export { default as Terminal } from './terminal'

@@ -1,0 +1,157 @@
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-terminal);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: rgba(5, 5, 6, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fade 0.25s ease-out;
+
+  .window {
+    width: min(860px, 100%);
+    height: min(560px, 80svh);
+    animation: pop 0.35s var(--ease-out);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  }
+}
+
+.embedded {
+  .window {
+    width: 100%;
+    height: 460px;
+  }
+}
+
+.window {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: #0d0d0f;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--ink-2);
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+
+  i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ink-3);
+    border: 1px solid var(--line-strong);
+  }
+
+  i:first-child {
+    background: var(--amber);
+    border-color: var(--amber);
+  }
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+}
+
+.close {
+  padding: 2px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  font-size: var(--fs-xs);
+
+  @include hover {
+    &:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+  }
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 18px 20px;
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: text;
+}
+
+.line {
+  margin: 0;
+  font: inherit;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #cfcec8;
+}
+
+.prompt {
+  color: var(--amber);
+}
+
+.accent {
+  color: var(--amber);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.ok {
+  color: var(--phosphor);
+}
+
+.error {
+  color: var(--danger);
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  caret-color: var(--amber);
+  font-size: 16px; // ≥16px stops iOS zooming on focus
+
+  @include up($bp-md) {
+    font-size: 13px;
+  }
+}

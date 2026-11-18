@@ -1,0 +1,137 @@
+.about {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--ink-text);
+  overflow: hidden;
+
+  ::selection {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.inner {
+  @include container;
+  padding-block: calc(var(--nav-h) + 40px) clamp(64px, 10vw, 140px);
+  transform-origin: 50% 100%;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.head {
+  @include label;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-ink);
+  color: var(--ink-muted);
+}
+
+.statement {
+  margin-block: clamp(32px, 6vw, 88px);
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+
+  @include down($bp-md) {
+    max-width: none;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+
+  @include down($bp-lg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.bio {
+  display: grid;
+  gap: 18px;
+  max-width: 60ch;
+  color: var(--ink-muted);
+
+  p:first-child {
+    color: var(--ink-text);
+    font-size: var(--fs-lg);
+    line-height: 1.5;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line-ink);
+  border-left: 1px solid var(--line-ink);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 170px;
+  padding: 20px;
+  border-right: 1px solid var(--line-ink);
+  border-bottom: 1px solid var(--line-ink);
+  transition: background 0.4s var(--ease-out);
+
+  @include hover {
+    &:hover {
+      background: var(--ink);
+      color: var(--paper);
+
+      .factLabel {
+        color: var(--muted);
+      }
+    }
+  }
+
+  @include down($bp-sm) {
+    min-height: 140px;
+    padding: 14px;
+  }
+}
+
+.value {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.6rem + 3vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.factLabel {
+  font-size: var(--fs-xs);
+  color: var(--ink-muted);
+}
+
+.label {
+  color: var(--ink-text);
+}
+
+.file {
+  color: var(--ink-muted);
+}

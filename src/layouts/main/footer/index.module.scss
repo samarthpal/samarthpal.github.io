@@ -1,0 +1,57 @@
+.footer {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--line);
+  background: var(--ink);
+  color: var(--muted);
+  font-size: var(--fs-xs);
+}
+
+.marquee {
+  padding-block: 28px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.row {
+  @include container;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-block: 24px;
+}
+
+.built {
+  @include down($bp-md) {
+    order: 3;
+    width: 100%;
+  }
+}
+
+.hint {
+  color: var(--muted);
+
+  kbd {
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    margin-inline: 4px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    font-family: inherit;
+    color: var(--amber);
+  }
+
+  @include hover {
+    &:hover {
+      color: var(--text);
+    }
+  }
+}

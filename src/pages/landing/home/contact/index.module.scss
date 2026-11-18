@@ -1,0 +1,211 @@
+.contact {
+  position: relative;
+  z-index: 2;
+  background: var(--ink);
+  border-top: 1px solid var(--line);
+}
+
+.inner {
+  @include container;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  padding-block: clamp(80px, 12vw, 160px);
+
+  @include down($bp-lg) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.label {
+  @include label;
+  color: var(--muted);
+}
+
+.title {
+  @include display;
+  font-size: clamp(2.6rem, 1rem + 5.5vw, 6.5rem);
+
+  em {
+    font-style: normal;
+    color: var(--amber);
+  }
+}
+
+.lede {
+  max-width: 48ch;
+  color: var(--muted);
+}
+
+.channels {
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.channel {
+  display: grid;
+  grid-template-columns: 10ch minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+  transition:
+    color 0.3s,
+    padding 0.4s var(--ease-out);
+
+  @include hover {
+    &:is(a):hover {
+      color: var(--amber);
+      padding-left: 10px;
+    }
+  }
+}
+
+.channelLabel {
+  @include label;
+  color: var(--muted);
+}
+
+.channelValue {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ── terminal form ────────────────────────
+.form {
+  align-self: start;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: #0d0d0f;
+  overflow: hidden;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--ink-2);
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+
+  i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+  }
+
+  i:first-child {
+    background: var(--amber);
+    border-color: var(--amber);
+  }
+}
+
+.fields {
+  display: grid;
+  gap: 4px;
+  padding: 18px;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 11ch minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+  padding-block: 10px;
+  border-bottom: 1px dashed var(--line);
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--text);
+    caret-color: var(--amber);
+    font-size: 16px;
+    resize: vertical;
+
+    &::placeholder {
+      color: #4c4b47;
+    }
+
+    &[aria-invalid='true'] {
+      color: var(--danger);
+    }
+  }
+
+  &:focus-within {
+    border-bottom-color: var(--amber);
+
+    .prompt {
+      color: var(--amber);
+    }
+  }
+
+  @include down($bp-sm) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+}
+
+.area {
+  align-items: start;
+}
+
+.prompt {
+  font-size: var(--fs-sm);
+  color: var(--phosphor);
+  transition: color 0.3s;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.log {
+  min-height: 92px;
+  padding: 4px 18px 8px;
+  font-size: var(--fs-xs);
+  line-height: 1.8;
+  color: #cfcec8;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.ok {
+  color: var(--phosphor);
+}
+
+.error {
+  color: var(--danger);
+}
+
+.submitRow {
+  display: flex;
+  justify-content: flex-end;
+  padding: 14px 18px 18px;
+  border-top: 1px solid var(--line);
+}

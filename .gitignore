@@ -1,0 +1,16 @@
+node_modules
+build
+dist
+*.local
+.DS_Store
+
+# env files: never commit values
+.env
+.env.*
+!.env.dummy
+/env
+envs
+
+# python helpers
+scripts/__pycache__
+.venv

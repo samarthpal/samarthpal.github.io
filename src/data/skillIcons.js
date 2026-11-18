@@ -1,0 +1,40 @@
+// Devicon paths (https://devicon.dev) for inventory items, keyed by skill name in profile.json.
+// Items without an entry (or whose icon fails to load) show their pixel-text abbreviation instead.
+export const DEVICON_BASE = 'https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/'
+
+export const SKILL_ICONS = {
+  JavaScript: 'javascript/javascript-original.svg',
+  C: 'c/c-original.svg',
+  'C++': 'cplusplus/cplusplus-original.svg',
+  Java: 'java/java-original.svg',
+  'C#': 'csharp/csharp-original.svg',
+  Python: 'python/python-original.svg',
+  PHP: 'php/php-original.svg',
+  SQL: 'azuresqldatabase/azuresqldatabase-original.svg',
+  React: 'react/react-original.svg',
+  Vite: 'vitejs/vitejs-original.svg',
+  SCSS: 'sass/sass-original.svg',
+  HTML5: 'html5/html5-original.svg',
+  CSS3: 'css3/css3-original.svg',
+  Redux: 'redux/redux-original.svg',
+  jQuery: 'jquery/jquery-original.svg',
+  Bootstrap: 'bootstrap/bootstrap-original.svg',
+  Handlebars: 'handlebars/handlebars-original.svg',
+  'Node.js': 'nodejs/nodejs-original.svg',
+  Express: 'express/express-original.svg',
+  'BullMQ + Redis': 'redis/redis-original.svg',
+  MongoDB: 'mongodb/mongodb-original.svg',
+  Mongoose: 'mongoose/mongoose-original.svg',
+  MySQL: 'mysql/mysql-original.svg',
+  PostgreSQL: 'postgresql/postgresql-original.svg',
+  'AWS (EC2, S3, SES, SNS, IAM, CloudWatch)': 'amazonwebservices/amazonwebservices-original-wordmark.svg',
+  Nginx: 'nginx/nginx-original.svg',
+  Cloudflare: 'cloudflare/cloudflare-original.svg',
+  'Linux (Ubuntu)': 'linux/linux-original.svg',
+  'Git & GitHub': 'git/git-original.svg',
+  'Google OAuth': 'google/google-original.svg',
+  Figma: 'figma/figma-original.svg',
+  Trello: 'trello/trello-original.svg',
+  Photoshop: 'photoshop/photoshop-original.svg',
+  Illustrator: 'illustrator/illustrator-plain.svg'
+}

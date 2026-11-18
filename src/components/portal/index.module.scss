@@ -1,0 +1,48 @@
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.35;
+  }
+}
+
+.portal {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.08;
+  perspective: 900px;
+  touch-action: pan-y;
+}
+
+.tilt {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+}
+
+// floats in front of the canvas, so the 3D tilt gives it real parallax
+.tag {
+  @include pixel-font;
+  position: absolute;
+  left: 50%;
+  bottom: 2%;
+  padding: 6px 10px;
+  border: 2px solid var(--magenta);
+  background: #0b0a12;
+  color: var(--magenta);
+  font-size: 9px;
+  white-space: nowrap;
+  transform: translateX(-50%) translateZ(60px);
+  box-shadow: 4px 4px 0 #2e2a66;
+  animation: blink 1.4s steps(1) infinite;
+}

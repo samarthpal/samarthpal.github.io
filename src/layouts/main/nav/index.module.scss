@@ -1,0 +1,254 @@
+.nav {
+  --nav-fg: var(--text);
+  --nav-line: var(--line-strong);
+  --nav-bg: rgba(11, 11, 12, 0.92);
+
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: var(--nav-h);
+  padding-inline: var(--gutter);
+  color: var(--nav-fg);
+  transition: color 0.4s var(--ease-out);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.light {
+  --nav-fg: var(--ink-text);
+  --nav-line: var(--line-ink);
+  --nav-bg: rgba(236, 235, 230, 0.94);
+}
+
+.arcade {
+  --nav-fg: #f4f1ea;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+
+  @include hover {
+    &:hover [data-logo-hex] {
+      transform: rotate(60deg);
+    }
+  }
+}
+
+.word {
+  @include down($bp-sm) {
+    display: none;
+  }
+}
+
+.dot {
+  color: var(--amber);
+}
+
+.chapter {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-inline: auto;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  @include up($bp-lg) {
+    display: flex;
+  }
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  position: relative;
+  width: 72px;
+  height: 1px;
+  background: var(--nav-line);
+
+  i {
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    transform-origin: left;
+    transition: transform 0.6s var(--ease-out);
+  }
+}
+
+.label {
+  min-width: 9ch;
+  color: var(--amber);
+}
+
+.light .label {
+  color: var(--ink-muted);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+
+  @include up($bp-lg) {
+    margin-left: 0;
+  }
+}
+
+.link {
+  position: relative;
+  padding: 8px 12px;
+  font-size: var(--fs-sm);
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 4px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  @include hover {
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+.active::after {
+  transform: scaleX(1);
+}
+
+.term {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  padding: 7px 12px;
+  border: 1px solid var(--nav-line);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  transition:
+    border-color 0.3s,
+    color 0.3s;
+
+  > span {
+    color: var(--amber);
+  }
+
+  @include hover {
+    &:hover {
+      border-color: var(--amber);
+    }
+  }
+}
+
+.kbd {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--nav-line);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.burger {
+  display: none;
+}
+
+// ── mobile menu ───────────────────────────────────────────
+@include down($bp-md) {
+  .burger {
+    position: relative;
+    display: grid;
+    place-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    z-index: 2;
+
+    i {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.4s var(--ease-out);
+    }
+  }
+
+  .isOpen .burger i:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .isOpen .burger i:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  .links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    padding: var(--gutter);
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.35s var(--ease-out),
+      visibility 0.35s;
+  }
+
+  .isOpen .links {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .link {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 9vw, 3rem);
+    font-weight: 600;
+    padding: 4px 0;
+    letter-spacing: -0.02em;
+
+    &::after {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  .term {
+    margin: 24px 0 0;
+    font-size: var(--fs-sm);
+  }
+
+  .kbd {
+    display: none;
+  }
+}
