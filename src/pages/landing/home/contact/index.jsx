@@ -5,6 +5,7 @@ import Portal from 'components/portal'
 import { publicApi } from 'api'
 import { gsap } from 'helpers/gsap'
 import { prefersReducedMotion } from 'helpers/device'
+import scroller from 'helpers/scroller'
 import storage from 'helpers/storage'
 import useChapter from 'hooks/useChapter'
 import useReveal from 'hooks/useReveal'
@@ -51,29 +52,46 @@ export default function Contact() {
   // the message "flies" into the portal, which surges as it arrives
   const sendThroughPortal = () => {
     const portal = portalRef.current
-    if (prefersReducedMotion() || !packetRef.current || !formRef.current || !portalBox.current) {
+    const box = portalBox.current
+    if (prefersReducedMotion() || !packetRef.current || !formRef.current || !box) {
       portal?.pulse(1)
       return
     }
-    const from = centre(formRef.current, root.current)
-    const to = centre(portalBox.current, root.current)
-    gsap.fromTo(
-      packetRef.current,
-      { x: from.x, y: from.y, xPercent: -50, yPercent: -50, scale: 1, rotation: 0, autoAlpha: 1 },
-      {
-        x: to.x,
-        y: to.y,
-        scale: 0.15,
-        rotation: -25,
-        autoAlpha: 0.2,
-        duration: 0.9,
-        ease: 'power3.in',
-        onComplete: () => {
-          gsap.set(packetRef.current, { autoAlpha: 0 })
-          portal?.pulse(1.4)
-        }
-      }
-    )
+
+    // ~2s in three beats: the message lifts off the form, arcs over and spirals down
+    // into the portal (shrinking as it goes), then the portal surges as it lands
+    const fly = () => {
+      const packet = packetRef.current
+      const from = centre(formRef.current, root.current)
+      const to = centre(box, root.current)
+      const arcX = (from.x + to.x) / 2 + (to.x >= from.x ? 40 : -40)
+      const arcY = Math.min(from.y, to.y) - 80
+      gsap
+        .timeline({
+          onComplete: () => {
+            gsap.set(packet, { autoAlpha: 0 })
+            portal?.pulse(1.5)
+          }
+        })
+        .fromTo(
+          packet,
+          { x: from.x, y: from.y, xPercent: -50, yPercent: -50, scale: 0.6, rotation: 0, autoAlpha: 0 },
+          { y: from.y - 36, scale: 1.08, autoAlpha: 1, duration: 0.45, ease: 'back.out(2)' }
+        )
+        .to(packet, { x: arcX, y: arcY, rotation: -12, scale: 0.9, duration: 0.55, ease: 'sine.inOut' })
+        .to(packet, { x: to.x, y: to.y, rotation: -200, scale: 0.08, autoAlpha: 0.15, duration: 0.95, ease: 'power3.in' })
+        .call(() => portal?.pulse(0.6), null, '-=0.25') // the portal starts to swell just before impact
+    }
+
+    // On phones the portal sits below the form: bring it into view first so you see the send.
+    const r = box.getBoundingClientRect()
+    if (r.top < 0 || r.bottom > window.innerHeight) {
+      const top = r.top + window.scrollY - (window.innerHeight - r.height) / 2
+      const lenis = scroller.get()
+      if (lenis) lenis.scrollTo(top, { duration: 0.6, force: true })
+      else window.scrollTo({ top, behavior: 'smooth' })
+      gsap.delayedCall(0.65, fly)
+    } else fly()
   }
 
   const onSubmit = async e => {
@@ -162,7 +180,7 @@ export default function Contact() {
 
         <div className={s.grid}>
           <aside className={s.side}>
-            <div ref={portalBox} className={s.portal} data-reveal>
+            <div ref={portalBox} className={s.portal} data-reveal="scale">
               <Portal ref={portalRef} tag="send portal · open" />
             </div>
             <p className={s.lede} data-reveal>

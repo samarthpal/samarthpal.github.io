@@ -8,6 +8,7 @@
 .stack {
   position: relative;
   z-index: 2;
+  overflow-x: clip; // scroll entrances start off to the side; never widen the page
   background: var(--bg);
   border-top: 1px solid var(--line);
 }

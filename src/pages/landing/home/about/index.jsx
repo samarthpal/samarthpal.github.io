@@ -90,7 +90,7 @@ export default function About() {
 
           <ul className={s.facts}>
             {profile.facts.map(f => (
-              <li key={f.label} className={s.fact} data-reveal>
+              <li key={f.label} className={s.fact} data-reveal="scale">
                 <span className={s.value}>{f.value}</span>
                 <span className={s.factLabel}>{f.label}</span>
               </li>

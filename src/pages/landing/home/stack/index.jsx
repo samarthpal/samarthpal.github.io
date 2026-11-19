@@ -135,7 +135,7 @@ export default function Stack() {
         >
           {shown.map((t, i) => {
             return (
-              <li key={t.name} className={s.cell} style={{ '--i': i }}>
+              <li key={t.name} className={s.cell} style={{ '--i': i }} data-reveal="scale">
                 <HoverPerspective radius="16px">
                 <button
                   type="button"

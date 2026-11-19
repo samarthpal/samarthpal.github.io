@@ -11,6 +11,10 @@ import { PORTRAIT } from 'data/portrait'
 import profile from 'data/profile.json'
 import s from './index.module.scss'
 
+// "DaemonHive" | "Technologies": the first word stays glued to the logo when the line wraps
+const [COMPANY_FIRST, ...COMPANY_WORDS] = profile.company.split(' ')
+const COMPANY_REST = COMPANY_WORDS.join(' ')
+
 /** Distance from an element's centre to its root's centre, ignoring transforms. */
 const centerDelta = (el, root) => {
   let x = 0
@@ -85,6 +89,16 @@ export default function Hero() {
           .to('[data-hero-hex]', { clipPath: hexClip(125), duration: 0.42, ease: 'power2.in' }, 0.56)
           .to('[data-hero-caret]', { autoAlpha: 0, duration: 0.06 }, 0.94)
       })
+
+      // phones: no pin; as you scroll away the portrait drifts up and shrinks
+      // while the two name lines slide apart in opposite directions
+      mm.add(MOTION.mobile, () => {
+        const scene = { trigger: root.current, start: 'top top', end: 'bottom top', scrub: 0.5 }
+        gsap.to('[data-hero-portrait]', { yPercent: -18, scale: 0.82, autoAlpha: 0.25, ease: 'none', scrollTrigger: scene })
+        gsap.to('[data-hero-line]:first-child', { xPercent: -14, ease: 'none', scrollTrigger: scene })
+        gsap.to('[data-hero-line]:last-child', { xPercent: 14, ease: 'none', scrollTrigger: scene })
+        gsap.to('[data-hero-fade]', { y: -30, autoAlpha: 0, stagger: 0.05, ease: 'none', scrollTrigger: { ...scene, end: '60% top' } })
+      })
     },
     { scope: root }
   )
@@ -109,11 +123,18 @@ export default function Hero() {
           </h1>
 
           <p className={s.role} data-hero-fade>
-            {profile.role} <span className={s.at}>@</span>{' '}
-            <a href={profile.companyUrl} target="_blank" rel="noopener noreferrer" className={s.company}>
-              <LogoImg src={profile.companyLogo} alt="" className={s.companyLogo} />
-              <span className={s.companyName}>{profile.company}</span>
-            </a>
+            <span className={s.roleTitle}>{profile.role}</span>{' '}
+            <span className={s.roleAt}>
+              <span className={s.at}>@</span>{' '}
+              <a href={profile.companyUrl} target="_blank" rel="noopener noreferrer" className={s.company}>
+                {/* logo + first word never split; only the rest of the name may wrap */}
+                <span className={s.keep}>
+                  <LogoImg src={profile.companyLogo} alt="" className={s.companyLogo} />
+                  <span className={s.companyName}>{COMPANY_FIRST}</span>
+                </span>{' '}
+                <span className={s.companyName}>{COMPANY_REST}</span>
+              </a>
+            </span>
           </p>
           <p className={s.lede} data-hero-fade>
             {profile.tagline}
@@ -128,8 +149,8 @@ export default function Hero() {
             mask={PORTRAIT.mask}
             contrast={PORTRAIT.contrast}
             gamma={PORTRAIT.gamma}
-            cols={isMobile ? 54 : 76}
-            pixelCols={isMobile ? 40 : 52}
+            cols={isMobile ? 46 : 124}
+            pixelCols={isMobile ? 40 : 96}
             mode={mode}
             onClick={nextMode}
             label={`Portrait of ${profile.shortName}, rendered as ${mode}`}

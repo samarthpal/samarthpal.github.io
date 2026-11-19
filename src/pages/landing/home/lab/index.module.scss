@@ -24,6 +24,7 @@
 .lab {
   position: relative;
   z-index: 2;
+  overflow-x: clip; // cards slide in from the sides; never widen the page
   background: var(--ink);
 }
 

@@ -60,7 +60,7 @@ export default function Path() {
           const projects = shipped(x.org)
           const current = x.status === 'ACTIVE'
           return (
-            <li key={x.id} className={`${s.step} ${current ? s.current : ''}`} data-step>
+            <li key={x.id} className={`${s.step} ${current ? s.current : ''}`} data-step data-reveal="tilt">
               <span className={s.marker} aria-hidden="true" />
               <HoverPerspective perspective={1000} maxTilt={5} scale={1}>
               <article className={s.card}>

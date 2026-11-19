@@ -13,7 +13,7 @@
   @include dark-scope;
   @include pixel-font;
   color: #f4f1ea;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .hud {
@@ -51,6 +51,56 @@
   @include hover {
     &:hover {
       color: #f4f1ea;
+    }
+  }
+}
+
+// pause / reset bar, shown while a round is running or paused
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 4px 10px;
+}
+
+.ctrl {
+  padding: 8px 12px;
+  border: 2px solid var(--arcade-line);
+  background: #0b0a12;
+  color: #f4f1ea;
+  font: inherit;
+  font-size: 10px;
+  box-shadow: 3px 3px 0 #2e2a66;
+
+  @include hover {
+    &:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+  }
+
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #2e2a66;
+  }
+}
+
+.overlayActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.secondary {
+  border-color: #b3b0c9;
+  color: #b3b0c9;
+  animation: none;
+
+  @include hover {
+    &:hover {
+      background: #b3b0c9;
+      color: #0b0a12;
     }
   }
 }
@@ -97,14 +147,14 @@
 }
 
 .title {
-  font-size: clamp(16px, 3.4vw, 32px);
+  font-size: clamp(18px, 3.4vw, 32px);
   color: var(--phosphor);
   text-shadow: 3px 3px 0 #2e2a66;
 }
 
 .sub {
   max-width: 46ch;
-  font-size: clamp(8px, 1.1vw, 11px);
+  font-size: clamp(10px, calc(1.1vw + 6px), 12px);
   line-height: 2;
   color: #b3b0c9;
 }
@@ -115,7 +165,7 @@
   border: 3px solid var(--gold);
   background: #0b0a12;
   color: var(--gold);
-  font-size: clamp(10px, 1.3vw, 13px);
+  font-size: clamp(11px, 1.3vw, 13px);
   animation: blink 1.2s steps(1) infinite;
   box-shadow: 4px 4px 0 #2e2a66;
 

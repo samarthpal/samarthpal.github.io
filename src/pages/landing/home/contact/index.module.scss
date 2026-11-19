@@ -65,6 +65,7 @@
   max-width: 360px;
   align-self: center;
 
+  // stacked layout: form first, then the portal right below it, then the direct links
   @include down($bp-lg) {
     max-width: 260px;
     order: -1;
@@ -140,6 +141,10 @@
   ::selection {
     background: var(--inv-fg);
     color: var(--inv-bg);
+  }
+
+  @include down($bp-lg) {
+    order: -1; // the form leads on phones and tablets, the portal follows it
   }
 }
 

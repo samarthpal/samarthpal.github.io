@@ -69,6 +69,20 @@ export default function Work() {
           }
         )
       })
+
+      // phones: the cards are a vertical stack, so each one tilts up out of a 3D lean
+      // and grows to full size as it scrolls in, while its cover zooms out to fit
+      mm.add(MOTION.mobile, () => {
+        gsap.utils.toArray('[data-card]', trackRef.current).forEach(card => {
+          const scene = { trigger: card, start: 'top 98%', end: 'top 55%', scrub: 0.5 }
+          gsap.fromTo(
+            card,
+            { rotationX: 18, scale: 0.9, y: 40, autoAlpha: 0.35, transformPerspective: 900, transformOrigin: '50% 100%' },
+            { rotationX: 0, scale: 1, y: 0, autoAlpha: 1, ease: 'none', scrollTrigger: scene }
+          )
+          gsap.fromTo(card.querySelector('[data-card-cover]'), { scale: 1.3 }, { scale: 1, ease: 'none', scrollTrigger: scene })
+        })
+      })
     },
     { scope: root }
   )
@@ -153,7 +167,7 @@ export default function Work() {
           </div>
           <ul className={s.rows}>
             {JOAHQUIN.map(w => (
-              <li key={w.slug} data-reveal>
+              <li key={w.slug} data-reveal="left">
                 <Link to={`/work/${w.slug}`} className={s.row} style={{ '--accent': w.accent }} data-cursor="read">
                   <span className={s.rowName}>
                     <LogoImg src={w.logo} alt="" className={s.blockLogo} />
@@ -177,7 +191,7 @@ export default function Work() {
           </div>
           <ul className={s.archive}>
             {profile.archive.map(a => (
-              <li key={a.name} data-reveal>
+              <li key={a.name} data-reveal="scale">
                 {a.url ? (
                   <a href={a.url} target="_blank" rel="noopener noreferrer" className={s.archiveItem}>
                     <span>{a.name}</span>

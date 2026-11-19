@@ -45,7 +45,7 @@ export default function Lab() {
         </header>
 
         <div className={s.cards}>
-          <HoverPerspective className={s.tilt} data-reveal>
+          <HoverPerspective className={s.tilt} data-reveal="left">
           <Link to="/playground" state={{ lab: 'ascii' }} className={s.card} data-cursor="play">
             <div className={`${s.preview} ${s.asciiPreview}`}>
               <AsciiCanvas
@@ -68,7 +68,7 @@ export default function Lab() {
           </Link>
           </HoverPerspective>
 
-          <HoverPerspective className={s.tilt} data-reveal>
+          <HoverPerspective className={s.tilt} data-reveal="right">
           <Link to="/playground" state={{ lab: 'bugs' }} className={s.card} data-cursor="play">
             <div className={`${s.preview} ${s.bugPreview}`}>
               <PixelSprite rows={BUG_A} colors={SKINS.bug} size={96} className={s.bug} />
@@ -81,7 +81,7 @@ export default function Lab() {
           </Link>
           </HoverPerspective>
 
-          <HoverPerspective className={s.tilt} data-reveal>
+          <HoverPerspective className={s.tilt} data-reveal="left">
           <button type="button" className={s.card} onClick={openTerminal} data-cursor="open">
             <div className={`${s.preview} ${s.termPreview}`} aria-hidden="true">
               <pre>

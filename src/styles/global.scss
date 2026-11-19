@@ -7,6 +7,10 @@
 }
 
 html {
+  // Nothing may ever widen the page sideways (mobile browsers let you zoom out to reveal it).
+  // `clip`, unlike `hidden`, doesn't create a scroll container, so pins and sticky still work.
+  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scrollbar-width: thin;

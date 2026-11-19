@@ -6,9 +6,12 @@ import sfx from 'helpers/sfx'
 import { dpr as getDpr } from 'helpers/device'
 import s from './index.module.scss'
 
-// World is 160×90 "pixels"; the canvas scales it to fit.
-const GW = 160
-const GH = 90
+// The world is measured in game "pixels" and the canvas scales it to fit. Wide screens get a
+// 160×90 field; phones a taller 84×127 one, so each pixel (and bug) is ~3× bigger to tap.
+const WIDE = { w: 160, h: 90 }
+const TALL = { w: 84, h: 127 }
+const worldFor = width => (width < 600 ? TALL : WIDE)
+const WORLD = { ...WIDE } // current field, shared by the pure game functions below
 const ROUND = 30
 const BEST_KEY = 'bugsquash.best'
 
@@ -55,6 +58,7 @@ const rand = (a, b) => a + Math.random() * (b - a)
 const PIXEL_FONT = '"Press Start 2P", ui-monospace, monospace'
 
 function spawn(g) {
+  const { w: GW, h: GH } = WORLD
   const side = Math.floor(Math.random() * 4)
   let x
   let y
@@ -81,6 +85,7 @@ function spawn(g) {
 }
 
 function update(g, dt) {
+  const { w: GW, h: GH } = WORLD
   g.time = Math.max(0, g.time - dt)
   g.elapsed += dt
   g.spawnIn -= dt
@@ -129,12 +134,13 @@ export default function BugSquash() {
   const canvasRef = useRef(null)
   const size = useRef({ w: 0, h: 0, p: 1 })
   const game = useRef(null)
-  const [phase, setPhase] = useState('idle') // idle | playing | over
+  const [phase, setPhase] = useState('idle') // idle | playing | paused | over
   const phaseRef = useRef(phase)
   phaseRef.current = phase
   const [hud, setHud] = useState({ score: 0, time: ROUND, combo: 1 })
   const [best, setBest] = useState(() => storage.get(BEST_KEY, 0))
   const [muted, setMuted] = useState(() => sfx.isMuted())
+  const [world, setWorld] = useState(WIDE) // drives the screen's aspect ratio
 
   const toggleSound = () => {
     const next = !muted
@@ -149,6 +155,7 @@ export default function BugSquash() {
   const render = useCallback(g => {
     const canvas = canvasRef.current
     const { w, h, p } = size.current
+    const { w: GW, h: GH } = WORLD
     if (!canvas || !w) return
     const ctx = canvas.getContext('2d')
     const ratio = getDpr()
@@ -196,11 +203,12 @@ export default function BugSquash() {
   }, [])
 
   const idleScene = useCallback(() => {
+    const { w: GW, h: GH } = WORLD
     render({
       bugs: [
-        { x: 40, y: 30, heading: 0.4, t: 0, dead: 0, gold: false },
-        { x: 118, y: 62, heading: 2.6, t: 0.1, dead: 0, gold: true },
-        { x: 82, y: 70, heading: -1.2, t: 0, dead: 0, gold: false }
+        { x: GW * 0.25, y: GH * 0.33, heading: 0.4, t: 0, dead: 0, gold: false },
+        { x: GW * 0.74, y: GH * 0.69, heading: 2.6, t: 0.1, dead: 0, gold: true },
+        { x: GW * 0.51, y: GH * 0.78, heading: -1.2, t: 0, dead: 0, gold: false }
       ],
       particles: [],
       texts: []
@@ -213,11 +221,17 @@ export default function BugSquash() {
     const canvas = canvasRef.current
     const resize = () => {
       const w = wrap.clientWidth
-      const h = (w * GH) / GW
+      if (!w) return
+      const next = worldFor(w)
+      if (next.w !== WORLD.w) {
+        Object.assign(WORLD, next)
+        setWorld(next)
+      }
+      const h = (w * WORLD.h) / WORLD.w
       const ratio = getDpr()
       canvas.width = Math.round(w * ratio)
       canvas.height = Math.round(h * ratio)
-      size.current = { w, h, p: w / GW }
+      size.current = { w, h, p: w / WORLD.w }
       if (game.current && phaseRef.current !== 'idle') render(game.current)
       else idleScene()
     }
@@ -241,7 +255,7 @@ export default function BugSquash() {
     if (phase !== 'playing') return
     let raf = 0
     let lastHud = 0
-    let lastSecond = ROUND
+    let lastSecond = Math.ceil(game.current.time) // resuming mustn't replay countdown beeps
     const frame = now => {
       const g = game.current
       const dt = Math.min(0.05, (now - g.last) / 1000)
@@ -291,12 +305,40 @@ export default function BugSquash() {
     setPhase('playing')
   }
 
+  // pause keeps the round exactly as it is; resume restarts the clock from "now" so the
+  // time spent paused isn't counted
+  const pause = useCallback(() => setPhase(p => (p === 'playing' ? 'paused' : p)), [])
+  const resume = () => {
+    if (!game.current) return
+    game.current.last = performance.now()
+    sfx.unlock()
+    setPhase('playing')
+  }
+
+  // P toggles pause; leaving the tab/app pauses automatically
+  useEffect(() => {
+    if (phase !== 'playing' && phase !== 'paused') return
+    const onKey = e => {
+      const typing = e.target instanceof HTMLElement && ['INPUT', 'TEXTAREA'].includes(e.target.tagName)
+      if (typing || e.key.toLowerCase() !== 'p') return
+      if (phase === 'playing') pause()
+      else resume()
+    }
+    const onHide = () => document.hidden && pause()
+    window.addEventListener('keydown', onKey)
+    document.addEventListener('visibilitychange', onHide)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('visibilitychange', onHide)
+    }
+  })
+
   const onPointerDown = e => {
     const g = game.current
     if (phase !== 'playing' || !g) return
     const rect = canvasRef.current.getBoundingClientRect()
-    const gx = ((e.clientX - rect.left) / rect.width) * GW
-    const gy = ((e.clientY - rect.top) / rect.height) * GH
+    const gx = ((e.clientX - rect.left) / rect.width) * WORLD.w
+    const gy = ((e.clientY - rect.top) / rect.height) * WORLD.h
     let hit = null
     let bestD = 7.5
     for (const bug of g.bugs) {
@@ -363,7 +405,24 @@ export default function BugSquash() {
         </button>
       </div>
 
-      <div ref={wrapRef} className={s.screen}>
+      {(phase === 'playing' || phase === 'paused') && (
+        <div className={s.controls}>
+          {phase === 'playing' ? (
+            <button type="button" className={s.ctrl} onClick={pause} aria-keyshortcuts="P">
+              ❚❚ PAUSE
+            </button>
+          ) : (
+            <button type="button" className={s.ctrl} onClick={resume} aria-keyshortcuts="P">
+              ▶ RESUME
+            </button>
+          )}
+          <button type="button" className={s.ctrl} onClick={start}>
+            ↺ RESET
+          </button>
+        </div>
+      )}
+
+      <div ref={wrapRef} className={s.screen} style={{ aspectRatio: `${world.w} / ${world.h}` }}>
         <canvas
           ref={canvasRef}
           className={s.canvas}
@@ -374,13 +433,22 @@ export default function BugSquash() {
 
         {phase !== 'playing' && (
           <div className={s.overlay}>
-            {phase === 'idle' ? (
+            {phase === 'idle' && (
               <>
                 <p className={s.title}>BUG SQUASH</p>
                 <p className={s.sub}>Production is crawling with bugs. You have {ROUND} seconds.</p>
                 <p className={s.sub}>Gold bugs are critical: 50 pts. Chain hits for up to x5.</p>
               </>
-            ) : (
+            )}
+            {phase === 'paused' && (
+              <>
+                <p className={s.title}>PAUSED</p>
+                <p className={s.sub}>
+                  {hud.time}s left · {hud.score} pts. Press P or resume when you&rsquo;re ready.
+                </p>
+              </>
+            )}
+            {phase === 'over' && (
               <>
                 <p className={s.title}>{hud.score >= best && hud.score > 0 ? 'NEW HI-SCORE!' : 'SHIFT OVER'}</p>
                 <p className={s.sub}>
@@ -388,9 +456,20 @@ export default function BugSquash() {
                 </p>
               </>
             )}
-            <button type="button" className={s.start} onClick={start} autoFocus={phase === 'over'}>
-              {phase === 'idle' ? '▶ PRESS START' : '↻ PLAY AGAIN'}
-            </button>
+            {phase === 'paused' ? (
+              <div className={s.overlayActions}>
+                <button type="button" className={s.start} onClick={resume} autoFocus>
+                  ▶ RESUME
+                </button>
+                <button type="button" className={`${s.start} ${s.secondary}`} onClick={start}>
+                  ↺ RESTART
+                </button>
+              </div>
+            ) : (
+              <button type="button" className={s.start} onClick={start} autoFocus={phase === 'over'}>
+                {phase === 'idle' ? '▶ PRESS START' : '↻ PLAY AGAIN'}
+              </button>
+            )}
           </div>
         )}
       </div>

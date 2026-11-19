@@ -10,15 +10,15 @@ React 19 + Vite 6 + SCSS + GSAP (ScrollTrigger) + Lenis. Canvas 2D only, no WebG
    - `makefile.txt` → `makefile`
 2. Node 24 (`nvm use`), then `make install`, then `make dev`
 
-| make target    | does                                                                         |
-| -------------- | ---------------------------------------------------------------------------- |
-| `make dev`     | local dev server (`VITE_PORT`, default 5173)                                 |
-| `make build`   | production build in `build/`, plus `version.txt` and `relv.txt`              |
-| `make preview` | build, then serve the production build locally                               |
-| `make lint`    | ESLint                                                                       |
-| `make deploy`  | build, then push `build/` to the `gh-pages` branch (same flow as 2.0)        |
+| make target    | does                                                                          |
+| -------------- | ----------------------------------------------------------------------------- |
+| `make dev`     | local dev server (`VITE_PORT`, default 5173)                                  |
+| `make build`   | production build in `build/`, plus `version.txt` and `relv.txt`               |
+| `make preview` | build, then serve the production build locally                                |
+| `make lint`    | ESLint                                                                        |
+| `make deploy`  | build, then push `build/` to the `gh-pages` branch (same flow as 2.0)         |
 | `make resume`  | regenerate `public/resume.pdf` from `src/data/profile.json` (needs reportlab) |
-| `make brand`   | regenerate the PNG icons and `og.png` (needs Pillow)                         |
+| `make brand`   | regenerate the PNG icons and `og.png` (needs Pillow)                          |
 
 ## Contact form setup (Google Forms)
 
@@ -56,6 +56,7 @@ old axios version always said "failed".
 The site is dark-only. Colour tokens live in `src/styles/mixins.scss` (`theme-dark`). To change the accent
 (currently amber `#ffb21a`), edit `--accent` / `--accent-2` there, the two SVGs in `public/`, and `ACCENT` in
 `scripts/build_brand.py` / `scripts/build_resume.py`. Then run `make brand` and `make resume`.
+
 - `src/helpers/terminal.js`: terminal commands. `src/helpers/ascii.js` / `pixel.js`: the renderers.
 - `public/favicon.svg`, `public/logo.svg`: the logo (pixel "SP" + caret inside a hive hexagon).
 
