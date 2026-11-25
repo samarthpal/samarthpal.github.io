@@ -122,7 +122,7 @@ def header(c, _doc):
     ])
     link_row(c, x, H - 32.5 * mm, [
         ("samarthpal.github.io", PROFILE["site"]),
-        ("linkedin.com/in/samarth-pal", social["LinkedIn"]["url"]),
+        (social["LinkedIn"]["url"].split("://")[-1].replace("www.", "").rstrip("/"), social["LinkedIn"]["url"]),
         ("github.com/samarthpal", social["GitHub"]["url"]),
     ])
     c.restoreState()

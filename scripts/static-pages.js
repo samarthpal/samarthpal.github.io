@@ -7,7 +7,8 @@
  * each served with 200 and carrying its own title, description, canonical and og:* tags.
  * React (BrowserRouter) then takes over in the browser as usual.
  *
- * Also writes:
+ * Also:
+ *  - adds schema.org JSON-LD (Person, Organization, WebSite, ProfilePage) to every page
  *  - build/404.html: the same app shell (React shows the 404 page), marked noindex
  *  - build/sitemap.xml: every route, generated from the same list
  *
@@ -56,6 +57,75 @@ function withMeta(html, { url, title, description }) {
   return out
 }
 
+/**
+ * schema.org JSON-LD that tells search engines who this site is about, so they can tie the
+ * site, LinkedIn, GitHub and the company together as one person (the input for name
+ * knowledge panels). Everything comes from profile.json.
+ * @param {object} profile
+ * @param {string|null} photoUrl  absolute URL of the portrait in the build
+ */
+function structuredData(profile, photoUrl) {
+  const person = `${SITE}/#person`
+  const company = `${SITE}/#daemonhive`
+  const dit = profile.education.find(e => /Institute/.test(e.school))
+  const graph = [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${SITE}/#profile`,
+      url: `${SITE}/`,
+      name: `${profile.shortName} — ${profile.role}, ${profile.company}`,
+      mainEntity: { '@id': person },
+      dateModified: new Date().toISOString()
+    },
+    {
+      '@type': 'Person',
+      '@id': person,
+      name: profile.name,
+      alternateName: profile.shortName,
+      givenName: profile.firstName,
+      familyName: profile.lastName,
+      url: `${SITE}/`,
+      ...(photoUrl ? { image: photoUrl } : {}),
+      jobTitle: profile.role,
+      description: profile.summary,
+      worksFor: { '@id': company },
+      email: `mailto:${profile.contact.email}`,
+      address: { '@type': 'PostalAddress', addressLocality: 'Moradabad', addressRegion: 'Uttar Pradesh', addressCountry: 'IN' },
+      ...(dit ? { alumniOf: { '@type': 'CollegeOrUniversity', name: dit.school.split(',')[0] } } : {}),
+      knowsAbout: profile.skills.flatMap(g => g.items.filter(i => i.rarity === 'legendary').map(i => i.name.replace(/\s*\(.*\)/, ''))),
+      sameAs: profile.socials.map(s => s.url)
+    },
+    {
+      '@type': 'Organization',
+      '@id': company,
+      name: profile.company,
+      url: profile.companyUrl,
+      ...(profile.companyLogo ? { logo: profile.companyLogo } : {}),
+      founder: { '@id': person }
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: profile.shortName,
+      publisher: { '@id': person }
+    }
+  ]
+  // "<" escaped so the JSON can never close the <script> tag early
+  const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')
+  return `<script type="application/ld+json">${json}</script>`
+}
+
+/** Absolute URL of the hashed portrait Vite emitted (build/assets/me-*.jpeg), if any. */
+function findPhoto(outDir) {
+  try {
+    const file = fs.readdirSync(path.join(outDir, 'assets')).find(f => /^me-.*\.(jpe?g|png|webp)$/.test(f))
+    return file ? `${SITE}/assets/${file}` : null
+  } catch {
+    return null
+  }
+}
+
 function sitemap(pages) {
   const today = new Date().toISOString().slice(0, 10)
   const urls = pages
@@ -73,7 +143,11 @@ export default function staticPages({ outDir, profilePath }) {
     apply: 'build',
     closeBundle() {
       const profile = JSON.parse(fs.readFileSync(profilePath, 'utf8'))
-      const shell = fs.readFileSync(path.join(outDir, 'index.html'), 'utf8')
+      // every page carries the same structured data about who the site belongs to
+      const shell = fs
+        .readFileSync(path.join(outDir, 'index.html'), 'utf8')
+        .replace('</head>', `    ${structuredData(profile, findPhoto(outDir))}\n  </head>`)
+      fs.writeFileSync(path.join(outDir, 'index.html'), shell)
       const pages = pagesFrom(profile)
 
       for (const page of pages) {
