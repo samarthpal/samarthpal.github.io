@@ -107,7 +107,9 @@ function structuredData(profile, photoUrl) {
       '@type': 'WebSite',
       '@id': `${SITE}/#website`,
       url: `${SITE}/`,
+      // the site name Google shows above the URL in results (instead of "GitHub")
       name: profile.shortName,
+      alternateName: [profile.name, `${profile.shortName} — Portfolio`],
       publisher: { '@id': person }
     }
   ]
