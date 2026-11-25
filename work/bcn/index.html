@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- per-page title / description / canonical / og:* are rewritten for every route at build time (vite.config.js → staticPages) -->
+    <title>BCN — Brahmin Community Network — Samarth Pal</title>
+    <meta name="title" content="BCN — Brahmin Community Network — Samarth Pal" />
+    <meta
+      name="description"
+      content="A community platform where members list businesses, products and services, and discover each other. A DaemonHive Technologies case study."
+    />
+    <meta name="author" content="Samarth Kumar Pal" />
+    <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="q2SdwF1dF1KCs4hPPtjAmLIUE852NDRT05GLwdUiTxE" />
+    <meta name="theme-color" content="#0b0b0c" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="https://samarthpal.github.io/work/bcn/" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://samarthpal.github.io/work/bcn/" />
+    <meta property="og:title" content="BCN — Brahmin Community Network — Samarth Pal" />
+    <meta property="og:description" content="A community platform where members list businesses, products and services, and discover each other. A DaemonHive Technologies case study." />
+    <meta property="og:image" content="https://samarthpal.github.io/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BCN — Brahmin Community Network — Samarth Pal" />
+    <meta name="twitter:description" content="A community platform where members list businesses, products and services, and discover each other. A DaemonHive Technologies case study." />
+    <meta name="twitter:image" content="https://samarthpal.github.io/og.png" />
+
+    <script>
+      // Old hash links (/#/work/x from early 3.0, /#/home etc. from 2.0) → clean URLs, before React starts.
+      ;(function () {
+        var h = location.hash
+        if (h.indexOf('#/') !== 0) return
+        var path = h.slice(1)
+        if (/^\/(home|about|resume|skills|portfolio|contact)?\/?$/.test(path)) path = '/'
+        history.replaceState(null, '', path)
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@400;600;800&display=swap"
+    />
+
+    <style>
+      /* critical paint: no white flash before the CSS bundle lands */
+      html,
+      body {
+        background: #0b0b0c;
+        color: #ecebe6;
+        margin: 0;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-DP7QY8Ry.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-JPOfYDPE.js">
+    <link rel="modulepreload" crossorigin href="/assets/motion-3rmHQhkn.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-CM0wuxvL.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="font-family: monospace; padding: 24px">
+        Samarth Kumar Pal — Co-founder &amp; CTO, DaemonHive Technologies. This site needs JavaScript for its interactive parts.
+        Reach me at palsamarth02@gmail.com or github.com/samarthpal.
+      </p>
+    </noscript>
+  </body>
+</html>
