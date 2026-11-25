@@ -116,22 +116,30 @@ function structuredData(profile, photoUrl) {
   return `<script type="application/ld+json">${json}</script>`
 }
 
-/** Absolute URL of the hashed portrait Vite emitted (build/assets/me-*.jpeg), if any. */
+/** Site path of the hashed portrait Vite emitted (/assets/samarth-pal-*.jpeg), if any. */
 function findPhoto(outDir) {
   try {
-    const file = fs.readdirSync(path.join(outDir, 'assets')).find(f => /^me-.*\.(jpe?g|png|webp)$/.test(f))
-    return file ? `${SITE}/assets/${file}` : null
+    const file = fs.readdirSync(path.join(outDir, 'assets')).find(f => /^samarth-pal-.*\.(jpe?g|png|webp)$/.test(f))
+    return file ? `/assets/${file}` : null
   } catch {
     return null
   }
 }
 
-function sitemap(pages) {
+/** Sitemap with an image entry for the portrait on the home page, so Google Images can find it. */
+function sitemap(pages, photoUrl) {
   const today = new Date().toISOString().slice(0, 10)
   const urls = pages
-    .map(p => `  <url>\n    <loc>${SITE}${p.route}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${p.priority}</priority>\n  </url>`)
+    .map(p => {
+      const image = p.route === '/' && photoUrl ? `\n    <image:image>\n      <image:loc>${photoUrl}</image:loc>\n    </image:image>` : ''
+      return `  <url>\n    <loc>${SITE}${p.route}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${p.priority}</priority>${image}\n  </url>`
+    })
     .join('\n')
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
+  return (
+    '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
+    `${urls}\n</urlset>\n`
+  )
 }
 
 /**
@@ -143,11 +151,15 @@ export default function staticPages({ outDir, profilePath }) {
     apply: 'build',
     closeBundle() {
       const profile = JSON.parse(fs.readFileSync(profilePath, 'utf8'))
+      const photoPath = findPhoto(outDir)
+      const photoUrl = photoPath ? SITE + photoPath : null
       // every page carries the same structured data about who the site belongs to
       const shell = fs
         .readFileSync(path.join(outDir, 'index.html'), 'utf8')
-        .replace('</head>', `    ${structuredData(profile, findPhoto(outDir))}\n  </head>`)
-      fs.writeFileSync(path.join(outDir, 'index.html'), shell)
+        .replace('</head>', `    ${structuredData(profile, photoUrl)}\n  </head>`)
+      // home only: the hero photo is an <img> above the fold, so fetch it early
+      const preload = photoPath ? `    <link rel="preload" as="image" href="${photoPath}" fetchpriority="high" />\n  </head>` : '</head>'
+      fs.writeFileSync(path.join(outDir, 'index.html'), shell.replace('</head>', preload))
       const pages = pagesFrom(profile)
 
       for (const page of pages) {
@@ -163,7 +175,7 @@ export default function staticPages({ outDir, profilePath }) {
         shell.replace(/<meta\s+name="robots"\s+content="[^"]*"\s*\/>/, '<meta name="robots" content="noindex" />')
       )
 
-      fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap(pages))
+      fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap(pages, photoUrl))
       console.log(`static-pages: wrote ${pages.length - 1} route pages, 404.html and sitemap.xml (${pages.length} urls)`)
     }
   }

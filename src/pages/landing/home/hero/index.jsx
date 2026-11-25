@@ -142,19 +142,34 @@ export default function Hero() {
         </div>
 
         <figure className={s.portrait} data-hero-portrait>
-          <AsciiCanvas
-            src={PORTRAIT.src}
-            aspect={PORTRAIT.aspect}
-            crop={PORTRAIT.crop}
-            mask={PORTRAIT.mask}
-            contrast={PORTRAIT.contrast}
-            gamma={PORTRAIT.gamma}
-            cols={isMobile ? 46 : 124}
-            pixelCols={isMobile ? 40 : 96}
-            mode={mode}
-            onClick={nextMode}
-            label={`Portrait of ${profile.shortName}, rendered as ${mode}`}
-          />
+          {/* Photo mode is a real <img> (search engines index <img>, never canvas pixels);
+              ASCII and pixel modes are drawn by the canvas layered on top. */}
+          <div className={`${s.frame} ${mode === 'photo' ? s.isPhoto : ''}`} style={{ aspectRatio: `1 / ${PORTRAIT.aspect}` }}>
+            <img
+              className={s.photo}
+              src={PORTRAIT.src}
+              alt={`${profile.name}, ${profile.role} of ${profile.company}`}
+              width="640"
+              height="640"
+              fetchPriority="high"
+              decoding="async"
+              onClick={nextMode}
+            />
+            <AsciiCanvas
+              className={s.canvasLayer}
+              src={PORTRAIT.src}
+              aspect={PORTRAIT.aspect}
+              crop={PORTRAIT.crop}
+              mask={PORTRAIT.mask}
+              contrast={PORTRAIT.contrast}
+              gamma={PORTRAIT.gamma}
+              cols={isMobile ? 46 : 124}
+              pixelCols={isMobile ? 40 : 96}
+              mode={mode}
+              onClick={nextMode}
+              label={`Portrait of ${profile.shortName}, rendered as ${mode}`}
+            />
+          </div>
           <figcaption className={s.caption}>
             <span className={s.hint}>
               {mode === 'photo'

@@ -17,7 +17,7 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
-PHOTO = ROOT / "src/images/me.jpeg"
+PHOTO = ROOT / "src/images/samarth-pal.jpeg"
 
 INK = (11, 11, 12)
 PAPER = (236, 235, 230)
@@ -137,8 +137,15 @@ def main():
     PUBLIC.mkdir(exist_ok=True)
     icon(180).save(PUBLIC / "apple-touch-icon.png", optimize=True)
     icon(512, 0.78).save(PUBLIC / "icon-512.png", optimize=True)
+    # Google's search-result favicon wants a square that's a multiple of 48px
+    icon(48, 0.92).save(PUBLIC / "favicon-48.png", optimize=True)
+    icon(192, 0.86).save(PUBLIC / "favicon-192.png", optimize=True)
+    icon(256, 0.9).save(PUBLIC / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
     og().save(PUBLIC / "og.png", optimize=True)
-    print("wrote public/apple-touch-icon.png, public/icon-512.png, public/og.png")
+    print(
+        "wrote public/apple-touch-icon.png, icon-512.png, favicon-48.png, favicon-192.png, "
+        "favicon.ico, og.png"
+    )
 
 
 if __name__ == "__main__":

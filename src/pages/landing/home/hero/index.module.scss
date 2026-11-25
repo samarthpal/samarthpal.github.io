@@ -251,6 +251,43 @@
   }
 }
 
+// The portrait frame: a real <img> for photo mode, the ASCII/pixel canvas on top.
+// The img is cropped exactly like PORTRAIT.crop (x .18, y .10, w .72, h .80 of the square photo):
+// width = 1 / .72, left = -.18 / .72, top = -.10 / .80, and the same soft oval as the canvas mask.
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 45%, transparent 100%);
+  mask-image: radial-gradient(50% 50% at 50% 50%, #000 45%, transparent 100%);
+}
+
+.photo {
+  position: absolute;
+  left: -25%;
+  top: -12.5%;
+  width: 138.889%;
+  max-width: none;
+  height: auto;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+.isPhoto .photo {
+  opacity: 1;
+}
+
+.frame .canvasLayer {
+  position: absolute;
+  inset: 0;
+}
+
+// in photo mode the canvas steps aside so the real image shows
+.isPhoto .canvasLayer {
+  visibility: hidden;
+}
+
 .caption {
   // (side-by-side) no room for the mode switcher on phones; tapping the photo cycles modes
   @include down($bp-md) {

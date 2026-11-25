@@ -1,4 +1,4 @@
-import me from './me.jpeg'
+import me from './samarth-pal.jpeg'
 
 const images = { me }
 

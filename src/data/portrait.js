@@ -1,6 +1,7 @@
-import me from 'images/me.jpeg'
+import me from 'images/samarth-pal.jpeg'
 
-// Crop/mask tuned for me.jpeg (640×640).
+// Crop/mask tuned for samarth-pal.jpeg (640×640). The descriptive filename matters: it's what
+// Google Images sees.
 // The crop centres the face; the elliptical mask is inscribed in the crop (cx/cy 0.5,
 // rx/ry 0.5) so it fades to fully transparent *before* any edge — a soft oval, never a
 // visible square border. Used by every render mode (photo, ASCII, pixel).
