@@ -20,7 +20,7 @@ export default function WorkDetail() {
   const work = profile.work[index]
   const next = profile.work[(index + 1) % profile.work.length]
 
-  useHead(work ? { title: work.name, description: work.summary } : { title: 'Not found' })
+  useHead(work ? { title: work.name, description: `${work.summary} A ${work.company} case study.` } : { title: 'Not found' })
   useReveal(root)
 
   if (!work) return <NotFound />

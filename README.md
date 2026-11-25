@@ -60,6 +60,17 @@ The site is dark-only. Colour tokens live in `src/styles/mixins.scss` (`theme-da
 - `src/helpers/terminal.js`: terminal commands. `src/helpers/ascii.js` / `pixel.js`: the renderers.
 - `public/favicon.svg`, `public/logo.svg`: the logo (pixel "SP" + caret inside a hive hexagon).
 
+## URLs, SEO & Google
+
+- Clean URLs: `/`, `/work/<slug>/`, `/playground/`. Old `/#/…` links are rewritten on load (script in `index.html`).
+- GitHub Pages can't rewrite URLs, so `scripts/static-pages.js` (a Vite plugin) runs after every build and writes:
+  - `build/work/<slug>/index.html` and `build/playground/index.html`. These are real pages served with status 200, each
+    with its own title, description, canonical and og tags, generated from `src/data/profile.json`.
+  - `build/404.html`: the same app, so unknown URLs show the 404 page. It's marked `noindex`.
+  - `build/sitemap.xml`, which `public/robots.txt` points to.
+- Google Search Console: the site is verified with the `google-site-verification` meta tag in `index.html`. After
+  deploying, submit `https://samarthpal.github.io/sitemap.xml` and request indexing for the home page.
+
 ## Performance notes
 
 - The hero `<h1>` is real HTML and renders on the first paint, so it is the LCP element. Nothing covers it on load.

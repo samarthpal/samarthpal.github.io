@@ -1,12 +1,13 @@
 import { Suspense } from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Main from 'layouts/main'
 import routes from './routes'
 
-// HashRouter: GitHub Pages has no server rewrites, so /#/work/x keeps deep links working.
+// Clean URLs (/work/stashblog). GitHub Pages has no rewrites, so the build writes a real HTML
+// file for every route (scripts/static-pages.js); old /#/… links are rewritten in index.html.
 export default function Pages() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Main>
         <Suspense fallback={<div className="route-fallback" aria-busy="true" />}>
           <Routes>
@@ -16,6 +17,6 @@ export default function Pages() {
           </Routes>
         </Suspense>
       </Main>
-    </HashRouter>
+    </BrowserRouter>
   )
 }

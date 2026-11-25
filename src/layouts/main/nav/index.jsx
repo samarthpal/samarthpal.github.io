@@ -86,7 +86,7 @@ export default function Nav({ onTerminal }) {
             {l.label}
           </button>
         ))}
-        <Link to="/playground" className={`${s.link} ${pathname === '/playground' ? s.active : ''}`}>
+        <Link to="/playground" className={`${s.link} ${pathname.startsWith('/playground') ? s.active : ''}`}>
           Lab
         </Link>
         <button

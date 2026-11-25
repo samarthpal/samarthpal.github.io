@@ -25,7 +25,7 @@ export default function Playground() {
   const [image, setImage] = useState(null) // { src, aspect } for an uploaded file
   const [copied, setCopied] = useState(false)
 
-  useHead({ title: 'Lab', description: 'ASCII Studio, Bug Squash and a portfolio terminal — small toys by Samarth Pal.' })
+  useHead({ title: 'Lab', description: 'ASCII Studio, Bug Squash and a portfolio terminal: small toys by Samarth Pal.' })
 
   useEffect(() => {
     loadPixelFont()

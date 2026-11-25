@@ -3,16 +3,19 @@ import react from '@vitejs/plugin-react'
 import autoprefixer from 'autoprefixer'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import staticPages from './scripts/static-pages.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const src = dir => path.resolve(__dirname, 'src', dir)
+const outDir = path.resolve(__dirname, 'build')
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const port = Number(env.VITE_PORT) || 5173
 
   return {
-    plugins: [react()],
+    // staticPages: one real HTML page per route + 404.html + sitemap.xml (see scripts/static-pages.js)
+    plugins: [react(), staticPages({ outDir, profilePath: src('data/profile.json') })],
     base: '/',
     server: { port },
     preview: { port },
@@ -37,7 +40,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     build: {
-      outDir: 'build',
+      outDir,
       target: 'es2020',
       rollupOptions: {
         output: {
